@@ -48,24 +48,30 @@ class LocalSiteScraper:
 
     # ── TopJobs LK ────────────────────────────────────────────────────────────
     def _parse_topjobs(self, soup: BeautifulSoup) -> list[dict]:
+        import re
         jobs = []
-        cards = soup.select("table.job-listing tr, div.vacancy-item, li.vacancy")
+        rows = soup.select("table.tbldata_2 tr[onclick], table#table tr[onclick]")
 
-        for card in cards:
+        for row in rows:
             try:
-                title_el = card.select_one("a.jobtitle, a[href*='vacancy'], .job-title")
-                company_el = card.select_one(".company-name, .employer")
-                location_el = card.select_one(".location, .city")
+                onclick_val = row.get("onclick", "")
+                match = re.search(r"createAlert\(\s*'([^']*)'\s*,\s*'([^']*)'\s*,\s*'([^']*)'\s*,\s*'([^']*)'", onclick_val)
+                if not match:
+                    continue
+                rid, ac, jc, ec = match.groups()
+                link = f"https://www.topjobs.lk/employer/JobAdvertismentServlet?rid={rid}&ac={ac}&jc={jc}&ec={ec}&pg=applicant/vacancybyfunctionalarea.jsp"
+
+                title_el = row.select_one("h2")
+                company_el = row.select_one("h1")
 
                 if not title_el:
                     continue
 
                 title = title_el.get_text(strip=True)
                 company = company_el.get_text(strip=True) if company_el else "Unknown"
-                location = location_el.get_text(strip=True) if location_el else "Sri Lanka"
-                link = title_el.get("href", "")
-                if link and not link.startswith("http"):
-                    link = "https://www.topjobs.lk" + link
+
+                tds = row.find_all("td", recursive=False)
+                location = tds[6].get_text(strip=True) if len(tds) > 6 else "Sri Lanka"
 
                 jobs.append({
                     "id": self._make_id(title, company, link),

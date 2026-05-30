@@ -93,11 +93,12 @@ job_sites:
     enabled: true
     sites:
       - name: "TopJobs LK"
-        url: "https://www.topjobs.lk/applicant/vacancybyfunctionalarea.jsp?FA=ITC"
+        url: "https://www.topjobs.lk/applicant/vacancybyfunctionalarea.jsp?FA=SDQ&jst=OPEN"
         type: "topjobs"
       - name: "XpressJobs"
         url: "https://xpressjobs.lk/jobs/?q=data+science+intern&cat=all"
         type: "xpressjobs"
+        enabled: false
 
   # Company career pages
   company_pages:
