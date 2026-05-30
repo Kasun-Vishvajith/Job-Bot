@@ -24,7 +24,7 @@ class JobDatabase:
     def _load(self) -> dict:
         if self.db_path.exists():
             try:
-                with open(self.db_path, "r") as f:
+                with open(self.db_path, "r", encoding="utf-8") as f:
                     return json.load(f)
             except (json.JSONDecodeError, IOError) as e:
                 log.warning("Could not load database, starting fresh: %s", e)
@@ -32,7 +32,7 @@ class JobDatabase:
 
     def _save(self):
         self.data["last_updated"] = datetime.utcnow().isoformat()
-        with open(self.db_path, "w") as f:
+        with open(self.db_path, "w", encoding="utf-8") as f:
             json.dump(self.data, f, indent=2)
 
     def get_new_jobs(self, jobs: list[dict]) -> list[dict]:

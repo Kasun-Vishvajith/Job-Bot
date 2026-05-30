@@ -55,8 +55,9 @@ class JobFilter:
             result, reason = self._check(job)
             if result:
                 job["matched_keywords"] = self._get_matches(job)
-                # Ensure work_type is always correctly set on the job object
-                job["work_type"] = self._detect_work_type(self._job_text(job), job.get("location", ""))
+                # Ensure work_type is always correctly set on the job object and capitalized
+                detected_wt = self._detect_work_type(self._job_text(job), job.get("location", ""))
+                job["work_type"] = "Remote" if detected_wt == "remote" else ("Hybrid" if detected_wt == "hybrid" else "On-site")
                 matched.append(job)
             else:
                 log.debug("SKIP '%s' @ %s — %s", job.get("title"), job.get("company"), reason)
