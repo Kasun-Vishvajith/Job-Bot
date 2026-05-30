@@ -109,18 +109,19 @@ Jobs to Evaluate:
 {job_list_str}
 
 Evaluation Instructions:
-1. Candidate level is undergraduate/entry-level. Look for: intern, internship, trainee, placement, junior, associate, graduate, or student-friendly roles.
+1. Candidate level is undergraduate/entry-level. Look for: intern, internship, trainee, placement, junior, associate, graduate, new grad, student-friendly roles, or roles explicitly accepting 0-1 years of experience.
 2. Geolocation constraint:
-   - For Remote roles: The candidate accepts remote jobs from ANY location in the world. (Approve these).
-   - For Hybrid or On-site roles: The candidate ONLY accepts roles located in Sri Lanka (specifically Colombo or suburbs).
-   - If a Hybrid or On-site role is located in another country (e.g. United States, United Kingdom, India, Germany, etc.), give it a score BELOW 50.
+   - Approve fully remote roles from ANY country in the world.
+   - Approve hybrid, office-flex, and on-site roles only when they are located in Colombo, Sri Lanka, or clearly open to Sri Lanka-based candidates.
+   - Reject hybrid, office-flex, or on-site roles outside Sri Lanka.
+   - If a role is remote but restricted to a country/region where Sri Lanka-based candidates are not eligible, give it a score BELOW 50.
 3. Salary Extraction: Search the job snippet/text for any mention of salary, hourly rate, stipend, payout, or compensation. If found, write it under `extracted_salary`. If not mentioned, write "Not mentioned".
 
 Scoring Scale:
-- 90-100: Exceptional match (explicitly data science, ML, or AI intern/trainee/junior role, conforming to location constraints).
-- 70-89: Good match (related fields like data analyst, python developer intern, business analyst).
+- 90-100: Exceptional match (data science, ML, AI, analytics, or BI intern/trainee/junior/0-year role that is fully remote worldwide or based in Colombo/Sri Lanka).
+- 70-89: Good match (related fields like data analyst intern, python data intern, graduate analyst, or junior BI role that is remote worldwide or hybrid/on-site in Colombo/Sri Lanka).
 - 50-69: Weak match (general developer, QA, or IT support with some data/analytics exposure).
-- Below 50: Poor match, senior role, or invalid location (e.g. onsite/hybrid job in the USA/Europe, or roles requiring 3+ years experience).
+- Below 50: Poor match, senior role, invalid location (e.g. onsite/hybrid job outside Sri Lanka), or roles requiring 3+ years experience.
 
 Provide the score, a brief 1-sentence reasoning explanation, and the extracted salary. Use the specific Job IDs provided."""
 

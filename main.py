@@ -16,6 +16,7 @@ from scrapers.linkedin_scraper import LinkedInScraper
 from scrapers.indeed_scraper import IndeedScraper
 from scrapers.local_scraper import LocalSiteScraper
 from scrapers.company_scraper import CompanyScraper
+from scrapers.remote_scraper import RemoteJobBoardScraper
 from utils.filter import JobFilter
 from utils.ai_filter import AIFilter
 from utils.database import JobDatabase
@@ -47,6 +48,24 @@ def run():
     notifier = Notifier(config["notifications"])
 
     all_jobs: list[dict] = []
+
+    # Dedicated worldwide remote boards and APIs.
+    if config["job_sites"].get("remote_job_boards", {}).get("enabled"):
+        log.info("Scraping worldwide remote job boards...")
+        try:
+            scraper = RemoteJobBoardScraper(config["job_sites"]["remote_job_boards"])
+            jobs = scraper.scrape()
+            log.info("  Remote boards: found %d raw listings", len(jobs))
+            if jobs:
+                log.info(
+                    "  Remote board sample: %s @ %s (%s)",
+                    jobs[0].get("title"),
+                    jobs[0].get("company"),
+                    jobs[0].get("source"),
+                )
+            all_jobs.extend(jobs)
+        except Exception as e:
+            log.error("  Remote job board scraper failed: %s", e)
 
     # ── LinkedIn ──────────────────────────────────────────────────────────────
     if config["job_sites"]["linkedin"]["enabled"]:
