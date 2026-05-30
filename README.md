@@ -1,191 +1,168 @@
-# 🚀 Job Alert Bot
+# Job Alert Bot
 
-Automatically scrapes job listings every 3 hours and sends you beautiful email + Telegram alerts for new positions matching your profile. Built to run free on GitHub Actions — no server needed.
+Automatically searches for data science related jobs and sends email plus Telegram alerts for new matches. The default configuration is tuned for worldwide remote roles plus hybrid and on-site roles in Colombo/Sri Lanka, focused on internships, graduate roles, junior roles, and 0-1 year experience roles.
 
----
+The bot is designed to run on GitHub Actions every 3 hours, so you do not need to keep a server online.
 
-## What It Does
+## What It Searches
 
-- Scrapes **LinkedIn**, **Indeed**, **TopJobs LK**, **XpressJobs**, and any **company career pages** you add
-- Filters jobs by **your keywords** (data science, undergraduate, etc.)
-- Detects **only new listings** — never notifies you about the same job twice
-- Sends a **beautiful HTML email** + **instant Telegram message** for each new match
-- Highlights **salary/payout** when listed
-- Shows **work type**: Remote 🏠 / Hybrid 🔀 / On-site 🏢
-- Runs automatically **8 times a day** (every 3 hours, LKT time)
+- Remote-first job boards: Remotive, Arbeitnow, RemoteOK, We Work Remotely, and Remote.co
+- Large job boards: LinkedIn and Indeed
+- Local Sri Lanka sites: TopJobs LK and XpressJobs
+- Company career pages listed in `config.yaml`
 
----
+The strongest worldwide remote search path is the `remote_job_boards` section. LinkedIn, Indeed, TopJobs LK, XpressJobs, and company pages are also used to find Colombo/Sri Lanka hybrid and on-site roles.
 
-## Setup Guide
+## Current Target Profile
 
-### Step 1 — Fork or Clone This Repo
+The included `config.yaml` is focused on:
+
+- Fully remote jobs from anywhere in the world
+- Hybrid and on-site jobs in Colombo/Sri Lanka
+- Data science, data analyst, machine learning, AI, analytics, BI, Python data, and related roles
+- Internship, trainee, placement, student, graduate, new grad, junior, associate, entry-level, no-experience, or 0-year roles
+- Filtering out senior, lead, staff, principal, head, director, VP, and roles asking for high experience
+
+Hybrid and on-site jobs are accepted only when they match the configured Sri Lanka location rules.
+
+## Setup
+
+1. Fork or clone the repo.
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/job-alert-bot.git
 cd job-alert-bot
 ```
 
-Push it to your own GitHub repository.
+2. Install dependencies locally if you want to test it.
 
----
+```bash
+pip install -r requirements.txt
+python main.py
+```
 
-### Step 2 — Edit `config.yaml`
+3. Edit `config.yaml`.
 
-Open `config.yaml` and customize:
+Important sections:
 
-- **Your name** (used in email greeting)
-- **Keywords** (add/remove skills, levels, etc.)
-- **Exclude keywords** (filter out senior roles)
-- **Job sites** (toggle on/off, add company URLs)
-- **Your email address**
+- `profile.keywords`: data skills and target roles
+- `profile.must_have_keywords`: internship, junior, graduate, and 0-year indicators
+- `profile.work_types`: controls `remote`, `hybrid`, and `on-site` acceptance
+- `job_sites.remote_job_boards.search_terms`: the main worldwide remote search queries
+- `job_sites.linkedin.search_queries` and `job_sites.indeed.search_queries`: remote plus Colombo/Sri Lanka queries
+- `filtering.enforce_entry_level`: set to `true` to keep internship/entry-level matching strict
+- `ai_filtering.min_suitability_score`: raise or lower how selective Gemini should be
 
----
+## GitHub Secrets
 
-### Step 3 — Set Up Gmail App Password
+Add these in your GitHub repository under Settings -> Secrets and variables -> Actions:
 
-1. Go to [myaccount.google.com/security](https://myaccount.google.com/security)
-2. Enable **2-Step Verification** if not already done
-3. Search for **"App passwords"** in the search bar
-4. Create a new app password → select **Mail** → **Other** → name it "Job Bot"
-5. Copy the 16-character password shown
-
----
-
-### Step 4 — Set Up Telegram Bot (optional but recommended)
-
-1. Open Telegram and search for **@BotFather**
-2. Send `/newbot` and follow the prompts → copy your **Bot Token**
-3. Start a chat with your new bot (search its name)
-4. Get your **Chat ID**: visit `https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates` after sending any message to your bot
-5. Look for `"chat":{"id": 123456789}` — that number is your Chat ID
-
----
-
-### Step 5 — Add GitHub Secrets
-
-In your GitHub repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
-
-Add these 5 secrets:
-
-| Secret Name | Value |
+| Secret Name | Purpose |
 |---|---|
-| `GMAIL_SENDER` | your-gmail@gmail.com |
-| `GMAIL_RECIPIENT` | email to receive alerts (can be same) |
-| `GMAIL_APP_PASSWORD` | the 16-char app password from Step 3 |
-| `TELEGRAM_BOT_TOKEN` | your bot token from Step 4 |
-| `TELEGRAM_CHAT_ID` | your chat ID from Step 4 |
+| `GMAIL_SENDER` | Gmail account used to send alerts |
+| `GMAIL_RECIPIENT` | Email address that receives alerts |
+| `GMAIL_APP_PASSWORD` | Gmail app password, not your normal Gmail password |
+| `TELEGRAM_BOT_TOKEN` | Telegram bot token |
+| `TELEGRAM_CHAT_ID` | Telegram chat ID |
+| `GEMINI_API_KEY` | Optional but recommended Gemini API key |
 
----
+If `GEMINI_API_KEY` is missing, the bot still runs and uses the normal keyword filter only.
 
-### Step 6 — Enable GitHub Actions
+## GitHub Actions
 
-1. Go to your repo → **Actions** tab
-2. Click **"I understand my workflows, go ahead and enable them"**
-3. The bot will now run automatically on schedule!
+The workflow in `.github/workflows/job_alert.yml` runs 8 times per day:
 
-To test immediately: Actions → **Job Alert Bot** → **Run workflow**
+- 12:00 AM, 3:00 AM, 6:00 AM, 9:00 AM, 12:00 PM, 3:00 PM, 6:00 PM, and 9:00 PM Sri Lanka time
 
----
+You can also run it manually from the Actions tab with `Run workflow`.
 
-## Customizing Your Profile
-
-Edit `config.yaml` — it's designed to be simple:
-
-```yaml
-profile:
-  keywords:
-    - "data science"        # add any skill
-    - "machine learning"
-    - "your new keyword"    # ← just add a line like this
-
-  exclude_keywords:
-    - "10+ years"           # blocks senior roles
-    - "C-level"
-
-company_pages:
-  pages:
-    - name: "Dialog"
-      url: "https://www.dialog.lk/en/career-opportunities"
-      type: "generic"
-      keywords: ["data", "analytics", "tech"]
-```
-
----
-
-## Adding More Job Sites
-
-In `config.yaml` under `company_pages.pages`:
-
-```yaml
-- name: "Hsenid"
-  url: "https://hsenidmobile.com/careers/"
-  type: "generic"
-  keywords: ["data", "developer", "intern"]
-
-- name: "Axiata Digital"
-  url: "https://careers.axiatadigital.com"
-  type: "generic"
-  keywords: ["data", "analytics", "AI"]
-```
-
----
+After each successful run, the workflow commits `data/seen_jobs.json` so the same job is not sent again.
 
 ## Project Structure
 
-```
+```text
 job-alert-bot/
-├── main.py                    # Main runner
-├── config.yaml                # YOUR configuration file
+├── main.py
+├── config.yaml
 ├── requirements.txt
-├── .github/
-│   └── workflows/
-│       └── job_alert.yml      # GitHub Actions schedule
+├── .github/workflows/job_alert.yml
 ├── scrapers/
-│   ├── linkedin_scraper.py    # LinkedIn scraper
-│   ├── indeed_scraper.py      # Indeed scraper
-│   ├── local_scraper.py       # TopJobs LK, XpressJobs
-│   └── company_scraper.py     # Generic company page scraper
+│   ├── remote_scraper.py
+│   ├── linkedin_scraper.py
+│   ├── indeed_scraper.py
+│   ├── local_scraper.py
+│   └── company_scraper.py
 ├── utils/
-│   ├── filter.py              # Profile keyword matching
-│   ├── database.py            # Deduplication (seen jobs)
-│   └── notifier.py            # Email + Telegram sender
-└── data/
-    └── seen_jobs.json         # Auto-updated job database
+│   ├── filter.py
+│   ├── ai_filter.py
+│   ├── database.py
+│   └── notifier.py
+└── data/seen_jobs.json
 ```
 
----
+## How Filtering Works
 
-## Email Preview
+1. Scrapers collect raw jobs from all enabled sources.
+2. `utils/filter.py` keeps jobs that match data-related keywords.
+3. If `filtering.enforce_entry_level` is true, the job must mention an entry-level signal such as intern, internship, trainee, junior, graduate, new grad, no experience, or 0 years.
+4. `profile.work_types` controls remote/hybrid/on-site acceptance. Remote roles are accepted worldwide; hybrid and on-site roles must match the Sri Lanka location rules.
+5. `utils/ai_filter.py` optionally asks Gemini to score each job and reject weak matches, senior roles, hybrid/on-site roles outside Sri Lanka, or region-restricted remote roles.
+6. `utils/database.py` removes jobs already seen in previous runs.
+7. `utils/notifier.py` sends alerts.
 
-Each alert email includes beautiful job cards with:
-- Job title, company, location
-- Work type badge (Remote / Hybrid / On-site)
-- Salary (if listed) highlighted in green
-- Matched keywords as tags
-- One-click **View Job** button
+## Adding More Remote Searches
 
----
+Add terms under `job_sites.remote_job_boards.search_terms`:
+
+```yaml
+job_sites:
+  remote_job_boards:
+    search_terms:
+      - "data science intern"
+      - "junior data analyst"
+      - "entry level machine learning"
+      - "graduate AI analyst"
+```
+
+Short, specific search phrases usually work best.
+
+## Adding Company Pages
+
+Add pages under `job_sites.company_pages.pages`:
+
+```yaml
+- name: "Example Company"
+  url: "https://example.com/careers"
+  type: "generic"
+  keywords: ["data", "analytics", "machine learning", "intern", "junior"]
+```
+
+Generic career-page scraping is best-effort. Some company sites render jobs with JavaScript or block automated requests, so dedicated remote job boards usually give better results.
 
 ## Troubleshooting
 
-**No emails received?**
-- Check GitHub Actions logs (Actions tab → latest run)
-- Verify Gmail App Password is correct (not your regular password)
-- Make sure 2FA is enabled on your Google account
+No alerts:
 
-**Too many/few results?**
-- Add more specific keywords to `exclude_keywords` to filter out irrelevant jobs
-- Increase `min_keyword_matches` to 2 for stricter filtering
+- Check the latest GitHub Actions log.
+- Confirm at least one source returned jobs.
+- Make sure Gmail and Telegram secrets are set correctly.
+- Lower `ai_filtering.min_suitability_score` if Gemini is rejecting too much.
 
-**A site not loading?**
-- Some sites block scrapers. Check the logs for error messages.
-- You can disable any scraper with `enabled: false` in `config.yaml`
+Too many irrelevant alerts:
 
----
+- Remove `hybrid` and `on-site` from `profile.work_types` if you want worldwide remote-only results.
+- Keep `filtering.enforce_entry_level: true`.
+- Add senior terms to `profile.exclude_keywords`.
+- Raise `ai_filtering.min_suitability_score`.
+
+Scraper returns 0 jobs:
+
+- LinkedIn and Indeed may block GitHub Actions traffic.
+- Remote-board APIs can change or temporarily rate-limit requests.
+- One failing source does not stop the bot; it logs the error and continues with the others.
 
 ## Notes
 
-- LinkedIn and Indeed may occasionally block scrapers — this is normal. The bot retries gracefully.
-- The database (`data/seen_jobs.json`) is committed back to your repo after each run automatically.
-- Job IDs older than 60 days are cleaned up automatically.
-- Running on GitHub Actions free tier: 2,000 minutes/month — this bot uses ~2 min/day.
+- The default search is intentionally broad across remote boards to maximize discovery.
+- The entry-level filter is intentionally strict so internships and 0-year roles are prioritized.
+- `data/seen_jobs.json` is the duplicate-prevention database and is automatically updated by GitHub Actions.

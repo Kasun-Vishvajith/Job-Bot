@@ -56,6 +56,7 @@ class CompanyScraper:
         self.url = config["url"]
         self.keywords = [kw.lower() for kw in config.get("keywords", [])]
         self.base_url = self._get_base_url(self.url)
+        self.default_location = config.get("default_location", "See listing")
 
     def _get_base_url(self, url: str) -> str:
         parsed = urlparse(url)
@@ -121,7 +122,7 @@ class CompanyScraper:
 
                 # Find nearby location/salary in parent
                 parent = link_el.parent
-                location = "See listing"
+                location = self.default_location
                 salary = None
                 if parent:
                     loc_el = parent.select_one(", ".join(LOCATION_SELECTORS))
@@ -173,7 +174,7 @@ class CompanyScraper:
             link = urljoin(self.base_url, href)
 
         # Location
-        location = "See listing"
+        location = self.default_location
         for sel in LOCATION_SELECTORS:
             loc_el = card.select_one(sel)
             if loc_el:

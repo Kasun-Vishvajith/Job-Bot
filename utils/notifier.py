@@ -26,6 +26,11 @@ SOURCE_EMOJI = {
     "Indeed": "🔍",
     "TopJobs LK": "🇱🇰",
     "XpressJobs": "🇱🇰",
+    "Remotive": "🌍",
+    "Arbeitnow": "🌍",
+    "RemoteOK": "🌍",
+    "We Work Remotely": "🌍",
+    "Remote.co": "🌍",
 }
 
 
