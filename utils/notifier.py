@@ -89,6 +89,22 @@ class Notifier:
                     <strong style="color:#16a34a;">💰 {job['salary']}</strong>
                 </div>"""
 
+            suitability_section = ""
+            if job.get("suitability_score") is not None:
+                score = job["suitability_score"]
+                reason = job.get("suitability_reason", "")
+                if score >= 90:
+                    badge_style = "background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;"
+                elif score >= 70:
+                    badge_style = "background:#fef9c3;color:#854d0e;border:1px solid #fef08a;"
+                else:
+                    badge_style = "background:#f3f4f6;color:#374151;border:1px solid #e5e7eb;"
+                suitability_section = f"""
+                <div style="margin:8px 0;padding:10px 12px;background:#f9fafb;border-left:3px solid #6366f1;border-radius:4px;font-size:13px;">
+                    <span style="font-weight:600;display:inline-block;padding:2px 6px;border-radius:4px;font-size:11px;margin-right:6px;{badge_style}">⭐ {score}% Suitability</span>
+                    <span style="color:#4b5563;font-style:italic;">"{reason}"</span>
+                </div>"""
+
             link = job.get("link", "#")
             link_btn = f'<a href="{link}" style="display:inline-block;background:#1a73e8;color:white;padding:8px 18px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;">View Job →</a>' if link and link != "#" else ""
 
@@ -104,6 +120,7 @@ class Notifier:
                 <div style="color:#374151;font-size:14px;margin-bottom:4px;">🏢 {job.get('company','')}</div>
                 <div style="color:#6b7280;font-size:13px;margin-bottom:10px;">{work_emoji} {job.get('work_type','')} &nbsp;·&nbsp; 📍 {job.get('location','')}</div>
                 {salary_section}
+                {suitability_section}
                 <div style="margin:10px 0;">{keywords_html}</div>
                 <div style="margin-top:12px;">{link_btn}</div>
             </div>"""
@@ -222,6 +239,11 @@ class Notifier:
         if job.get("matched_keywords"):
             kw_str = " · ".join(f"`{kw}`" for kw in job["matched_keywords"][:4])
             lines.append(f"🏷 {kw_str}")
+
+        if job.get("suitability_score") is not None:
+            score = job["suitability_score"]
+            reason = job.get("suitability_reason", "")
+            lines.append(f"⭐ *AI Match:* `{score}%` \n_\"{reason}\"_")
 
         if job.get("link"):
             lines.append(f"")
