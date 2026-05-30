@@ -48,6 +48,7 @@ class JobFilter:
         self.exclude_keywords = [kw.lower() for kw in profile.get("exclude_keywords", [])]
         self.must_have        = [kw.lower() for kw in profile.get("must_have_keywords", DEFAULT_MUST_HAVE)]
         self.min_matches      = filtering.get("min_keyword_matches", 1)
+        self.strict_filtering = filtering.get("strict_keyword_filtering", True)
 
     def filter(self, jobs: list[dict]) -> list[dict]:
         matched = []
@@ -68,7 +69,7 @@ class JobFilter:
         location = job.get("location", "").lower()
 
         # ── 1. Must-have keywords (intern/internship MUST appear) ─────────────
-        if self.must_have:
+        if self.strict_filtering and self.must_have:
             if not any(kw in text for kw in self.must_have):
                 return False, f"missing must-have keyword (need one of: {self.must_have})"
 

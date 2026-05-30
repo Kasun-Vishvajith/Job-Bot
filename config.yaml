@@ -70,21 +70,29 @@ job_sites:
   linkedin:
     enabled: true
     search_queries:
-      - "data science internship Sri Lanka"
-      - "data analyst intern Colombo"
-      - "machine learning internship remote"
-      - "data science intern remote"
-      - "AI intern remote"
-      - "python data intern"
+      - { keywords: "data science", location: "Sri Lanka" }
+      - { keywords: "data analyst", location: "Sri Lanka" }
+      - { keywords: "machine learning", location: "Sri Lanka" }
+      - { keywords: "AI", location: "Sri Lanka" }
+      - { keywords: "python data", location: "Sri Lanka" }
+      - { keywords: "data science", location: "Remote" }
+      - { keywords: "machine learning", location: "Remote" }
+      - { keywords: "data analyst", location: "Remote" }
+      - { keywords: "AI", location: "Remote" }
+      - { keywords: "python data", location: "Remote" }
     max_pages: 3
 
   indeed:
     enabled: true
     search_queries:
-      - "data science internship"
-      - "data analyst intern"
-      - "machine learning intern"
-      - "AI internship"
+      - { keywords: "data science", location: "Sri Lanka" }
+      - { keywords: "data analyst", location: "Sri Lanka" }
+      - { keywords: "machine learning", location: "Sri Lanka" }
+      - { keywords: "AI", location: "Sri Lanka" }
+      - { keywords: "data science", location: "Remote" }
+      - { keywords: "machine learning", location: "Remote" }
+      - { keywords: "data analyst", location: "Remote" }
+      - { keywords: "AI", location: "Remote" }
     location: "Sri Lanka"
     max_pages: 3
 
@@ -261,6 +269,7 @@ filtering:
   min_keyword_matches: 1
   prefer_salary_listed: true
   max_age_days: 7
+  strict_keyword_filtering: false
 
 # --- AI SUITABILITY FILTERING ---
 ai_filtering:

@@ -50,6 +50,11 @@ class AIFilter:
             if evaluation:
                 job["suitability_score"] = evaluation.get("suitability_score", 50)
                 job["suitability_reason"] = evaluation.get("reason", "")
+                
+                # Check for Gemini-extracted salary info
+                extracted_sal = evaluation.get("extracted_salary", "Not mentioned")
+                if extracted_sal and extracted_sal.lower() != "not mentioned":
+                    job["salary"] = extracted_sal
             else:
                 # Default fallback if AI failed to score a specific job
                 job["suitability_score"] = 50
@@ -95,7 +100,7 @@ class AIFilter:
                 f"Snippet: {desc_snippet}\n"
             )
 
-        prompt = f"""You are an expert technical recruiter. Evaluate the following jobs and rate their suitability (0 to 100) for the candidate profile.
+        prompt = f"""You are an expert technical recruiter evaluating jobs for a candidate.
 
 Candidate Profile:
 {candidate_summary}
@@ -103,13 +108,21 @@ Candidate Profile:
 Jobs to Evaluate:
 {job_list_str}
 
-Evaluation Guidelines:
-- 90-100: Outstanding match (explicitly data science/ML intern/trainee role matching skills).
-- 70-89: Good match (related fields like data analyst, business analyst, python developer intern).
-- 50-69: Weak match (general developer, QA, or IT support with some data/analytics exposure).
-- Below 50: Mismatch or Senior Role (contains excluded keywords, or unrelated field like Sales/Marketing).
+Evaluation Instructions:
+1. Candidate level is undergraduate/entry-level. Look for: intern, internship, trainee, placement, junior, associate, graduate, or student-friendly roles.
+2. Geolocation constraint:
+   - For Remote roles: The candidate accepts remote jobs from ANY location in the world. (Approve these).
+   - For Hybrid or On-site roles: The candidate ONLY accepts roles located in Sri Lanka (specifically Colombo or suburbs).
+   - If a Hybrid or On-site role is located in another country (e.g. United States, United Kingdom, India, Germany, etc.), give it a score BELOW 50.
+3. Salary Extraction: Search the job snippet/text for any mention of salary, hourly rate, stipend, payout, or compensation. If found, write it under `extracted_salary`. If not mentioned, write "Not mentioned".
 
-Provide a score (integer 0-100) and a brief 1-sentence explanation for the score. Use the specific Job IDs provided."""
+Scoring Scale:
+- 90-100: Exceptional match (explicitly data science, ML, or AI intern/trainee/junior role, conforming to location constraints).
+- 70-89: Good match (related fields like data analyst, python developer intern, business analyst).
+- 50-69: Weak match (general developer, QA, or IT support with some data/analytics exposure).
+- Below 50: Poor match, senior role, or invalid location (e.g. onsite/hybrid job in the USA/Europe, or roles requiring 3+ years experience).
+
+Provide the score, a brief 1-sentence reasoning explanation, and the extracted salary. Use the specific Job IDs provided."""
 
         # Setup structured JSON schema output
         payload = {
@@ -127,8 +140,9 @@ Provide a score (integer 0-100) and a brief 1-sentence explanation for the score
                                     "id": {"type": "STRING"},
                                     "suitability_score": {"type": "INTEGER"},
                                     "reason": {"type": "STRING"},
+                                    "extracted_salary": {"type": "STRING"},
                                 },
-                                "required": ["id", "suitability_score", "reason"],
+                                "required": ["id", "suitability_score", "reason", "extracted_salary"],
                             },
                         }
                     },
@@ -155,3 +169,4 @@ Provide a score (integer 0-100) and a brief 1-sentence explanation for the score
         except Exception as e:
             log.error("Failed to query Gemini API or parse response: %s", e)
             return {}
+

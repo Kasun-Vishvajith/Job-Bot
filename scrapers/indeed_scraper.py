@@ -38,15 +38,29 @@ class IndeedScraper:
 
     def scrape(self) -> list[dict]:
         jobs = []
-        for query in self.queries:
+        for query_item in self.queries:
+            if isinstance(query_item, dict):
+                query = query_item.get("keywords", "")
+                location = query_item.get("location", self.location)
+            else:
+                query = query_item
+                location = self.location
+
             for page in range(self.max_pages):
                 start = page * 10
                 url = (
                     f"{INDEED_BASE}?q={requests.utils.quote(query)}"
-                    f"&l={requests.utils.quote(self.location)}"
+                    f"&l={requests.utils.quote(location)}"
                     f"&fromage=7&start={start}"
                 )
                 page_jobs = self._scrape_page(url)
+                if location:
+                    for job in page_jobs:
+                        if location.lower() == "remote":
+                            job["work_type"] = "Remote"
+                        if not job.get("location") or job["location"] == "Unknown Location":
+                            job["location"] = location
+
                 jobs.extend(page_jobs)
                 if len(page_jobs) < 5:
                     break
