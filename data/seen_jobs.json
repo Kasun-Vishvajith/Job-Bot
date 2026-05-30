@@ -1,1 +1,53 @@
-{"seen_jobs":{},"last_updated":""}
+{
+  "seen_jobs": {
+    "2477891f000054c8b3c6c39254c185d8": {
+      "title": "AI Engineer Trainee | Apprentice",
+      "company": "Company Name Withheld",
+      "source": "TopJobs LK",
+      "seen_at": "2026-05-30T07:45:53.771579"
+    },
+    "1f4852d769519dd63650f3eeafade8d5": {
+      "title": "Business Analyst Intern (Full Time - Remote)",
+      "company": "Ventaz AI",
+      "source": "TopJobs LK",
+      "seen_at": "2026-05-30T07:45:53.771579"
+    },
+    "693e723e23d3c00f29301e6456875e2b": {
+      "title": "Management Trainee - IT Implementation & Support (1)",
+      "company": "Hirdaramani - H CONNECT (PVT) LIMITED",
+      "source": "TopJobs LK",
+      "seen_at": "2026-05-30T07:45:53.771579"
+    },
+    "6cdca4f0e1ebe5ffc3e6d49ef612b752": {
+      "title": "Management Trainee | Intern - BA",
+      "company": "OXO Tech (Pvt) Ltd",
+      "source": "TopJobs LK",
+      "seen_at": "2026-05-30T07:45:53.771579"
+    },
+    "fc6ec6fbd67525dcd12f9e7a0f372b94": {
+      "title": "Quality Assurance Trainee",
+      "company": "Inqbaytor Pty Ltd",
+      "source": "TopJobs LK",
+      "seen_at": "2026-05-30T07:45:53.771579"
+    },
+    "85bbb313a608a21d64a1d5b6f8638fee": {
+      "title": "Trainee  - Data Analytics",
+      "company": "The Credit Information Bureau of Sri Lanka",
+      "source": "TopJobs LK",
+      "seen_at": "2026-05-30T07:45:53.771579"
+    },
+    "c616556403af85d8c7b963310a9e293a": {
+      "title": "Trainee Field Engineer- Browns IT (1)",
+      "company": "Browns Group Of Companies",
+      "source": "TopJobs LK",
+      "seen_at": "2026-05-30T07:45:53.771579"
+    },
+    "62be3f99c3dfd7d1bcd6a8e20e6521d2": {
+      "title": "Trainee IT Technician (1)",
+      "company": "Micronet Global Services (Pvt) Ltd",
+      "source": "TopJobs LK",
+      "seen_at": "2026-05-30T07:45:53.771579"
+    }
+  },
+  "last_updated": "2026-05-30T07:45:53.772384"
+}

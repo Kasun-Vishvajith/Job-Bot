@@ -78,6 +78,9 @@ def run():
     if config["job_sites"]["local_sites"]["enabled"]:
         log.info("Scraping local Sri Lanka sites...")
         for site_cfg in config["job_sites"]["local_sites"]["sites"]:
+            if not site_cfg.get("enabled", True):
+                log.info("  %s: disabled (skipping)", site_cfg["name"])
+                continue
             try:
                 scraper = LocalSiteScraper(site_cfg)
                 jobs = scraper.scrape()
@@ -93,6 +96,9 @@ def run():
     if config["job_sites"]["company_pages"]["enabled"]:
         log.info("Scraping company career pages...")
         for page_cfg in config["job_sites"]["company_pages"]["pages"]:
+            if not page_cfg.get("enabled", True):
+                log.info("  %s: disabled (skipping)", page_cfg["name"])
+                continue
             try:
                 scraper = CompanyScraper(page_cfg)
                 jobs = scraper.scrape()
