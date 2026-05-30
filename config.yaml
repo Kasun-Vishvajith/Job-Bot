@@ -1,9 +1,16 @@
 # ============================================================
-#  JOB ALERT BOT — Your Configuration File
+#  JOB ALERT BOT — Configuration File
 #  Kasun Vishvajith Vithanage | BSc Hons Data Science | UoC
+#  ============================================================
+#
+#  HOW TO USE:
+#    1. Set GitHub Secrets: GMAIL_SENDER, GMAIL_RECIPIENT, GMAIL_APP_PASSWORD,
+#       TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, GEMINI_API_KEY
+#    2. Edit your profile keywords below
+#    3. Enable/disable sources using `enabled: true/false`
 # ============================================================
 
-# --- YOUR PROFILE ---
+# ── YOUR PROFILE ──────────────────────────────────────────────────────────────
 profile:
   name: "Kasun Vishvajith Vithanage"
 
@@ -29,10 +36,16 @@ profile:
     - "python"
     - "statistics"
     - "analytics"
+    - "NLP"
+    - "computer vision"
+    - "data visualization"
+    - "tableau"
+    - "power BI"
+    - "sql"
+    - "r programming"
 
-
-  # MUST-HAVE keywords — at least one of these MUST appear in the job title
-  # or description. Jobs missing all of these are completely ignored.
+  # MUST-HAVE keywords — at least one of these MUST appear in the job
+  # title or description. Jobs missing all of these are completely ignored.
   must_have_keywords:
     - "intern"
     - "internship"
@@ -48,6 +61,8 @@ profile:
     - "apprentice"
     - "0 years"
     - "no experience"
+    - "fresh"
+    - "fresher"
 
   # Words that indicate a job is TOO senior — will be filtered out
   exclude_keywords:
@@ -56,6 +71,7 @@ profile:
     - "7+ years"
     - "6+ years"
     - "5+ years"
+    - "4+ years"
     - "senior manager"
     - "director"
     - "VP"
@@ -65,10 +81,10 @@ profile:
     - "principal"
     - "lead engineer"
     - "staff engineer"
+    - "staff scientist"
+    - "distinguished"
 
-  # Work type rules:
-  # - remote: anywhere in the world
-  # - hybrid / on-site: Colombo, Sri Lanka only (filtered in location_rules below)
+  # Work type preferences
   work_types:
     - "remote"
     - "hybrid"
@@ -76,15 +92,21 @@ profile:
 
   # Location filtering rules
   location_rules:
-    remote_worldwide: true          # Accept remote jobs from anywhere
+    remote_worldwide: true          # Accept remote jobs from anywhere in the world
     onsite_allowed_cities:          # For hybrid/on-site, only these locations
       - "colombo"
       - "sri lanka"
       - "lk"
-      - "remote"                    # always keep remote tagged ones
+      - "remote"                    # always keep remote-tagged listings
+      - "western province"
+      - "gampaha"
+      - "kandy"
 
-# --- JOB SITES TO SCRAPE ---
+
+# ── JOB SITES TO SCRAPE ───────────────────────────────────────────────────────
 job_sites:
+
+  # ── Remote Job Board APIs (most reliable — less blocking) ──────────────────
   remote_job_boards:
     enabled: true
     max_results_per_source: 100
@@ -102,26 +124,69 @@ job_sites:
       - "graduate data analyst"
       - "new grad data scientist"
       - "python data intern"
+      - "NLP intern"
+      - "computer vision intern"
+      - "deep learning intern"
+      - "data engineering intern"
     sources:
+      # --- Free JSON APIs (most reliable) ---
       - name: "Remotive"
         type: "remotive"
         enabled: true
+
       - name: "Arbeitnow"
         type: "arbeitnow"
         enabled: true
+
       - name: "RemoteOK"
         type: "remoteok"
         enabled: true
+
+      - name: "Jobicy"
+        type: "jobicy"
+        enabled: true
+
+      # --- HTML scraping (may occasionally be blocked) ---
       - name: "We Work Remotely"
         type: "weworkremotely"
         enabled: true
+
       - name: "Remote.co"
         type: "remote_co"
         enabled: true
 
+      - name: "HiringCafe"
+        type: "hiringcafe"
+        enabled: false             # Enable once tested locally
+
+      - name: "TheirStack"
+        type: "theirstack"
+        enabled: false             # Enable once tested locally
+
+      # --- Greenhouse API (set companies list below) ---
+      - name: "Greenhouse"
+        type: "greenhouse"
+        enabled: true
+        # Greenhouse board slugs for companies known to hire data science interns
+        companies:
+          - "stripe"
+          - "squarespace"
+          - "shopify"
+          - "palantir"
+          - "zendesk"
+          - "figma"
+          - "brex"
+          - "plaid"
+          - "airtable"
+          - "hubspot"
+          - "canva"
+          - "notion"
+
+  # ── LinkedIn ────────────────────────────────────────────────────────────────
   linkedin:
     enabled: true
     search_queries:
+      # Remote worldwide
       - { keywords: "data science intern", location: "Remote" }
       - { keywords: "data analyst intern", location: "Remote" }
       - { keywords: "machine learning intern", location: "Remote" }
@@ -134,6 +199,10 @@ job_sites:
       - { keywords: "graduate data analyst", location: "Remote" }
       - { keywords: "new grad data scientist", location: "Remote" }
       - { keywords: "python data intern", location: "Remote" }
+      - { keywords: "NLP intern", location: "Remote" }
+      - { keywords: "computer vision intern", location: "Remote" }
+      - { keywords: "deep learning intern", location: "Remote" }
+      # Colombo / Sri Lanka
       - { keywords: "data science intern", location: "Colombo, Sri Lanka" }
       - { keywords: "data analyst intern", location: "Colombo, Sri Lanka" }
       - { keywords: "machine learning intern", location: "Colombo, Sri Lanka" }
@@ -142,14 +211,49 @@ job_sites:
       - { keywords: "junior data analyst", location: "Colombo, Sri Lanka" }
       - { keywords: "junior data scientist", location: "Colombo, Sri Lanka" }
       - { keywords: "entry level data analyst", location: "Colombo, Sri Lanka" }
-      - { keywords: "entry level data scientist", location: "Colombo, Sri Lanka" }
       - { keywords: "graduate data analyst", location: "Colombo, Sri Lanka" }
       - { keywords: "data science intern", location: "Sri Lanka" }
       - { keywords: "data analyst intern", location: "Sri Lanka" }
       - { keywords: "junior data analyst", location: "Sri Lanka" }
-    max_pages: 5
+    max_pages: 3
 
+  # ── Indeed ──────────────────────────────────────────────────────────────────
   indeed:
+    enabled: true
+    search_queries:
+      # Remote worldwide
+      - { keywords: "data science intern", location: "Remote" }
+      - { keywords: "data analyst intern", location: "Remote" }
+      - { keywords: "machine learning intern", location: "Remote" }
+      - { keywords: "AI intern", location: "Remote" }
+      - { keywords: "analytics intern", location: "Remote" }
+      - { keywords: "junior data analyst", location: "Remote" }
+      - { keywords: "junior data scientist", location: "Remote" }
+      - { keywords: "entry level data analyst", location: "Remote" }
+      - { keywords: "entry level data scientist", location: "Remote" }
+      - { keywords: "graduate data analyst", location: "Remote" }
+      - { keywords: "new grad data scientist", location: "Remote" }
+      - { keywords: "python data intern", location: "Remote" }
+      - { keywords: "NLP intern", location: "Remote" }
+      - { keywords: "deep learning intern", location: "Remote" }
+      # Sri Lanka / Colombo
+      - { keywords: "data science intern", location: "Colombo, Sri Lanka" }
+      - { keywords: "data analyst intern", location: "Colombo, Sri Lanka" }
+      - { keywords: "machine learning intern", location: "Colombo, Sri Lanka" }
+      - { keywords: "AI intern", location: "Colombo, Sri Lanka" }
+      - { keywords: "analytics intern", location: "Colombo, Sri Lanka" }
+      - { keywords: "junior data analyst", location: "Colombo, Sri Lanka" }
+      - { keywords: "junior data scientist", location: "Colombo, Sri Lanka" }
+      - { keywords: "entry level data analyst", location: "Colombo, Sri Lanka" }
+      - { keywords: "graduate data analyst", location: "Colombo, Sri Lanka" }
+      - { keywords: "data science intern", location: "Sri Lanka" }
+      - { keywords: "data analyst intern", location: "Sri Lanka" }
+      - { keywords: "junior data analyst", location: "Sri Lanka" }
+    location: "Colombo, Sri Lanka"   # default fallback location
+    max_pages: 3
+
+  # ── Glassdoor (NEW) ─────────────────────────────────────────────────────────
+  glassdoor:
     enabled: true
     search_queries:
       - { keywords: "data science intern", location: "Remote" }
@@ -160,213 +264,311 @@ job_sites:
       - { keywords: "junior data analyst", location: "Remote" }
       - { keywords: "junior data scientist", location: "Remote" }
       - { keywords: "entry level data analyst", location: "Remote" }
-      - { keywords: "entry level data scientist", location: "Remote" }
-      - { keywords: "graduate data analyst", location: "Remote" }
-      - { keywords: "new grad data scientist", location: "Remote" }
-      - { keywords: "python data intern", location: "Remote" }
-      - { keywords: "data science intern", location: "Colombo, Sri Lanka" }
-      - { keywords: "data analyst intern", location: "Colombo, Sri Lanka" }
-      - { keywords: "machine learning intern", location: "Colombo, Sri Lanka" }
-      - { keywords: "AI intern", location: "Colombo, Sri Lanka" }
-      - { keywords: "analytics intern", location: "Colombo, Sri Lanka" }
-      - { keywords: "junior data analyst", location: "Colombo, Sri Lanka" }
-      - { keywords: "junior data scientist", location: "Colombo, Sri Lanka" }
-      - { keywords: "entry level data analyst", location: "Colombo, Sri Lanka" }
-      - { keywords: "entry level data scientist", location: "Colombo, Sri Lanka" }
-      - { keywords: "graduate data analyst", location: "Colombo, Sri Lanka" }
       - { keywords: "data science intern", location: "Sri Lanka" }
       - { keywords: "data analyst intern", location: "Sri Lanka" }
       - { keywords: "junior data analyst", location: "Sri Lanka" }
-    location: "Colombo, Sri Lanka"
-    max_pages: 5
+    max_pages: 2
 
-  # Local Sri Lanka job sites
+  # ── Local Sri Lanka Job Sites ────────────────────────────────────────────────
   local_sites:
     enabled: true
     sites:
       - name: "TopJobs LK"
         url: "https://www.topjobs.lk/applicant/vacancybyfunctionalarea.jsp?FA=SDQ&jst=OPEN"
         type: "topjobs"
-      - name: "XpressJobs"
+        enabled: true
+
+      - name: "XpressJobs - Data Science"
         url: "https://xpressjobs.lk/jobs/?q=data+science+intern&cat=all"
         type: "xpressjobs"
         enabled: true
+
       - name: "XpressJobs - Data Analyst"
         url: "https://xpressjobs.lk/jobs/?q=data+analyst+intern&cat=all"
         type: "xpressjobs"
         enabled: true
+
       - name: "XpressJobs - Machine Learning"
         url: "https://xpressjobs.lk/jobs/?q=machine+learning+intern&cat=all"
         type: "xpressjobs"
         enabled: true
+
       - name: "XpressJobs - Junior Data"
         url: "https://xpressjobs.lk/jobs/?q=junior+data+analyst&cat=all"
         type: "xpressjobs"
         enabled: true
 
-  # Company career pages
+      - name: "XpressJobs - AI"
+        url: "https://xpressjobs.lk/jobs/?q=AI+intern&cat=all"
+        type: "xpressjobs"
+        enabled: true
+
+      # iJobs.lk — popular Sri Lanka job board
+      - name: "iJobs LK - Data Science"
+        url: "https://www.ijobs.lk/SearchJobs?Keyword=data+science+intern"
+        type: "ijobs"
+        enabled: true
+
+      - name: "iJobs LK - Data Analyst"
+        url: "https://www.ijobs.lk/SearchJobs?Keyword=data+analyst+intern"
+        type: "ijobs"
+        enabled: true
+
+      - name: "iJobs LK - Machine Learning"
+        url: "https://www.ijobs.lk/SearchJobs?Keyword=machine+learning+intern"
+        type: "ijobs"
+        enabled: true
+
+  # ── Company Career Pages ─────────────────────────────────────────────────────
   company_pages:
     enabled: true
     pages:
-      # ── Local Sri Lanka Companies ──────────────────────────────────────────
+      # ── Local Sri Lanka Companies ───────────────────────────────────────────
       - name: "WSO2"
         url: "https://wso2.com/careers/"
         type: "generic"
         default_location: "Colombo, Sri Lanka"
-        keywords: ["data", "analytics", "intern", "machine learning"]
+        keywords: ["data", "analytics", "intern", "machine learning", "AI"]
+        enabled: true
 
       - name: "IFS"
         url: "https://www.ifs.com/en/about/careers"
         type: "generic"
         default_location: "Colombo, Sri Lanka"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
 
-      # ── Automotive — Remote Internships ───────────────────────────────────
-      - name: "Porsche"
-        url: "https://www.porsche.com/international/aboutporsche/jobs/"
+      - name: "Sysco LABS"
+        url: "https://syscolabs.lk/careers/"
         type: "generic"
+        default_location: "Colombo, Sri Lanka"
         keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+        enabled: true
 
-      - name: "Volkswagen"
-        url: "https://www.volkswagenag.com/en/careers.html"
+      - name: "99x"
+        url: "https://99x.io/careers"
         type: "generic"
+        default_location: "Colombo, Sri Lanka"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
 
-      - name: "Ford"
-        url: "https://ford.wd1.myworkdayjobs.com/Ford_Careers"
+      - name: "Wiley"
+        url: "https://careers.wiley.com/us/en/search-results"
         type: "generic"
-        keywords: ["data", "analytics", "AI", "intern", "python"]
-
-      - name: "Tesla"
-        url: "https://www.tesla.com/careers/search#/?department=48"
-        type: "generic"
+        default_location: "Remote"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
 
-      - name: "Lamborghini"
-        url: "https://careers.lamborghini.com/en/"
+      - name: "Pearson"
+        url: "https://pearson.jobs/search/?q=intern+data"
         type: "generic"
-        keywords: ["data", "analytics", "AI", "intern"]
-
-      - name: "Bugatti"
-        url: "https://www.bugatti.com/company/careers/"
-        type: "generic"
-        keywords: ["data", "analytics", "AI", "intern"]
-
-      - name: "Ferrari"
-        url: "https://corporate.ferrari.com/en/careers"
-        type: "generic"
+        default_location: "Remote"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
 
-      - name: "Ducati"
-        url: "https://www.ducati.com/ww/en/company/careers"
-        type: "generic"
-        keywords: ["data", "analytics", "AI", "intern"]
-
-      - name: "BMW Group"
-        url: "https://www.bmwgroup.jobs/en/students.html"
-        type: "generic"
-        keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
-
-      - name: "Mercedes-Benz"
-        url: "https://group.mercedes-benz.com/careers/en/"
-        type: "generic"
-        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
-
-      - name: "Volvo"
-        url: "https://www.volvocars.com/en/career"
-        type: "generic"
-        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
-
-      - name: "Jaguar Land Rover"
-        url: "https://www.jaguarlandrover.com/careers"
-        type: "generic"
-        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
-
-      - name: "Honda"
-        url: "https://www.honda.com/careers"
-        type: "generic"
-        keywords: ["data", "analytics", "AI", "intern"]
-
-      - name: "Koenigsegg"
-        url: "https://www.koenigsegg.com/careers/"
-        type: "generic"
-        keywords: ["data", "analytics", "AI", "intern"]
-
-      # ── Tech Giants — Remote Internships ──────────────────────────────────
+      # ── Tech Giants — Remote Internships ────────────────────────────────────
       - name: "Apple"
         url: "https://jobs.apple.com/en-us/search?team=internships-STDNT-INTRN"
         type: "generic"
         keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+        enabled: true
 
       - name: "Meta"
         url: "https://www.metacareers.com/jobs?offices[0]=Remote&roles[0]=intern"
         type: "generic"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
 
       - name: "X (Twitter)"
         url: "https://careers.x.com/en"
         type: "generic"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
 
       - name: "SpaceX"
         url: "https://www.spacex.com/careers/jobs"
         type: "generic"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
 
       - name: "Samsung"
         url: "https://www.samsung.com/global/business/careers/"
         type: "generic"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
 
       - name: "Xiaomi"
         url: "https://careers.mi.com/en/"
         type: "generic"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
 
       - name: "BYD"
         url: "https://byd.com/en/careers.html"
         type: "generic"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
 
-      # ── Aerospace ─────────────────────────────────────────────────────────
+      - name: "Notion"
+        url: "https://www.notion.com/careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
+
+      - name: "Figma"
+        url: "https://www.figma.com/careers/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
+
+      - name: "Canva"
+        url: "https://www.canva.com/careers/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+        enabled: true
+
+      - name: "Stripe"
+        url: "https://stripe.com/jobs/search?remote_locations=Remote"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern"]
+        enabled: true
+
+      - name: "HubSpot"
+        url: "https://www.hubspot.com/careers/jobs"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
+
+      # ── Automotive — Remote Internships ─────────────────────────────────────
+      - name: "BMW Group"
+        url: "https://www.bmwgroup.jobs/en/students.html"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+        enabled: true
+
+      - name: "Mercedes-Benz"
+        url: "https://group.mercedes-benz.com/careers/en/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
+
+      - name: "Porsche"
+        url: "https://www.porsche.com/international/aboutporsche/jobs/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+        enabled: true
+
+      - name: "Volkswagen"
+        url: "https://www.volkswagenag.com/en/careers.html"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
+
+      - name: "Ferrari"
+        url: "https://corporate.ferrari.com/en/careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
+
+      - name: "Volvo"
+        url: "https://www.volvocars.com/en/career"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
+
+      - name: "Ford"
+        url: "https://ford.wd1.myworkdayjobs.com/Ford_Careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern", "python"]
+        enabled: true
+
+      - name: "Tesla"
+        url: "https://www.tesla.com/careers/search#/?department=48"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
+
+      - name: "Honda"
+        url: "https://www.honda.com/careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern"]
+        enabled: true
+
+      # ── Aerospace ───────────────────────────────────────────────────────────
       - name: "Boeing"
         url: "https://jobs.boeing.com/search-jobs/internship"
         type: "generic"
         keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+        enabled: true
 
       - name: "Airbus"
         url: "https://www.airbus.com/en/careers/students-and-graduates"
         type: "generic"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
 
-      # ── LEGO ──────────────────────────────────────────────────────────────
+      # ── Other Interesting Companies ──────────────────────────────────────────
       - name: "LEGO"
         url: "https://www.lego.com/en-us/careers"
         type: "generic"
         keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+        enabled: true
 
-# --- NOTIFICATIONS ---
+      - name: "Lamborghini"
+        url: "https://careers.lamborghini.com/en/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern"]
+        enabled: false            # Rarely posts data roles — disable to save time
+
+      - name: "Bugatti"
+        url: "https://www.bugatti.com/company/careers/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern"]
+        enabled: false
+
+      - name: "Ducati"
+        url: "https://www.ducati.com/ww/en/company/careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern"]
+        enabled: false
+
+      - name: "Jaguar Land Rover"
+        url: "https://www.jaguarlandrover.com/careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
+
+      - name: "Koenigsegg"
+        url: "https://www.koenigsegg.com/careers/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern"]
+        enabled: false
+
+
+# ── NOTIFICATIONS ──────────────────────────────────────────────────────────────
 notifications:
   email:
     enabled: true
-    sender: "your-gmail@gmail.com"       # ← replace with your Gmail
-    recipient: "your-email@gmail.com"    # ← replace with your email
+    sender: "your-gmail@gmail.com"       # ← set via GMAIL_SENDER secret
+    recipient: "your-email@gmail.com"    # ← set via GMAIL_RECIPIENT secret
 
   telegram:
     enabled: true
     # Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID as GitHub Secrets
 
-# --- SCHEDULE ---
+
+# ── SCHEDULE ──────────────────────────────────────────────────────────────────
 schedule:
   # Every 3 hours — Sri Lanka time (UTC+5:30)
   # 12am, 3am, 6am, 9am, 12pm, 3pm, 6pm, 9pm LKT
   times_utc: ["18:30", "21:30", "00:30", "03:30", "06:30", "09:30", "12:30", "15:30"]
 
-# --- FILTERING ---
+
+# ── FILTERING ─────────────────────────────────────────────────────────────────
 filtering:
   min_keyword_matches: 1
   prefer_salary_listed: true
-  max_age_days: 7
+  max_age_days: 14              # BUG FIX: was 7 — too narrow; raised to 14 days
   strict_keyword_filtering: false
   enforce_entry_level: true
   max_years_experience: 1
@@ -386,9 +588,13 @@ filtering:
     - "0 years"
     - "zero years"
     - "no experience"
+    - "fresh"
+    - "fresher"
+    - "recent graduate"
 
-# --- AI SUITABILITY FILTERING ---
+
+# ── AI SUITABILITY FILTERING ──────────────────────────────────────────────────
 ai_filtering:
   enabled: true
-  min_suitability_score: 70       # Filter out jobs below this suitability score (0-100)
+  min_suitability_score: 70       # Filter out jobs below this score (0-100)
   model: "gemini-2.5-flash"       # Cost-efficient, high-speed model

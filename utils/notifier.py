@@ -22,15 +22,23 @@ WORK_TYPE_EMOJI = {
 }
 
 SOURCE_EMOJI = {
+    # Major job boards
     "LinkedIn": "💼",
     "Indeed": "🔍",
+    "Glassdoor": "🪟",
+    # Local Sri Lanka
     "TopJobs LK": "🇱🇰",
     "XpressJobs": "🇱🇰",
+    # Remote boards (API-based)
     "Remotive": "🌍",
     "Arbeitnow": "🌍",
     "RemoteOK": "🌍",
     "We Work Remotely": "🌍",
     "Remote.co": "🌍",
+    "Jobicy": "🌐",
+    "HiringCafe": "☕",
+    "Greenhouse": "🌿",
+    "TheirStack": "📦",
 }
 
 
