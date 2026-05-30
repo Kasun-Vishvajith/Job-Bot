@@ -1,0 +1,262 @@
+# ============================================================
+#  JOB ALERT BOT — Your Configuration File
+#  Kasun Vishvajith Vithanage | BSc Hons Data Science | UoC
+# ============================================================
+
+# --- YOUR PROFILE ---
+profile:
+  name: "Kasun Vishvajith Vithanage"
+
+  # Keywords that describe you — the bot will match jobs containing these
+  keywords:
+    - "data science"
+    - "data scientist"
+    - "data analyst"
+    - "machine learning"
+    - "data engineer"
+    - "business intelligence"
+    - "AI"
+    - "artificial intelligence"
+    - "deep learning"
+    - "python"
+    - "statistics"
+    - "analytics"
+
+
+  # MUST-HAVE keywords — at least one of these MUST appear in the job title
+  # or description. Jobs missing all of these are completely ignored.
+  must_have_keywords:
+    - "intern"
+    - "internship"
+    - "trainee"
+    - "placement"
+
+  # Words that indicate a job is TOO senior — will be filtered out
+  exclude_keywords:
+    - "10+ years"
+    - "8+ years"
+    - "7+ years"
+    - "6+ years"
+    - "5+ years"
+    - "senior manager"
+    - "director"
+    - "VP"
+    - "vice president"
+    - "head of"
+    - "chief"
+    - "principal"
+    - "lead engineer"
+    - "staff engineer"
+
+  # Work type rules:
+  # - remote: anywhere in the world
+  # - hybrid / on-site: Colombo, Sri Lanka only (filtered in location_rules below)
+  work_types:
+    - "remote"
+    - "hybrid"
+    - "on-site"
+
+  # Location filtering rules
+  location_rules:
+    remote_worldwide: true          # Accept remote jobs from anywhere
+    onsite_allowed_cities:          # For hybrid/on-site, only these locations
+      - "colombo"
+      - "sri lanka"
+      - "lk"
+      - "remote"                    # always keep remote tagged ones
+
+# --- JOB SITES TO SCRAPE ---
+job_sites:
+  linkedin:
+    enabled: true
+    search_queries:
+      - "data science internship Sri Lanka"
+      - "data analyst intern Colombo"
+      - "machine learning internship remote"
+      - "data science intern remote"
+      - "AI intern remote"
+      - "python data intern"
+    max_pages: 3
+
+  indeed:
+    enabled: true
+    search_queries:
+      - "data science internship"
+      - "data analyst intern"
+      - "machine learning intern"
+      - "AI internship"
+    location: "Sri Lanka"
+    max_pages: 3
+
+  # Local Sri Lanka job sites
+  local_sites:
+    enabled: true
+    sites:
+      - name: "TopJobs LK"
+        url: "https://www.topjobs.lk/applicant/vacancybyfunctionalarea.jsp?FA=ITC"
+        type: "topjobs"
+      - name: "XpressJobs"
+        url: "https://xpressjobs.lk/jobs/?q=data+science+intern&cat=all"
+        type: "xpressjobs"
+
+  # Company career pages
+  company_pages:
+    enabled: true
+    pages:
+      # ── Local Sri Lanka Companies ──────────────────────────────────────────
+      - name: "WSO2"
+        url: "https://wso2.com/careers/"
+        type: "generic"
+        keywords: ["data", "analytics", "intern", "machine learning"]
+
+      - name: "IFS"
+        url: "https://careers.ifs.com/vacancy/search#"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      # ── Automotive — Remote Internships ───────────────────────────────────
+      - name: "Porsche"
+        url: "https://www.porsche.com/international/aboutporsche/jobs/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+
+      - name: "Volkswagen"
+        url: "https://www.volkswagenag.com/en/careers.html"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      - name: "Ford"
+        url: "https://ford.wd1.myworkdayjobs.com/Ford_Careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern", "python"]
+
+      - name: "Tesla"
+        url: "https://www.tesla.com/careers/search#/?department=48"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      - name: "Lamborghini"
+        url: "https://careers.lamborghini.com/en/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern"]
+
+      - name: "Bugatti"
+        url: "https://www.bugatti.com/company/careers/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern"]
+
+      - name: "Ferrari"
+        url: "https://corporate.ferrari.com/en/careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      - name: "Ducati"
+        url: "https://www.ducati.com/ww/en/company/careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern"]
+
+      - name: "BMW Group"
+        url: "https://www.bmwgroup.jobs/en/students.html"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+
+      - name: "Mercedes-Benz"
+        url: "https://group.mercedes-benz.com/careers/en/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      - name: "Volvo"
+        url: "https://www.volvocars.com/en/career"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      - name: "Jaguar Land Rover"
+        url: "https://www.jaguarlandrover.com/careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      - name: "Honda"
+        url: "https://www.honda.com/careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern"]
+
+      - name: "Koenigsegg"
+        url: "https://www.koenigsegg.com/careers/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "intern"]
+
+      # ── Tech Giants — Remote Internships ──────────────────────────────────
+      - name: "Apple"
+        url: "https://jobs.apple.com/en-us/search?team=internships-STDNT-INTRN"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+
+      - name: "Meta"
+        url: "https://www.metacareers.com/jobs?offices[0]=Remote&roles[0]=intern"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      - name: "X (Twitter)"
+        url: "https://careers.x.com/en"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      - name: "SpaceX"
+        url: "https://www.spacex.com/careers/jobs"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      - name: "Samsung"
+        url: "https://www.samsung.com/global/business/careers/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      - name: "Xiaomi"
+        url: "https://careers.mi.com/en/"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      - name: "BYD"
+        url: "https://byd.com/en/careers.html"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      # ── Aerospace ─────────────────────────────────────────────────────────
+      - name: "Boeing"
+        url: "https://jobs.boeing.com/search-jobs/internship"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+
+      - name: "Airbus"
+        url: "https://www.airbus.com/en/careers/students-and-graduates"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+
+      # ── LEGO ──────────────────────────────────────────────────────────────
+      - name: "LEGO"
+        url: "https://www.lego.com/en-us/careers"
+        type: "generic"
+        keywords: ["data", "analytics", "AI", "machine learning", "intern", "python"]
+
+# --- NOTIFICATIONS ---
+notifications:
+  email:
+    enabled: true
+    sender: "your-gmail@gmail.com"       # ← replace with your Gmail
+    recipient: "your-email@gmail.com"    # ← replace with your email
+
+  telegram:
+    enabled: true
+    # Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID as GitHub Secrets
+
+# --- SCHEDULE ---
+schedule:
+  # Every 3 hours — Sri Lanka time (UTC+5:30)
+  # 12am, 3am, 6am, 9am, 12pm, 3pm, 6pm, 9pm LKT
+  times_utc: ["18:30", "21:30", "00:30", "03:30", "06:30", "09:30", "12:30", "15:30"]
+
+# --- FILTERING ---
+filtering:
+  min_keyword_matches: 1
+  prefer_salary_listed: true
+  max_age_days: 7
