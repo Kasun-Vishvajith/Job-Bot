@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
 Job Alert Bot — Main Runner
-Scrapes job sites, filters by profile, detects new listings,
-and sends email + Telegram notifications.
 """
 
 import json
@@ -22,7 +20,6 @@ from utils.filter import JobFilter
 from utils.database import JobDatabase
 from utils.notifier import Notifier
 
-# ── Logging ────────────────────────────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
@@ -49,29 +46,35 @@ def run():
 
     all_jobs: list[dict] = []
 
-    # ── Scrape LinkedIn ────────────────────────────────────────────────────────
+    # ── LinkedIn ──────────────────────────────────────────────────────────────
     if config["job_sites"]["linkedin"]["enabled"]:
         log.info("Scraping LinkedIn...")
         try:
             scraper = LinkedInScraper(config["job_sites"]["linkedin"])
             jobs = scraper.scrape()
             log.info("  LinkedIn: found %d raw listings", len(jobs))
+            if jobs:
+                log.info("  LinkedIn sample: %s @ %s (%s)",
+                    jobs[0].get("title"), jobs[0].get("company"), jobs[0].get("location"))
             all_jobs.extend(jobs)
         except Exception as e:
             log.error("  LinkedIn scraper failed: %s", e)
 
-    # ── Scrape Indeed ─────────────────────────────────────────────────────────
+    # ── Indeed ────────────────────────────────────────────────────────────────
     if config["job_sites"]["indeed"]["enabled"]:
         log.info("Scraping Indeed...")
         try:
             scraper = IndeedScraper(config["job_sites"]["indeed"])
             jobs = scraper.scrape()
             log.info("  Indeed: found %d raw listings", len(jobs))
+            if jobs:
+                log.info("  Indeed sample: %s @ %s (%s)",
+                    jobs[0].get("title"), jobs[0].get("company"), jobs[0].get("location"))
             all_jobs.extend(jobs)
         except Exception as e:
             log.error("  Indeed scraper failed: %s", e)
 
-    # ── Scrape Local LK Sites ─────────────────────────────────────────────────
+    # ── Local LK Sites ────────────────────────────────────────────────────────
     if config["job_sites"]["local_sites"]["enabled"]:
         log.info("Scraping local Sri Lanka sites...")
         for site_cfg in config["job_sites"]["local_sites"]["sites"]:
@@ -79,11 +82,14 @@ def run():
                 scraper = LocalSiteScraper(site_cfg)
                 jobs = scraper.scrape()
                 log.info("  %s: found %d raw listings", site_cfg["name"], len(jobs))
+                if jobs:
+                    log.info("  %s sample: %s @ %s",
+                        site_cfg["name"], jobs[0].get("title"), jobs[0].get("company"))
                 all_jobs.extend(jobs)
             except Exception as e:
                 log.error("  %s scraper failed: %s", site_cfg["name"], e)
 
-    # ── Scrape Company Pages ──────────────────────────────────────────────────
+    # ── Company Pages ─────────────────────────────────────────────────────────
     if config["job_sites"]["company_pages"]["enabled"]:
         log.info("Scraping company career pages...")
         for page_cfg in config["job_sites"]["company_pages"]["pages"]:
@@ -95,30 +101,56 @@ def run():
             except Exception as e:
                 log.error("  %s scraper failed: %s", page_cfg["name"], e)
 
-    log.info("Total raw jobs scraped: %d", len(all_jobs))
+    log.info("-" * 60)
+    log.info("TOTAL raw jobs scraped: %d", len(all_jobs))
 
-    # ── Filter by profile ─────────────────────────────────────────────────────
+    # ── Filter ────────────────────────────────────────────────────────────────
     matched_jobs = job_filter.filter(all_jobs)
-    log.info("Jobs matching your profile: %d", len(matched_jobs))
+    log.info("Jobs matching profile after filter: %d", len(matched_jobs))
 
-    # ── Deduplicate — only keep genuinely new listings ─────────────────────────
+    # ── Show filter breakdown if 0 matched ───────────────────────────────────
+    if len(all_jobs) > 0 and len(matched_jobs) == 0:
+        log.warning("Filter rejected ALL jobs. Showing why for first 5 raw jobs:")
+        for job in all_jobs[:5]:
+            text = " ".join([
+                job.get("title",""), job.get("company",""),
+                job.get("location",""), job.get("description",""),
+                job.get("work_type","")
+            ]).lower()
+            must_kws   = config["profile"].get("must_have_keywords", [])
+            must_found = [k for k in must_kws if k.lower() in text]
+            prof_kws   = config["profile"].get("keywords", [])
+            prof_found = [k for k in prof_kws if k.lower() in text]
+            excl_kws   = config["profile"].get("exclude_keywords", [])
+            excl_found = [k for k in excl_kws if k.lower() in text]
+            log.warning(
+                "  '%s' | must_have=%s | profile_kws=%s | excluded=%s | location='%s' | work_type='%s'",
+                job.get("title"), must_found, prof_found, excl_found,
+                job.get("location"), job.get("work_type")
+            )
+
+    if len(all_jobs) == 0:
+        log.warning("All scrapers returned 0 jobs. Possible causes:")
+        log.warning("  1. Sites are blocking the scraper (most likely)")
+        log.warning("  2. No jobs listed matching the search queries")
+        log.warning("  3. HTML structure of site has changed")
+
+    # ── Deduplicate ───────────────────────────────────────────────────────────
     new_jobs = db.get_new_jobs(matched_jobs)
-    log.info("NEW jobs not seen before: %d", len(new_jobs))
+    log.info("NEW jobs (not seen before): %d", len(new_jobs))
 
     if not new_jobs:
         log.info("No new matching jobs found. No notification sent.")
         return
 
-    # ── Sort: jobs with salary listed first ───────────────────────────────────
     new_jobs.sort(key=lambda j: (not j.get("salary"), j.get("title", "")))
 
-    # ── Send notifications ────────────────────────────────────────────────────
+    # ── Notify ────────────────────────────────────────────────────────────────
     log.info("Sending notifications for %d new jobs...", len(new_jobs))
     notifier.send(new_jobs, config["profile"]["name"])
 
-    # ── Save to database ──────────────────────────────────────────────────────
     db.save_jobs(new_jobs)
-    log.info("Database updated. All done!")
+    log.info("Done! Database updated.")
 
 
 if __name__ == "__main__":
