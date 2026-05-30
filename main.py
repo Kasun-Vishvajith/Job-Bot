@@ -17,6 +17,7 @@ from scrapers.indeed_scraper import IndeedScraper
 from scrapers.local_scraper import LocalSiteScraper
 from scrapers.company_scraper import CompanyScraper
 from utils.filter import JobFilter
+from utils.ai_filter import AIFilter
 from utils.database import JobDatabase
 from utils.notifier import Notifier
 
@@ -42,6 +43,7 @@ def run():
     config = load_config()
     db = JobDatabase(Path(__file__).parent / "data" / "seen_jobs.json")
     job_filter = JobFilter(config["profile"], config["filtering"])
+    ai_filter = AIFilter(config["profile"], config.get("ai_filtering", {}))
     notifier = Notifier(config["notifications"])
 
     all_jobs: list[dict] = []
@@ -112,7 +114,7 @@ def run():
 
     # ── Filter ────────────────────────────────────────────────────────────────
     matched_jobs = job_filter.filter(all_jobs)
-    log.info("Jobs matching profile after filter: %d", len(matched_jobs))
+    log.info("Jobs matching profile after keyword filter: %d", len(matched_jobs))
 
     # ── Show filter breakdown if 0 matched ───────────────────────────────────
     if len(all_jobs) > 0 and len(matched_jobs) == 0:
@@ -140,6 +142,10 @@ def run():
         log.warning("  1. Sites are blocking the scraper (most likely)")
         log.warning("  2. No jobs listed matching the search queries")
         log.warning("  3. HTML structure of site has changed")
+
+    # ── AI Filter ─────────────────────────────────────────────────────────────
+    matched_jobs = ai_filter.filter(matched_jobs)
+    log.info("Jobs matching profile after AI filter: %d", len(matched_jobs))
 
     # ── Deduplicate ───────────────────────────────────────────────────────────
     new_jobs = db.get_new_jobs(matched_jobs)

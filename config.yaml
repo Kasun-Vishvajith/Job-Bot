@@ -261,3 +261,9 @@ filtering:
   min_keyword_matches: 1
   prefer_salary_listed: true
   max_age_days: 7
+
+# --- AI SUITABILITY FILTERING ---
+ai_filtering:
+  enabled: true
+  min_suitability_score: 70       # Filter out jobs below this suitability score (0-100)
+  model: "gemini-2.5-flash"       # Cost-efficient, high-speed model
