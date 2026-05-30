@@ -36,14 +36,31 @@ class LinkedInScraper:
 
     def scrape(self) -> list[dict]:
         jobs = []
-        for query in self.queries:
+        for query_item in self.queries:
+            if isinstance(query_item, dict):
+                query = query_item.get("keywords", "")
+                location = query_item.get("location", "")
+            else:
+                query = query_item
+                location = ""
+
             for page in range(self.max_pages):
                 start = page * 25
                 url = (
                     f"{LINKEDIN_BASE}?keywords={requests.utils.quote(query)}"
                     f"&start={start}&f_TPR=r86400"  # last 24hr filter
                 )
+                if location:
+                    url += f"&location={requests.utils.quote(location)}"
+
                 page_jobs = self._scrape_page(url)
+                if location:
+                    for job in page_jobs:
+                        if location.lower() == "remote":
+                            job["work_type"] = "Remote"
+                        if not job.get("location") or job["location"] == "Unknown Location":
+                            job["location"] = location
+
                 jobs.extend(page_jobs)
                 if len(page_jobs) < 5:
                     break  # no more results
