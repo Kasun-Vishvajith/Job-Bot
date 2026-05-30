@@ -111,7 +111,7 @@ job_sites:
         keywords: ["data", "analytics", "intern", "machine learning"]
 
       - name: "IFS"
-        url: "https://careers.ifs.com/vacancy/search#"
+        url: "https://www.ifs.com/en/about/careers"
         type: "generic"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
 
