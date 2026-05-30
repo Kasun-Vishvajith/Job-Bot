@@ -1,18 +1,36 @@
 """
 Gemini AI Job Filter
 Evaluates and scores job suitability for the candidate using Gemini 2.5 Flash.
+
+BUG FIXES applied:
+  - Timeout of 30s is too short when evaluating many jobs; raised to 90s.
+  - Large job batches (>20) caused Gemini to hit token limits or time out;
+    added auto-chunking so jobs are evaluated in batches of 20.
+  - If Gemini returns text that isn't valid JSON (despite responseMimeType),
+    we now attempt to strip markdown code fences before parsing.
+  - suitability_score comparison used `>=` but score could be a float from
+    the schema; added explicit int() cast.
+  - Added total retry (up to 2x) on transient API failures.
+  - Log the model name being used at startup for traceability.
 """
 
 import json
 import logging
 import os
+import time
 from typing import List, Dict
 
 import requests
 
 log = logging.getLogger(__name__)
 
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+GEMINI_API_URL = (
+    "https://generativelanguage.googleapis.com/v1beta/models"
+    "/{model}:generateContent?key={api_key}"
+)
+
+# Max jobs per Gemini call — avoid token-limit errors
+BATCH_SIZE = 20
 
 
 class AIFilter:
@@ -29,54 +47,65 @@ class AIFilter:
             return jobs
 
         if not self.api_key:
-            log.warning("GEMINI_API_KEY missing from environment. Skipping AI suitability filter.")
-            # Set default values so we don't break downstream rendering
+            log.warning(
+                "GEMINI_API_KEY missing from environment. "
+                "Skipping AI suitability filter."
+            )
             for job in jobs:
-                job["suitability_score"] = None
-                job["suitability_reason"] = ""
+                job.setdefault("suitability_score", None)
+                job.setdefault("suitability_reason", "")
             return jobs
 
         if not jobs:
             return []
 
-        log.info("Running Gemini AI suitability filter on %d jobs...", len(jobs))
-        evaluations = self._evaluate_jobs(jobs)
+        log.info(
+            "Running Gemini AI suitability filter on %d jobs (model=%s)...",
+            len(jobs), self.model,
+        )
+
+        # BUG FIX: Chunk jobs to avoid token-limit / timeout errors
+        all_evaluations: Dict[str, Dict] = {}
+        for i in range(0, len(jobs), BATCH_SIZE):
+            chunk = jobs[i: i + BATCH_SIZE]
+            chunk_evals = self._evaluate_jobs(chunk)
+            all_evaluations.update(chunk_evals)
+            if i + BATCH_SIZE < len(jobs):
+                time.sleep(1)  # brief pause between batches
 
         matched_jobs = []
         for job in jobs:
             job_id = job.get("id")
-            evaluation = evaluations.get(job_id)
+            evaluation = all_evaluations.get(job_id)
 
             if evaluation:
-                job["suitability_score"] = evaluation.get("suitability_score", 50)
+                # BUG FIX: Cast to int in case Gemini returns a float
+                raw_score = evaluation.get("suitability_score", 50)
+                job["suitability_score"] = int(raw_score) if raw_score is not None else 50
                 job["suitability_reason"] = evaluation.get("reason", "")
-                
-                # Check for Gemini-extracted salary info
+
                 extracted_sal = evaluation.get("extracted_salary", "Not mentioned")
-                if extracted_sal and extracted_sal.lower() != "not mentioned":
+                if extracted_sal and extracted_sal.lower() not in ("not mentioned", "none", ""):
                     job["salary"] = extracted_sal
             else:
-                # Default fallback if AI failed to score a specific job
                 job["suitability_score"] = 50
-                job["suitability_reason"] = "Could not parse suitability."
+                job["suitability_reason"] = "Could not parse AI suitability."
 
-            # Filter by minimum threshold score
             if job["suitability_score"] >= self.min_score:
                 matched_jobs.append(job)
             else:
                 log.info(
-                    "AI REJECTED '%s' @ %s (Score: %d) — Reason: %s",
+                    "AI REJECTED '%s' @ %s (Score: %d) — %s",
                     job.get("title"),
                     job.get("company"),
                     job["suitability_score"],
-                    job["suitability_reason"],
+                    job.get("suitability_reason"),
                 )
 
-        log.info("AI matched %d/%d jobs after refinement.", len(matched_jobs), len(jobs))
+        log.info("AI matched %d/%d jobs.", len(matched_jobs), len(jobs))
         return matched_jobs
 
     def _evaluate_jobs(self, jobs: List[Dict]) -> Dict[str, Dict]:
-        # Formulate a simplified summary of the candidate's profile
         candidate_summary = (
             f"Name: {self.profile_cfg.get('name', 'Candidate')}\n"
             f"Skills: {', '.join(self.profile_cfg.get('keywords', []))}\n"
@@ -84,19 +113,18 @@ class AIFilter:
             f"Exclude keywords: {', '.join(self.profile_cfg.get('exclude_keywords', []))}"
         )
 
-        # Build list of jobs with minimal info to reduce tokens
         job_list_str = ""
         for i, job in enumerate(jobs):
-            # Try to grab the first 300 characters of description to stay compact
             desc = job.get("description", "")
-            desc_snippet = desc[:300] + "..." if len(desc) > 300 else desc
-            
+            # BUG FIX: Limit snippet to 400 chars (was 300 — still too short for context)
+            desc_snippet = desc[:400] + "..." if len(desc) > 400 else desc
             job_list_str += (
                 f"\n--- Job #{i+1} ---\n"
                 f"ID: {job.get('id')}\n"
                 f"Title: {job.get('title')}\n"
                 f"Company: {job.get('company')}\n"
                 f"Location: {job.get('location')} ({job.get('work_type')})\n"
+                f"Posted: {job.get('posted', 'Unknown')}\n"
                 f"Snippet: {desc_snippet}\n"
             )
 
@@ -125,7 +153,6 @@ Scoring Scale:
 
 Provide the score, a brief 1-sentence reasoning explanation, and the extracted salary. Use the specific Job IDs provided."""
 
-        # Setup structured JSON schema output
         payload = {
             "contents": [{"parts": [{"text": prompt}]}],
             "generationConfig": {
@@ -153,21 +180,42 @@ Provide the score, a brief 1-sentence reasoning explanation, and the extracted s
         }
 
         url = GEMINI_API_URL.format(model=self.model, api_key=self.api_key)
-        try:
-            resp = requests.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=30)
-            resp.raise_for_status()
-            
-            data = resp.json()
-            text_response = data["candidates"][0]["content"]["parts"][0]["text"]
-            eval_data = json.loads(text_response)
-            
-            # Map by job ID for easy lookup
-            eval_map = {}
-            for item in eval_data.get("evaluations", []):
-                eval_map[item["id"]] = item
-            return eval_map
 
-        except Exception as e:
-            log.error("Failed to query Gemini API or parse response: %s", e)
-            return {}
+        # BUG FIX: Added retry logic (up to 2 retries) for transient failures
+        for attempt in range(3):
+            try:
+                resp = requests.post(
+                    url,
+                    json=payload,
+                    headers={"Content-Type": "application/json"},
+                    # BUG FIX: Timeout raised from 30s to 90s for large batches
+                    timeout=90,
+                )
+                resp.raise_for_status()
 
+                data = resp.json()
+                text_response = data["candidates"][0]["content"]["parts"][0]["text"]
+
+                # BUG FIX: Strip markdown code fences if Gemini wraps JSON in them
+                text_response = text_response.strip()
+                if text_response.startswith("```"):
+                    text_response = text_response.lstrip("`").lstrip("json").strip()
+                    if text_response.endswith("```"):
+                        text_response = text_response[: text_response.rfind("```")].strip()
+
+                eval_data = json.loads(text_response)
+                eval_map = {}
+                for item in eval_data.get("evaluations", []):
+                    eval_map[item["id"]] = item
+                return eval_map
+
+            except requests.exceptions.Timeout:
+                log.warning("  [AI] Gemini request timed out (attempt %d/3)", attempt + 1)
+                if attempt < 2:
+                    time.sleep(5)
+            except Exception as e:
+                log.error("  [AI] Failed to query Gemini or parse response (attempt %d/3): %s", attempt + 1, e)
+                if attempt < 2:
+                    time.sleep(3)
+
+        return {}

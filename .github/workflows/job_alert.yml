@@ -2,15 +2,15 @@ name: Job Alert Bot
 
 on:
   schedule:
-    - cron: "30 18 * * *"
-    - cron: "30 21 * * *"
-    - cron: "30 0  * * *"
-    - cron: "30 3  * * *"
-    - cron: "30 6  * * *"
-    - cron: "30 9  * * *"
-    - cron: "30 12 * * *"
-    - cron: "30 15 * * *"
-  workflow_dispatch:
+    - cron: "30 18 * * *"   # 00:00 LKT
+    - cron: "30 21 * * *"   # 03:00 LKT
+    - cron: "30 0  * * *"   # 06:00 LKT
+    - cron: "30 3  * * *"   # 09:00 LKT
+    - cron: "30 6  * * *"   # 12:00 LKT
+    - cron: "30 9  * * *"   # 15:00 LKT
+    - cron: "30 12 * * *"   # 18:00 LKT
+    - cron: "30 15 * * *"   # 21:00 LKT
+  workflow_dispatch:          # Allow manual trigger from GitHub UI
 
 permissions:
   contents: write
@@ -18,7 +18,10 @@ permissions:
 jobs:
   scrape-and-notify:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # BUG FIX: Raised from 15 → 30 minutes.
+    # With multiple new sources (Glassdoor, Jobicy, Greenhouse, iJobs, etc.)
+    # and AI filtering with chunked Gemini calls, 15 min was too tight.
+    timeout-minutes: 30
 
     steps:
       - name: Checkout repository
@@ -26,7 +29,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Python
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
