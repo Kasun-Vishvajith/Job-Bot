@@ -1,0 +1,59 @@
+name: Job Alert Bot
+
+on:
+  schedule:
+    - cron: "30 18 * * *"
+    - cron: "30 21 * * *"
+    - cron: "30 0  * * *"
+    - cron: "30 3  * * *"
+    - cron: "30 6  * * *"
+    - cron: "30 9  * * *"
+    - cron: "30 12 * * *"
+    - cron: "30 15 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-and-notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Job Alert Bot
+        env:
+          GMAIL_SENDER: ${{ secrets.GMAIL_SENDER }}
+          GMAIL_RECIPIENT: ${{ secrets.GMAIL_RECIPIENT }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python main.py
+
+      - name: Commit updated job database
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Job Alert Bot"
+          git add data/seen_jobs.json
+          git diff --staged --quiet && echo "No changes to commit" && exit 0
+          git stash
+          git pull origin main --no-rebase
+          git stash pop || true
+          git add data/seen_jobs.json
+          git diff --staged --quiet && echo "No new changes after merge" && exit 0
+          git commit -m "chore: update job database [skip ci]"
+          git push
