@@ -1,0 +1,1586 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kasun's Job Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --void: #eef1f7;
+      --surface-0: #ffffff;
+      --surface-1: #ffffff;
+      --surface-2: #f3f5fa;
+      --surface-3: #e8ecf5;
+      --rim: rgba(30,50,120,0.09);
+      --rim-strong: rgba(30,50,120,0.18);
+      --blue: #2563eb;
+      --blue-pale: #3b7eff;
+      --blue-dim: rgba(37,99,235,0.10);
+      --blue-glow: rgba(37,99,235,0.05);
+      --ink: #111827;
+      --ink-2: #4b5563;
+      --ink-3: #9ca3af;
+      --teal: #0d9488;
+      --teal-dim: rgba(13,148,136,0.10);
+      --rose: #e11d48;
+      --rose-dim: rgba(225,29,72,0.09);
+      --sky: #0284c7;
+      --sky-dim: rgba(2,132,199,0.10);
+      --amber: #d97706;
+      --amber-dim: rgba(217,119,6,0.12);
+      --violet: #7c3aed;
+      --violet-dim: rgba(124,58,237,0.10);
+      --r: 12px;
+      --r-sm: 7px;
+      --sh: 0 12px 40px rgba(17,24,39,0.10), 0 2px 8px rgba(17,24,39,0.06);
+      --sh-sm: 0 4px 16px rgba(17,24,39,0.08);
+      --sidebar-w: 240px;
+      --topbar-h: 64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      background: var(--void);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 10% 0%, rgba(37,99,235,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 90% 100%, rgba(124,58,237,0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    button, input, select { font: inherit; color: inherit; }
+    button { cursor: pointer; background: none; border: none; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; }
+
+    /* ─── LAYOUT ─── */
+    .layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      grid-template-rows: var(--topbar-h) 1fr;
+      min-height: 100dvh;
+    }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar {
+      grid-row: 1 / 3;
+      background: var(--surface-0);
+      border-right: 1px solid var(--rim);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 28px 0 24px;
+      z-index: 100;
+      box-shadow: 2px 0 24px rgba(37,99,235,0.04);
+    }
+
+    .brand {
+      padding: 0 20px 28px;
+      border-bottom: 1px solid var(--rim);
+      position: relative;
+    }
+
+    .brand::before {
+      content: '';
+      position: absolute;
+      top: -28px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--violet) 100%);
+    }
+
+    .brand-label {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 20px;
+      color: var(--blue);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--ink-3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .nav-section {
+      padding: 20px 12px 0;
+    }
+
+    .nav-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      padding: 0 8px;
+      margin-bottom: 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: var(--r-sm);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink-2);
+      transition: background 160ms, color 160ms;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      border: none;
+      background: none;
+      position: relative;
+    }
+
+    .nav-item:hover { background: var(--blue-dim); color: var(--blue); }
+
+    .nav-item.active {
+      background: var(--blue-dim);
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20%;
+      bottom: 20%;
+      width: 3px;
+      background: var(--blue);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .nav-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .nav-item.active .nav-icon { opacity: 1; }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--surface-3);
+      color: var(--ink-3);
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 20px;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .nav-item.active .nav-badge {
+      background: rgba(37,99,235,0.15);
+      color: var(--blue);
+    }
+
+    .sidebar-stats {
+      margin-top: auto;
+      padding: 20px 16px 0;
+      border-top: 1px solid var(--rim);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .stat-label { font-size: 12px; color: var(--ink-3); }
+
+    .stat-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .stat-value.gold { color: var(--blue); }
+    .stat-value.teal { color: var(--teal); }
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      grid-column: 2;
+      background: var(--surface-0);
+      border-bottom: 1px solid var(--rim);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      height: var(--topbar-h);
+      box-shadow: 0 2px 12px rgba(17,24,39,0.06);
+    }
+
+    .search-wrap {
+      flex: 1;
+      max-width: 440px;
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-3);
+      pointer-events: none;
+    }
+
+    #search {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--rim);
+      border-radius: var(--r-sm);
+      height: 40px;
+      padding: 0 14px 0 40px;
+      color: var(--ink);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 160ms, background 160ms, box-shadow 160ms;
+    }
+
+    #search::placeholder { color: var(--ink-3); }
+    #search:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px var(--blue-dim); }
+
+    .topbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .pill-select {
+      background: var(--surface-2);
+      border: 1px solid var(--rim);
+      border-radius: var(--r-sm);
+      height: 38px;
+      padding: 0 32px 0 12px;
+      color: var(--ink-2);
+      font-size: 13px;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      transition: border-color 160ms, box-shadow 160ms;
+    }
+
+    .pill-select:focus { border-color: var(--blue); color: var(--ink); box-shadow: 0 0 0 3px var(--blue-dim); }
+    .pill-select option { background: #fff; color: var(--ink); }
+
+    .topbar-btn {
+      height: 38px;
+      padding: 0 14px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--rim);
+      background: var(--surface-2);
+      color: var(--ink-2);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 160ms, color 160ms, border-color 160ms;
+      white-space: nowrap;
+    }
+
+    .topbar-btn:hover { background: var(--blue-dim); color: var(--blue); border-color: rgba(37,99,235,0.25); }
+
+    .topbar-btn.danger:hover { border-color: rgba(225,29,72,0.3); color: var(--rose); background: var(--rose-dim); }
+
+    .mobile-menu-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--rim);
+      background: var(--surface-2);
+      color: var(--ink-2);
+      flex-shrink: 0;
+    }
+
+    /* ─── MAIN ─── */
+    .main {
+      grid-column: 2;
+      padding: 28px 28px 60px;
+      min-width: 0;
+    }
+
+    /* ─── PAGE HEADER ─── */
+    .page-head {
+      margin-bottom: 28px;
+    }
+
+    .page-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(26px, 3vw, 38px);
+      color: var(--ink);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .page-sub {
+      font-size: 14px;
+      color: var(--ink-3);
+      margin-top: 5px;
+    }
+
+    .result-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0 22px;
+      border-bottom: 1px solid var(--rim);
+      margin-bottom: 24px;
+    }
+
+    #resultInfo {
+      font-size: 13px;
+      color: var(--ink-3);
+    }
+
+    .result-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* ─── GROUPS + GRID ─── */
+    .group { margin-bottom: 40px; }
+
+    .group-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 18px;
+    }
+
+    .group-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rim);
+    }
+
+    .group-count {
+      background: var(--blue-dim);
+      color: var(--blue);
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+
+    /* ─── CARD ─── */
+    .card {
+      background: var(--surface-1);
+      border: 1px solid var(--rim);
+      border-radius: var(--r);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 200ms, transform 200ms, box-shadow 200ms;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .card:hover {
+      border-color: rgba(37,99,235,0.22);
+      transform: translateY(-3px);
+      box-shadow: var(--sh);
+    }
+
+    .card.picked-card {
+      border-color: rgba(37,99,235,0.28);
+      box-shadow: 0 0 0 3px var(--blue-dim);
+    }
+
+    .card-thumb {
+      position: relative;
+      height: 130px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.82) saturate(1.1);
+      transition: transform 500ms, filter 300ms;
+    }
+
+    .card:hover .card-thumb img {
+      transform: scale(1.04);
+      filter: brightness(0.9) saturate(1.2);
+    }
+
+    .thumb-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 14px 16px;
+      background: linear-gradient(to top, rgba(17,24,39,0.55) 0%, transparent 55%);
+    }
+
+    .cat-chip {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.88);
+      color: var(--ink);
+      border: none;
+    }
+
+    .cat-chip.chip-ai    { background: #eef2ff; color: #4338ca; }
+    .cat-chip.chip-ds    { background: #eff6ff; color: #1d4ed8; }
+    .cat-chip.chip-da    { background: #f0fdf4; color: #166534; }
+    .cat-chip.chip-sw    { background: #fdf4ff; color: #7e22ce; }
+    .cat-chip.chip-in    { background: #fff7ed; color: #c2410c; }
+    .cat-chip.chip-re    { background: #fefce8; color: #854d0e; }
+    .cat-chip.chip-an    { background: #f0fdfa; color: #0f766e; }
+    .cat-chip.chip-ge    { background: #f8fafc; color: #475569; }
+
+    .cat-mark {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: rgba(255,255,255,0.18);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .new-dot {
+      position: absolute;
+      top: 12px;
+      left: 14px;
+      width: 8px;
+      height: 8px;
+      background: var(--rose);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(224,95,122,0.2);
+    }
+
+    .card-body {
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 12px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .job-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 17px;
+      line-height: 1.2;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .job-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 160ms;
+    }
+
+    .job-title a:hover { color: var(--blue); }
+
+    .heart-btn {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid var(--rim);
+      background: var(--surface-2);
+      color: var(--ink-3);
+      font-size: 15px;
+      transition: background 160ms, color 160ms, border-color 160ms;
+    }
+
+    .heart-btn:hover { border-color: var(--rose); color: var(--rose); background: var(--rose-dim); }
+    .heart-btn.picked { color: var(--rose); border-color: rgba(225,29,72,0.3); background: var(--rose-dim); }
+
+    .company-name {
+      font-size: 13px;
+      color: var(--ink-3);
+      margin-top: 2px;
+    }
+
+    /* ─── STARS ─── */
+    .stars-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stars {
+      display: flex;
+      gap: 2px;
+    }
+
+    .star-btn {
+      font-size: 16px;
+      color: #d1d5db;
+      transition: color 120ms;
+      padding: 0;
+      line-height: 1;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .star-btn.on { color: var(--amber); }
+    .star-btn:hover { color: var(--amber); }
+
+    .rating-txt {
+      font-size: 12px;
+      color: var(--ink-3);
+    }
+
+    /* ─── META PILLS ─── */
+    .meta-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      font-size: 12px;
+      background: var(--surface-2);
+      color: var(--ink-2);
+      border: 1px solid var(--rim);
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: 200px;
+      text-overflow: ellipsis;
+    }
+
+    .meta-pill.source {
+      background: var(--sky-dim);
+      color: var(--sky);
+      border-color: rgba(2,132,199,0.18);
+    }
+
+    .meta-pill.new-badge {
+      background: var(--rose-dim);
+      color: var(--rose);
+      border-color: rgba(225,29,72,0.18);
+      font-weight: 600;
+    }
+
+    .meta-pill.date {
+      background: var(--teal-dim);
+      color: var(--teal);
+      border-color: rgba(13,148,136,0.18);
+    }
+
+    /* ─── CARD FOOTER ─── */
+    .card-footer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--rim);
+    }
+
+    .open-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      height: 36px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--rim);
+      background: var(--surface-2);
+      color: var(--ink-2);
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 160ms, color 160ms, border-color 160ms;
+      text-decoration: none;
+    }
+
+    .open-btn:hover { background: var(--blue-dim); color: var(--blue); border-color: rgba(37,99,235,0.25); }
+
+    .pick-btn {
+      height: 36px;
+      padding: 0 14px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--rim);
+      background: var(--surface-2);
+      color: var(--ink-2);
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 160ms, color 160ms, border-color 160ms;
+      white-space: nowrap;
+    }
+
+    .pick-btn:hover { background: var(--blue-dim); color: var(--blue); border-color: rgba(37,99,235,0.25); }
+
+    .pick-btn.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    /* ─── EMPTY STATE ─── */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 64px 20px;
+      color: var(--ink-3);
+    }
+
+    .empty-icon {
+      font-size: 40px;
+      margin-bottom: 14px;
+      opacity: 0.4;
+    }
+
+    .empty-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--ink-2);
+      margin-bottom: 8px;
+    }
+
+    .empty-sub { font-size: 14px; }
+
+    /* ─── FILE FALLBACK ─── */
+    .file-fallback {
+      display: none;
+      margin-bottom: 20px;
+      padding: 16px 18px;
+      border: 1px dashed rgba(37,99,235,0.3);
+      border-radius: var(--r);
+      background: var(--blue-glow);
+      color: var(--ink-2);
+      font-size: 13px;
+    }
+
+    .file-input-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 10px;
+      padding: 8px 14px;
+      border-radius: var(--r-sm);
+      border: 1px solid rgba(37,99,235,0.3);
+      background: var(--blue-dim);
+      color: var(--blue);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 160ms;
+    }
+
+    .file-input-label:hover { background: rgba(37,99,235,0.18); }
+    #jsonFile { display: none; }
+
+    /* ─── SCROLL TO TOP ─── */
+    .to-top {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--blue);
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      box-shadow: 0 4px 18px rgba(37,99,235,0.35);
+      transition: background 160ms, transform 200ms, box-shadow 200ms;
+      z-index: 200;
+    }
+
+    .to-top:hover { background: var(--blue-pale); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,99,235,0.45); }
+
+    /* ─── MOBILE OVERLAY ─── */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 150;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      :root { --sidebar-w: 260px; }
+
+      .layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: var(--topbar-h) 1fr;
+      }
+
+      .sidebar {
+        grid-row: auto;
+        position: fixed;
+        left: -var(--sidebar-w);
+        left: calc(-1 * var(--sidebar-w));
+        top: 0;
+        height: 100dvh;
+        z-index: 200;
+        transform: translateX(-100%);
+        transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-overlay.open { display: block; }
+
+      .topbar {
+        grid-column: 1;
+        padding: 0 14px;
+      }
+
+      .search-wrap { max-width: none; }
+
+      .mobile-menu-btn { display: flex; }
+
+      .topbar-controls { display: none; }
+
+      .main {
+        grid-column: 1;
+        padding: 18px 14px 80px;
+      }
+
+      .page-head { margin-bottom: 18px; }
+
+      .result-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding-bottom: 16px;
+      }
+
+      .result-actions {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+      }
+
+      .topbar-btn {
+        justify-content: center;
+        font-size: 12px;
+        padding: 0 10px;
+      }
+
+      /* mobile filters pinned below topbar */
+      .mobile-filters {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding: 10px 14px;
+        background: var(--surface-0);
+        border-bottom: 1px solid var(--rim);
+        position: sticky;
+        top: var(--topbar-h);
+        z-index: 80;
+        -webkit-overflow-scrolling: touch;
+        box-shadow: 0 2px 8px rgba(17,24,39,0.05);
+      }
+
+      .mobile-filters::-webkit-scrollbar { display: none; }
+
+      .mobile-filters .pill-select {
+        flex-shrink: 0;
+        height: 34px;
+        font-size: 12px;
+        padding-left: 10px;
+        padding-right: 28px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .card {
+        flex-direction: row;
+        min-height: 0;
+      }
+
+      .card-thumb {
+        width: 110px;
+        height: auto;
+        min-height: 140px;
+        flex-shrink: 0;
+      }
+
+      .cat-mark { font-size: 22px; top: 8px; right: 8px; }
+
+      .thumb-overlay { padding: 8px 10px; }
+
+      .card-body {
+        padding: 13px 14px 12px;
+        gap: 9px;
+      }
+
+      .job-title { font-size: 15px; }
+
+      .card-thumb img { filter: brightness(0.82) saturate(1.1); }
+
+      .to-top { right: 14px; bottom: 74px; width: 40px; height: 40px; font-size: 16px; }
+    }
+
+    @media (max-width: 540px) {
+      .card-thumb { width: 90px; }
+      .meta-pill.source { display: none; }
+    }
+
+    /* ─── LANDSCAPE TABLET ─── */
+    @media (min-width: 901px) and (max-width: 1200px) {
+      :root { --sidebar-w: 200px; }
+      .brand-label { font-size: 17px; }
+      .grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+      .main { padding: 22px 22px 60px; }
+    }
+
+    /* ─── WIDE ─── */
+    @media (min-width: 1600px) {
+      .grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+    }
+
+    /* ─── LANDSCAPE PHONE ─── */
+    @media (max-width: 900px) and (orientation: landscape) {
+      .card {
+        flex-direction: row;
+        min-height: 0;
+      }
+
+      .card-thumb {
+        width: 120px;
+        height: auto;
+        min-height: 130px;
+      }
+
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+      .mobile-filters { top: var(--topbar-h); }
+    }
+
+    @media (max-width: 600px) and (orientation: landscape) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card { animation: fadeUp 300ms ease backwards; }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-label">Kasun Vishvajith</div>
+      <div class="brand-sub">Job Board · 2025</div>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Categories</div>
+      <button class="nav-item active" data-tab="all">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        All Jobs
+        <span class="nav-badge" id="badge-all">0</span>
+      </button>
+      <button class="nav-item" data-tab="Data Analyst">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Data Analyst
+        <span class="nav-badge" id="badge-Data Analyst">0</span>
+      </button>
+      <button class="nav-item" data-tab="Data Science">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        Data Science
+        <span class="nav-badge" id="badge-Data Science">0</span>
+      </button>
+      <button class="nav-item" data-tab="AI / ML">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3H5a2 2 0 0 0-2 2v4.5M9.5 3l5 0M9.5 3V8M3 9.5V14M3 14v4.5A2 2 0 0 0 5 21h4.5M3 14h5.5M21 9.5V5a2 2 0 0 0-2-2h-4.5M21 9.5V14M21 14v4.5A2 2 0 0 0 19 21h-4.5M21 14h-5.5M14.5 21h-5"/></svg>
+        AI / ML
+        <span class="nav-badge" id="badge-AI / ML">0</span>
+      </button>
+      <button class="nav-item" data-tab="Software">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Software
+        <span class="nav-badge" id="badge-Software">0</span>
+      </button>
+      <button class="nav-item" data-tab="Internship">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 20V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2Z"/></svg>
+        Internship
+        <span class="nav-badge" id="badge-Internship">0</span>
+      </button>
+      <button class="nav-item" data-tab="picked">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        Picked
+        <span class="nav-badge" id="badge-picked">0</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-stats">
+      <div class="stat-row">
+        <span class="stat-label">Total sent</span>
+        <span class="stat-value" id="totalJobs">0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Newest batch</span>
+        <span class="stat-value gold" id="newJobs">0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Picked</span>
+        <span class="stat-value teal" id="pickedJobs">0</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ═══ TOPBAR ═══ -->
+  <header class="topbar">
+    <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+    <div class="search-wrap">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input id="search" type="search" placeholder="Search roles, companies, sources…" autocomplete="off">
+    </div>
+
+    <div class="topbar-controls">
+      <select class="pill-select" id="sourceFilter"></select>
+      <select class="pill-select" id="ratingFilter">
+        <option value="all">All ratings</option>
+        <option value="5">5 stars</option>
+        <option value="4">4+ stars</option>
+        <option value="3">3+ stars</option>
+        <option value="2">2+ stars</option>
+        <option value="1">1+ stars</option>
+        <option value="0">Unrated</option>
+      </select>
+      <select class="pill-select" id="sortBy">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="rating-desc">Highest rated</option>
+        <option value="rating-asc">Lowest rated</option>
+        <option value="picked">Picked first</option>
+        <option value="title-asc">Title A–Z</option>
+        <option value="title-desc">Title Z–A</option>
+        <option value="company-asc">Company A–Z</option>
+        <option value="company-desc">Company Z–A</option>
+        <option value="source-asc">Source A–Z</option>
+        <option value="category-asc">Category A–Z</option>
+      </select>
+      <select class="pill-select" id="groupBy">
+        <option value="none">No grouping</option>
+        <option value="category">By category</option>
+        <option value="source">By source</option>
+        <option value="company">By company</option>
+        <option value="date">By date</option>
+        <option value="rating">By rating</option>
+        <option value="picked">By picked</option>
+        <option value="new">New vs older</option>
+      </select>
+      <button class="topbar-btn" id="showNew">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        New Batch
+      </button>
+      <button class="topbar-btn" id="clearFilters">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+        Clear
+      </button>
+      <button class="topbar-btn danger" id="clearPicked">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Reset
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile filters bar -->
+  <div class="mobile-filters" id="mobileFilters" style="display:none">
+    <select class="pill-select" id="mSourceFilter"></select>
+    <select class="pill-select" id="mRatingFilter">
+      <option value="all">All ratings</option>
+      <option value="5">5 stars</option>
+      <option value="4">4+ stars</option>
+      <option value="3">3+ stars</option>
+      <option value="2">2+ stars</option>
+      <option value="1">1+ star</option>
+      <option value="0">Unrated</option>
+    </select>
+    <select class="pill-select" id="mSortBy">
+      <option value="newest">Newest</option>
+      <option value="oldest">Oldest</option>
+      <option value="rating-desc">Top rated</option>
+      <option value="picked">Picked first</option>
+      <option value="title-asc">Title A–Z</option>
+    </select>
+    <select class="pill-select" id="mGroupBy">
+      <option value="none">No group</option>
+      <option value="category">Category</option>
+      <option value="source">Source</option>
+      <option value="date">Date</option>
+      <option value="new">New vs older</option>
+    </select>
+  </div>
+
+  <!-- ═══ MAIN ═══ -->
+  <main class="main">
+    <div class="page-head">
+      <h1 class="page-title">Sent Job Listings</h1>
+      <p class="page-sub">BSc Hons in Data Science · University of Colombo</p>
+    </div>
+
+    <div id="fileFallback" class="file-fallback">
+      <strong>Could not load data/seen_jobs.json automatically.</strong> Start a local server or select the file below.
+      <label class="file-input-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Choose seen_jobs.json
+        <input id="jsonFile" type="file" accept=".json,application/json">
+      </label>
+    </div>
+
+    <div class="result-bar">
+      <div id="resultInfo">Loading jobs…</div>
+      <div class="result-actions" id="resultActions">
+        <button class="topbar-btn" id="mShowNew" style="display:none">★ New Batch</button>
+        <button class="topbar-btn" id="mClearFilters" style="display:none">Clear Filters</button>
+        <button class="topbar-btn danger" id="mClearPicked" style="display:none">Reset Picks</button>
+      </div>
+    </div>
+
+    <section id="jobsRoot" aria-live="polite"></section>
+  </main>
+
+</div>
+
+<button class="to-top" id="toTop" aria-label="Back to top">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+  // ═══════════════════════════════════════════
+  //  STATE — identical logic to original
+  // ═══════════════════════════════════════════
+  const state = {
+    allJobs: [],
+    activeTab: "all",
+    latestSeenAt: "",
+    picked: JSON.parse(localStorage.getItem("kasun-job-picked") || "{}"),
+    ratings: JSON.parse(localStorage.getItem("kasun-job-ratings") || "{}")
+  };
+
+  const categoryImages = {
+    "Data Analyst": { mark: "DA", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=640&q=72" },
+    "Data Science": { mark: "DS", image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=640&q=72" },
+    "AI / ML":      { mark: "AI", image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=640&q=72" },
+    "Software":     { mark: "SE", image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=640&q=72" },
+    "Analytics":    { mark: "BI", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=640&q=72" },
+    "Research":     { mark: "RE", image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=640&q=72" },
+    "Internship":   { mark: "IN", image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=640&q=72" },
+    "General":      { mark: "JB", image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=640&q=72" }
+  };
+
+  function normalize(v) { return String(v || "").trim(); }
+
+  function categoryFor(job) {
+    const text = `${job.title || ""} ${job.company || ""}`.toLowerCase();
+    if (/(machine learning|deep learning|\bml\b|\bai\b|artificial intelligence|computer vision|llm)/.test(text)) return "AI / ML";
+    if (/(data scientist|data science)/.test(text)) return "Data Science";
+    if (/(data analyst|data analysis|reporting|dashboard|power bi|excel|sql)/.test(text)) return "Data Analyst";
+    if (/(analytics|business intelligence|\bbi\b|quant)/.test(text)) return "Analytics";
+    if (/(software|developer|engineer|java|python|full stack|platform)/.test(text)) return "Software";
+    if (/(research|neuroscience|scientist)/.test(text)) return "Research";
+    if (/(intern|internship|trainee|graduate|fresh)/.test(text)) return "Internship";
+    return "General";
+  }
+
+  function getRating(id) { return Number(state.ratings[id] || 0); }
+  function isPicked(id) { return Boolean(state.picked[id]) || getRating(id) > 0; }
+
+  function saveChoices() {
+    localStorage.setItem("kasun-job-picked", JSON.stringify(state.picked));
+    localStorage.setItem("kasun-job-ratings", JSON.stringify(state.ratings));
+  }
+
+  function formatDate(v) {
+    if (!v) return "Unknown";
+    const d = new Date(v);
+    if (Number.isNaN(d.getTime())) return v;
+    return d.toLocaleString(undefined, { year: "numeric", month: "short", day: "2-digit", hour: "2-digit", minute: "2-digit" });
+  }
+
+  function formatDateShort(v) {
+    if (!v) return "";
+    const d = new Date(v);
+    if (Number.isNaN(d.getTime())) return v.slice(0, 10);
+    return d.toLocaleDateString(undefined, { month: "short", day: "2-digit" });
+  }
+
+  function searchUrl(job) {
+    return `https://www.google.com/search?q=${encodeURIComponent(`${job.title || ""} ${job.company || ""} job`)}`;
+  }
+
+  function jobUrl(job) { return job.link || searchUrl(job); }
+
+  function escHtml(v) {
+    return String(v ?? "")
+      .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  }
+
+  // ═══════════════════════════════════════════
+  //  PARSE + LOAD
+  // ═══════════════════════════════════════════
+  function parseJobs(data) {
+    const raw = data.seen_jobs || {};
+    const jobs = Object.entries(raw).map(([id, job]) => ({
+      id,
+      title: normalize(job.title),
+      company: normalize(job.company),
+      source: normalize(job.source) || "Unknown",
+      location: normalize(job.location),
+      work_type: normalize(job.work_type),
+      link: normalize(job.link || job.url),
+      salary: normalize(job.salary),
+      description: normalize(job.description),
+      seen_at: normalize(job.seen_at),
+      category: categoryFor(job)
+    }));
+    jobs.sort((a, b) => b.seen_at.localeCompare(a.seen_at));
+    state.latestSeenAt = jobs[0]?.seen_at || "";
+    state.allJobs = jobs;
+    hydrateSourceFilters();
+    updateBadges();
+    render();
+  }
+
+  async function loadJobs() {
+    try {
+      const r = await fetch("data/seen_jobs.json", { cache: "no-store" });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      parseJobs(await r.json());
+    } catch {
+      document.getElementById("fileFallback").style.display = "block";
+      document.getElementById("resultInfo").textContent = "Select data/seen_jobs.json to load your jobs.";
+    }
+  }
+
+  // ═══════════════════════════════════════════
+  //  SOURCE FILTER HYDRATION (desktop + mobile)
+  // ═══════════════════════════════════════════
+  function hydrateSourceFilters() {
+    const sources = [...new Set(state.allJobs.map(j => j.source))].sort((a,b) => a.localeCompare(b));
+    const opts = `<option value="all">All sources</option>` + sources.map(s => `<option value="${escHtml(s)}">${escHtml(s)}</option>`).join("");
+    document.getElementById("sourceFilter").innerHTML = opts;
+    document.getElementById("mSourceFilter").innerHTML = opts;
+  }
+
+  // ═══════════════════════════════════════════
+  //  FILTER / SORT / GROUP — identical logic
+  // ═══════════════════════════════════════════
+  function getControl(id, mobileId) {
+    const isMobile = window.innerWidth <= 900;
+    return document.getElementById(isMobile ? mobileId : id);
+  }
+
+  function filteredJobs() {
+    const query = document.getElementById("search").value.trim().toLowerCase();
+    const source = getControl("sourceFilter","mSourceFilter").value;
+    const rating = getControl("ratingFilter","mRatingFilter").value;
+
+    return state.allJobs.filter(job => {
+      if (state.activeTab === "picked" && !isPicked(job.id)) return false;
+      if (state.activeTab !== "all" && state.activeTab !== "picked" && job.category !== state.activeTab) return false;
+      if (source !== "all" && job.source !== source) return false;
+      if (rating !== "all") {
+        const stars = getRating(job.id);
+        if (rating === "0" && stars !== 0) return false;
+        if (rating !== "0" && stars < Number(rating)) return false;
+      }
+      if (query) {
+        const h = `${job.title} ${job.company} ${job.source} ${job.category} ${job.location} ${job.work_type} ${job.salary}`.toLowerCase();
+        if (!h.includes(query)) return false;
+      }
+      return true;
+    });
+  }
+
+  function sortJobs(jobs) {
+    const s = [...jobs];
+    const byText = k => (a, b) => a[k].localeCompare(b[k]) || b.seen_at.localeCompare(a.seen_at);
+    const byDesc = k => (a, b) => b[k].localeCompare(a[k]) || b.seen_at.localeCompare(a.seen_at);
+    const sort = getControl("sortBy","mSortBy").value;
+    s.sort((a, b) => {
+      if (sort === "newest")       return b.seen_at.localeCompare(a.seen_at);
+      if (sort === "oldest")       return a.seen_at.localeCompare(b.seen_at);
+      if (sort === "rating-desc")  return getRating(b.id) - getRating(a.id) || b.seen_at.localeCompare(a.seen_at);
+      if (sort === "rating-asc")   return getRating(a.id) - getRating(b.id) || b.seen_at.localeCompare(a.seen_at);
+      if (sort === "picked")       return Number(isPicked(b.id)) - Number(isPicked(a.id)) || getRating(b.id) - getRating(a.id);
+      if (sort === "title-asc")    return byText("title")(a, b);
+      if (sort === "title-desc")   return byDesc("title")(a, b);
+      if (sort === "company-asc")  return byText("company")(a, b);
+      if (sort === "company-desc") return byDesc("company")(a, b);
+      if (sort === "source-asc")   return byText("source")(a, b);
+      if (sort === "category-asc") return byText("category")(a, b);
+      return 0;
+    });
+    return s;
+  }
+
+  function groupJobs(jobs) {
+    const group = getControl("groupBy","mGroupBy").value;
+    if (group === "none") return [["All matching jobs", jobs]];
+    const groups = new Map();
+    for (const job of jobs) {
+      let key = "Other";
+      if (group === "category") key = job.category;
+      if (group === "source")   key = job.source;
+      if (group === "company")  key = job.company || "Unknown company";
+      if (group === "date")     key = job.seen_at ? job.seen_at.slice(0, 10) : "Unknown date";
+      if (group === "rating")   key = getRating(job.id) ? `${getRating(job.id)} star` : "Unrated";
+      if (group === "picked")   key = isPicked(job.id) ? "Picked jobs" : "Not picked";
+      if (group === "new")      key = job.seen_at === state.latestSeenAt ? "Newest batch" : "Older sent jobs";
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(job);
+    }
+    return [...groups.entries()].sort((a, b) => {
+      if (group === "rating") return ratingGroupVal(b[0]) - ratingGroupVal(a[0]);
+      if (group === "new")    return a[0] === "Newest batch" ? -1 : 1;
+      return a[0].localeCompare(b[0]);
+    });
+  }
+
+  function ratingGroupVal(l) { return l === "Unrated" ? 0 : Number(l.split(" ")[0] || 0); }
+
+  // ═══════════════════════════════════════════
+  //  BADGES + STATS
+  // ═══════════════════════════════════════════
+  function updateBadges() {
+    const tabs = ["all","Data Analyst","Data Science","AI / ML","Software","Internship","picked"];
+    for (const tab of tabs) {
+      const el = document.getElementById(`badge-${tab}`);
+      if (!el) continue;
+      if (tab === "all") el.textContent = state.allJobs.length;
+      else if (tab === "picked") el.textContent = state.allJobs.filter(j => isPicked(j.id)).length;
+      else el.textContent = state.allJobs.filter(j => j.category === tab).length;
+    }
+  }
+
+  function updateStats(visible) {
+    const picked = state.allJobs.filter(j => isPicked(j.id)).length;
+    const newC = state.allJobs.filter(j => j.seen_at === state.latestSeenAt).length;
+    document.getElementById("totalJobs").textContent = state.allJobs.length;
+    document.getElementById("newJobs").textContent = newC;
+    document.getElementById("pickedJobs").textContent = picked;
+    document.getElementById("resultInfo").textContent = `${visible} of ${state.allJobs.length} jobs · Latest: ${formatDate(state.latestSeenAt)}`;
+    updateBadges();
+  }
+
+  // ═══════════════════════════════════════════
+  //  RENDER
+  // ═══════════════════════════════════════════
+  function render() {
+    const jobs = sortJobs(filteredJobs());
+    updateStats(jobs.length);
+    const groups = groupJobs(jobs);
+    const root = document.getElementById("jobsRoot");
+    const showGroupTitle = getControl("groupBy","mGroupBy").value !== "none";
+
+    if (!jobs.length) {
+      root.innerHTML = `<div class="grid"><div class="empty"><div class="empty-icon">◌</div><div class="empty-title">No results found</div><div class="empty-sub">Try adjusting your search or filters.</div></div></div>`;
+      return;
+    }
+
+    root.innerHTML = groups.map(([title, items]) => `
+      <div class="group">
+        ${showGroupTitle ? `<div class="group-title">${escHtml(title)} <span class="group-count">${items.length}</span></div>` : ""}
+        <div class="grid">
+          ${items.map((job, i) => renderCard(job, i)).join("")}
+        </div>
+      </div>
+    `).join("");
+  }
+
+  let renderTimer = 0;
+  function scheduleRender() {
+    clearTimeout(renderTimer);
+    renderTimer = setTimeout(render, 90);
+  }
+
+  function chipClass(cat) {
+    const m = { "AI / ML":"chip-ai","Data Science":"chip-ds","Data Analyst":"chip-da","Software":"chip-sw","Internship":"chip-in","Research":"chip-re","Analytics":"chip-an","General":"chip-ge" };
+    return m[cat] || "chip-ge";
+  }
+
+  function renderCard(job, i) {
+    const picked = isPicked(job.id);
+    const rating = getRating(job.id);
+    const img = categoryImages[job.category] || categoryImages.General;
+    const isNew = job.seen_at === state.latestSeenAt;
+    const url = jobUrl(job);
+    const delay = Math.min(i * 30, 300);
+
+    return `
+      <article class="card ${picked ? "picked-card" : ""}" data-id="${escHtml(job.id)}" data-url="${escHtml(url)}" style="animation-delay:${delay}ms">
+        <div class="card-thumb">
+          <img src="${escHtml(img.image)}" alt="" loading="lazy" decoding="async">
+          <div class="thumb-overlay">
+            <span class="cat-chip ${chipClass(job.category)}">${escHtml(job.category)}</span>
+          </div>
+          <div class="cat-mark">${escHtml(img.mark)}</div>
+          ${isNew ? `<div class="new-dot" title="New batch"></div>` : ""}
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-header">
+              <div class="job-title">
+                <a href="${escHtml(url)}" target="_blank" rel="noreferrer">${escHtml(job.title || "Untitled")}</a>
+              </div>
+              <button class="heart-btn ${picked ? "picked" : ""}" data-action="pick" aria-label="Pick job">${picked ? "♥" : "♡"}</button>
+            </div>
+            <div class="company-name">${escHtml(job.company || "Unknown company")}</div>
+          </div>
+
+          <div class="stars-row">
+            <div class="stars" aria-label="${rating} of 5 stars">
+              ${[1,2,3,4,5].map(v => `<button class="star-btn ${v <= rating ? "on" : ""}" data-action="rate" data-rating="${v}" title="${v} star">${v <= rating ? "★" : "☆"}</button>`).join("")}
+            </div>
+            <span class="rating-txt">${rating ? `${rating}/5` : "Rate"}</span>
+          </div>
+
+          <div class="meta-list">
+            <span class="meta-pill source">${escHtml(job.source)}</span>
+            <span class="meta-pill date">${formatDateShort(job.seen_at)}</span>
+            ${isNew ? `<span class="meta-pill new-badge">NEW</span>` : ""}
+            ${job.work_type ? `<span class="meta-pill">${escHtml(job.work_type)}</span>` : ""}
+            ${job.location ? `<span class="meta-pill">${escHtml(job.location)}</span>` : ""}
+          </div>
+
+          <div class="card-footer">
+            <a class="open-btn" href="${escHtml(url)}" target="_blank" rel="noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              ${job.link ? "Open Job" : "Search"}
+            </a>
+            <button class="pick-btn ${picked ? "active" : ""}" data-action="pick">${picked ? "Picked ✓" : "Pick"}</button>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  // ═══════════════════════════════════════════
+  //  EVENTS
+  // ═══════════════════════════════════════════
+  // Nav tabs
+  document.querySelectorAll(".nav-item[data-tab]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".nav-item[data-tab]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      state.activeTab = btn.dataset.tab;
+      closeSidebar();
+      render();
+    });
+  });
+
+  // Search
+  document.getElementById("search").addEventListener("input", scheduleRender);
+
+  // Desktop filter controls
+  ["sourceFilter","ratingFilter","sortBy","groupBy"].forEach(id => {
+    document.getElementById(id)?.addEventListener("change", render);
+  });
+
+  // Mobile filter controls
+  ["mSourceFilter","mRatingFilter","mSortBy","mGroupBy"].forEach(id => {
+    document.getElementById(id)?.addEventListener("change", render);
+  });
+
+  // Card interactions (delegated)
+  document.getElementById("jobsRoot").addEventListener("click", e => {
+    const action = e.target.closest("[data-action]");
+    const link = e.target.closest("a");
+    if (!action && link) return;
+    const card = e.target.closest(".card");
+    if (!card) return;
+    if (!action) {
+      window.open(card.dataset.url, "_blank", "noopener,noreferrer");
+      return;
+    }
+    const id = card.dataset.id;
+    if (action.dataset.action === "pick") {
+      state.picked[id] = !isPicked(id);
+      if (!state.picked[id] && getRating(id) > 0) state.ratings[id] = 0;
+    }
+    if (action.dataset.action === "rate") {
+      const r = Number(action.dataset.rating);
+      state.ratings[id] = getRating(id) === r ? 0 : r;
+      state.picked[id] = state.ratings[id] > 0;
+    }
+    saveChoices();
+    render();
+  });
+
+  // Toolbar actions
+  function clearFilters() {
+    document.getElementById("search").value = "";
+    ["sourceFilter","ratingFilter","mSourceFilter","mRatingFilter"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "all";
+    });
+    ["sortBy","mSortBy"].forEach(id => { const el = document.getElementById(id); if (el) el.value = "newest"; });
+    ["groupBy","mGroupBy"].forEach(id => { const el = document.getElementById(id); if (el) el.value = "none"; });
+    state.activeTab = "all";
+    document.querySelectorAll(".nav-item[data-tab]").forEach(b => b.classList.toggle("active", b.dataset.tab === "all"));
+    render();
+  }
+
+  function showNewBatch() {
+    state.activeTab = "all";
+    document.querySelectorAll(".nav-item[data-tab]").forEach(b => b.classList.toggle("active", b.dataset.tab === "all"));
+    ["groupBy","mGroupBy"].forEach(id => { const el = document.getElementById(id); if (el) el.value = "new"; });
+    ["sortBy","mSortBy"].forEach(id => { const el = document.getElementById(id); if (el) el.value = "newest"; });
+    render();
+  }
+
+  function clearPicked() {
+    if (!confirm("Clear all picked jobs and ratings from this browser?")) return;
+    state.picked = {};
+    state.ratings = {};
+    saveChoices();
+    render();
+  }
+
+  document.getElementById("showNew").addEventListener("click", showNewBatch);
+  document.getElementById("clearFilters").addEventListener("click", clearFilters);
+  document.getElementById("clearPicked").addEventListener("click", clearPicked);
+  document.getElementById("mShowNew")?.addEventListener("click", showNewBatch);
+  document.getElementById("mClearFilters")?.addEventListener("click", clearFilters);
+  document.getElementById("mClearPicked")?.addEventListener("click", clearPicked);
+
+  // File fallback
+  document.getElementById("jsonFile").addEventListener("change", async e => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    parseJobs(JSON.parse(await file.text()));
+    document.getElementById("fileFallback").style.display = "none";
+  });
+
+  // Scroll to top
+  document.getElementById("toTop").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+  // Mobile sidebar toggle
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("sidebarOverlay");
+
+  function openSidebar() { sidebar.classList.add("open"); overlay.classList.add("open"); document.body.style.overflow = "hidden"; }
+  function closeSidebar() { sidebar.classList.remove("open"); overlay.classList.remove("open"); document.body.style.overflow = ""; }
+
+  document.getElementById("menuBtn").addEventListener("click", openSidebar);
+  overlay.addEventListener("click", closeSidebar);
+
+  // Responsive: show/hide mobile filters bar
+  function handleResize() {
+    const isMobile = window.innerWidth <= 900;
+    const mf = document.getElementById("mobileFilters");
+    const ra = document.getElementById("resultActions");
+    if (mf) mf.style.display = isMobile ? "flex" : "none";
+    // Show mobile action buttons in result bar
+    ["mShowNew","mClearFilters","mClearPicked"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = isMobile ? "" : "none";
+    });
+    if (ra) ra.style.display = isMobile ? "flex" : "none";
+  }
+
+  window.addEventListener("resize", handleResize);
+  handleResize();
+
+  // Init
+  loadJobs();
+</script>
+</body>
+</html>
