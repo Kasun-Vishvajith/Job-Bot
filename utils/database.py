@@ -58,6 +58,11 @@ class JobDatabase:
                     "title": job.get("title", ""),
                     "company": job.get("company", ""),
                     "source": job.get("source", ""),
+                    "location": job.get("location", ""),
+                    "work_type": job.get("work_type", ""),
+                    "link": job.get("link", ""),
+                    "salary": job.get("salary", ""),
+                    "description": job.get("description", ""),
                     "seen_at": now.isoformat(),
                 }
 
