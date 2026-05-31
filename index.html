@@ -645,6 +645,46 @@
       border-color: rgba(13,148,136,0.18);
     }
 
+    /* ─── JOB ID ROW ─── */
+    .id-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+
+
+    .copy-id-btn {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      height: 24px;
+      padding: 0 8px;
+      border-radius: 4px;
+      border: 1px solid var(--rim);
+      background: var(--surface-2);
+      color: var(--ink-3);
+      font-size: 11px;
+      font-weight: 500;
+      transition: background 150ms, color 150ms, border-color 150ms;
+      white-space: nowrap;
+    }
+
+    .copy-id-btn:hover {
+      background: var(--blue-dim);
+      color: var(--blue);
+      border-color: rgba(37,99,235,0.25);
+    }
+
+    .copy-id-btn.copied {
+      background: rgba(13,148,136,0.12);
+      color: var(--teal);
+      border-color: rgba(13,148,136,0.25);
+    }
+
     /* ─── CARD FOOTER ─── */
     .card-footer {
       display: grid;
@@ -952,6 +992,178 @@
     }
 
     .card { animation: fadeUp 300ms ease backwards; }
+
+    /* ─── ACTION ROW (Copy Prompt + Import JSON) ─── */
+    .action-row {
+      display: flex;
+      gap: 6px;
+      padding: 10px 18px 0;
+      border-top: 1px dashed var(--rim);
+      margin-top: 2px;
+    }
+
+    .action-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      height: 30px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--rim);
+      background: var(--surface-2);
+      color: var(--ink-3);
+      font-size: 11px;
+      font-weight: 500;
+      transition: background 150ms, color 150ms, border-color 150ms;
+      white-space: nowrap;
+    }
+
+    .action-btn.prompt-btn:hover {
+      background: var(--violet-dim);
+      color: var(--violet);
+      border-color: rgba(124,58,237,0.25);
+    }
+
+    .action-btn.import-btn:hover {
+      background: var(--teal-dim);
+      color: var(--teal);
+      border-color: rgba(13,148,136,0.25);
+    }
+
+    .action-btn.import-btn.mapped {
+      background: rgba(13,148,136,0.08);
+      color: var(--teal);
+      border-color: rgba(13,148,136,0.25);
+    }
+
+    /* ─── COMPAT BAR ─── */
+    .compat-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px 14px;
+    }
+
+    .compat-track {
+      flex: 1;
+      height: 5px;
+      background: var(--surface-3);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .compat-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 500ms ease;
+    }
+
+    .compat-label {
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ─── IMPORT MODAL ─── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--surface-0);
+      border-radius: var(--r);
+      box-shadow: var(--sh);
+      width: 100%;
+      max-width: 520px;
+      animation: fadeUp 220ms ease;
+    }
+
+    .modal-head {
+      padding: 22px 24px 16px;
+      border-bottom: 1px solid var(--rim);
+    }
+
+    .modal-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .modal-sub {
+      font-size: 12px;
+      color: var(--ink-3);
+    }
+
+    .modal-body {
+      padding: 18px 24px;
+    }
+
+    .modal-textarea {
+      width: 100%;
+      height: 180px;
+      resize: vertical;
+      border: 1px solid var(--rim);
+      border-radius: var(--r-sm);
+      background: var(--surface-2);
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 160ms, box-shadow 160ms;
+      font-family: 'Courier New', monospace;
+      line-height: 1.5;
+    }
+
+    .modal-textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-dim); }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 0 24px 20px;
+    }
+
+    .modal-cancel {
+      height: 38px;
+      padding: 0 18px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--rim);
+      background: var(--surface-2);
+      color: var(--ink-2);
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 150ms;
+    }
+
+    .modal-cancel:hover { background: var(--surface-3); }
+
+    .modal-confirm {
+      height: 38px;
+      padding: 0 20px;
+      border-radius: var(--r-sm);
+      border: none;
+      background: var(--teal);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background 150ms, transform 100ms;
+    }
+
+    .modal-confirm:hover { background: #0f766e; }
+    .modal-confirm:active { transform: scale(0.97); }
   </style>
 </head>
 <body>
@@ -1004,6 +1216,15 @@
       </button>
     </nav>
 
+    <nav class="nav-section" style="margin-top:12px">
+      <div class="nav-label">Tools</div>
+      <a class="nav-item" href="roadmap.html" id="navRoadmap">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l4-8 4 4 4-6 4 6"/><path d="M3 21h18"/></svg>
+        Skill Roadmap
+        <span class="nav-badge" id="badge-roadmap">—</span>
+      </a>
+    </nav>
+
     <div class="sidebar-stats">
       <div class="stat-row">
         <span class="stat-label">Total sent</span>
@@ -1048,6 +1269,7 @@
       <select class="pill-select" id="sortBy">
         <option value="newest">Newest first</option>
         <option value="oldest">Oldest first</option>
+        <option value="compat-desc">⭐ Best match first</option>
         <option value="rating-desc">Highest rated</option>
         <option value="rating-asc">Lowest rated</option>
         <option value="picked">Picked first</option>
@@ -1098,6 +1320,7 @@
     <select class="pill-select" id="mSortBy">
       <option value="newest">Newest</option>
       <option value="oldest">Oldest</option>
+      <option value="compat-desc">⭐ Best match</option>
       <option value="rating-desc">Top rated</option>
       <option value="picked">Picked first</option>
       <option value="title-asc">Title A–Z</option>
@@ -1139,6 +1362,26 @@
     <section id="jobsRoot" aria-live="polite"></section>
   </main>
 
+</div>
+
+<!-- ═══ IMPORT JSON MODAL ═══ -->
+<div class="modal-overlay" id="importModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title" id="modalTitle">Import Requirements</div>
+      <div class="modal-sub" id="modalSub">Paste the JSON returned by the AI</div>
+    </div>
+    <div class="modal-body">
+      <textarea class="modal-textarea" id="modalJson" placeholder='{ "requirements": [ { "id": "python", "name": "Python", "category": "Technical", "difficulty": "medium" } ] }'></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel" id="modalCancel">Cancel</button>
+      <button class="modal-confirm" id="modalConfirm">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-right:5px"><polyline points="20 6 9 17 4 12"/></svg>
+        Import JSON
+      </button>
+    </div>
+  </div>
 </div>
 
 <button class="to-top" id="toTop" aria-label="Back to top">
@@ -1303,6 +1546,14 @@
     const byDesc = k => (a, b) => b[k].localeCompare(a[k]) || b.seen_at.localeCompare(a.seen_at);
     const sort = getControl("sortBy","mSortBy").value;
     s.sort((a, b) => {
+      if (sort === "compat-desc") {
+        const ca = getJobCompat(a.id), cb = getJobCompat(b.id);
+        // Jobs with data first, then by pct desc, then no-data last
+        if (ca && cb) return cb.pct - ca.pct || b.seen_at.localeCompare(a.seen_at);
+        if (ca && !cb) return -1;
+        if (!ca && cb) return 1;
+        return b.seen_at.localeCompare(a.seen_at);
+      }
       if (sort === "newest")       return b.seen_at.localeCompare(a.seen_at);
       if (sort === "oldest")       return a.seen_at.localeCompare(b.seen_at);
       if (sort === "rating-desc")  return getRating(b.id) - getRating(a.id) || b.seen_at.localeCompare(a.seen_at);
@@ -1415,6 +1666,7 @@
     const rating = getRating(job.id);
     const img = categoryImages[job.category] || categoryImages.General;
     const isNew = job.seen_at === state.latestSeenAt;
+    const compatData = getJobCompat(job.id);
     const url = jobUrl(job);
     const delay = Math.min(i * 30, 300);
 
@@ -1461,6 +1713,28 @@
             </a>
             <button class="pick-btn ${picked ? "active" : ""}" data-action="pick">${picked ? "Picked ✓" : "Pick"}</button>
           </div>
+
+          <div class="action-row">
+            <button class="action-btn prompt-btn" data-action="copy-prompt" title="Copy AI prompt — paste into ChatGPT then add job description">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              Copy Prompt
+            </button>
+            <button class="action-btn import-btn ${compatData ? 'mapped' : ''}" data-action="import-json" title="${compatData ? 'Requirements mapped — click to update' : 'Import AI JSON to map requirements'}">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              ${compatData ? '✓ Mapped' : 'Import JSON'}
+            </button>
+            <button class="action-btn copy-id-btn" data-action="copy-id" title="Copy Job ID: ${escHtml(job.id)}" style="flex:0;padding:0 10px">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+
+          ${compatData ? `
+          <div class="compat-bar">
+            <div class="compat-track">
+              <div class="compat-fill" style="width:${compatData.pct}%;background:${compatData.pct>=70?'var(--teal)':compatData.pct>=40?'var(--amber)':'var(--rose)'}"></div>
+            </div>
+            <span class="compat-label" style="color:${compatData.pct>=70?'var(--teal)':compatData.pct>=40?'var(--amber)':'var(--rose)'}">${compatData.pct}% match</span>
+          </div>` : ''}
         </div>
       </article>
     `;
@@ -1505,6 +1779,56 @@
       return;
     }
     const id = card.dataset.id;
+    const job = state.allJobs.find(j => j.id === id);
+
+    if (action.dataset.action === "copy-prompt") {
+      if (!job) return;
+      const prompt = buildCopyPrompt(job);
+      navigator.clipboard.writeText(prompt).catch(() => {
+        const ta = document.createElement("textarea");
+        ta.value = prompt; ta.style.cssText = "position:fixed;opacity:0";
+        document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+      });
+      action.textContent = "✓ Prompt Copied!";
+      action.style.color = "var(--violet)";
+      setTimeout(() => { action.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Copy Prompt`; action.style.color = ""; }, 2200);
+      return;
+    }
+
+    if (action.dataset.action === "import-json") {
+      if (!job) return;
+      openImportModal(job);
+      return;
+    }
+
+    if (action.dataset.action === "copy-id") {
+      const fullId = card.dataset.id;
+      navigator.clipboard.writeText(fullId).then(() => {
+        action.classList.add("copied");
+        action.textContent = "✓ Copied!";
+        setTimeout(() => {
+          action.classList.remove("copied");
+          action.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy ID`;
+        }, 1800);
+      }).catch(() => {
+        // Fallback for non-HTTPS
+        const ta = document.createElement("textarea");
+        ta.value = fullId;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        action.classList.add("copied");
+        action.textContent = "✓ Copied!";
+        setTimeout(() => {
+          action.classList.remove("copied");
+          action.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy ID`;
+        }, 1800);
+      });
+      return;
+    }
     if (action.dataset.action === "pick") {
       state.picked[id] = !isPicked(id);
       if (!state.picked[id] && getRating(id) > 0) state.ratings[id] = 0;
@@ -1593,8 +1917,184 @@
   window.addEventListener("resize", handleResize);
   handleResize();
 
+  // ═══════════════════════════════════════════
+  //  REQUIREMENTS DATABASE (shared with roadmap.html)
+  // ═══════════════════════════════════════════
+  const REQ_KEY = 'kasun-req-db';
+
+  function loadReqDb() {
+    try { return JSON.parse(localStorage.getItem(REQ_KEY) || 'null') || { skills: {}, job_requirements: {} }; }
+    catch { return { skills: {}, job_requirements: {} }; }
+  }
+
+  function saveReqDb(db) {
+    localStorage.setItem(REQ_KEY, JSON.stringify(db));
+  }
+
+  function getJobCompat(jobId) {
+    const db = loadReqDb();
+    const jr = db.job_requirements[jobId];
+    const reqs = jr ? (jr.skills || []) : [];
+    if (!reqs.length) return null;
+    const done = reqs.filter(sid => db.skills[sid]?.completed).length;
+    return { completed: done, total: reqs.length, pct: Math.round(done / reqs.length * 100) };
+  }
+
+  function buildCopyPrompt(job) {
+    return `You are a job requirements extractor. Read the job description and return ONLY a valid JSON object — no explanation, no markdown, no code fences.
+
+Required structure:
+{
+  "requirements": [
+    {
+      "id": "kebab-case-unique-id",
+      "name": "Human Readable Name",
+      "category": "Technical",
+      "difficulty": "medium"
+    }
+  ]
+}
+
+category must be one of: Technical, Soft Skill, Language, Education, Experience
+difficulty must be one of: basic, medium, advanced
+
+Rules:
+- Extract ALL requirements: tech skills, tools, languages, qualifications, years of experience
+- Human languages (French, German, Mandarin, etc.) → category: "Language"
+- Use consistent names: "Machine Learning" not "ML", "Python" not "python"
+- Deduplicate within this single job description
+- Do NOT include the company name or job title as requirements
+
+--- JOB REFERENCE (do not remove) ---
+Job ID: ${job.id}
+Job Title: ${job.title || 'Unknown'}
+Company: ${job.company || 'Unknown'}
+
+--- PASTE THE FULL JOB DESCRIPTION BELOW THIS LINE ---
+${'━'.repeat(50)}
+`;
+  }
+
+  function importRequirements(jobId, jsonText) {
+    let parsed;
+    try {
+      parsed = JSON.parse(jsonText.trim());
+    } catch {
+      alert('Invalid JSON. Please paste the exact JSON returned by the AI.');
+      return false;
+    }
+
+    const reqs = parsed.requirements || parsed.skills || parsed;
+    if (!Array.isArray(reqs) || reqs.length === 0) {
+      alert('No requirements found in the JSON. Make sure it has a "requirements" array.');
+      return false;
+    }
+
+    const db = loadReqDb();
+    const job = state.allJobs.find(j => j.id === jobId);
+
+    // Ensure job record exists
+    if (!db.job_requirements[jobId]) {
+      db.job_requirements[jobId] = { title: job?.title || '', company: job?.company || '', skills: [] };
+    }
+
+    const jr = db.job_requirements[jobId];
+    jr.title = job?.title || jr.title;
+    jr.company = job?.company || jr.company;
+
+    // Merge skills (no duplicates across jobs)
+    for (const req of reqs) {
+      if (!req.id || !req.name) continue;
+      const sid = String(req.id).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      if (!sid) continue;
+
+      if (!db.skills[sid]) {
+        db.skills[sid] = {
+          name: req.name,
+          category: ['Technical','Soft Skill','Language','Education','Experience'].includes(req.category) ? req.category : 'Technical',
+          difficulty: ['basic','medium','advanced'].includes(req.difficulty) ? req.difficulty : null,
+          completed: false,
+          jobs: []
+        };
+      }
+
+      // Add job reference if not already there
+      if (!db.skills[sid].jobs.includes(jobId)) db.skills[sid].jobs.push(jobId);
+      // Add skill to job if not already there
+      if (!jr.skills.includes(sid)) jr.skills.push(sid);
+    }
+
+    saveReqDb(db);
+    return true;
+  }
+
+  // ── Import Modal ──────────────────────────────────────────────────────
+  let _importJobId = null;
+
+  function openImportModal(job) {
+    _importJobId = job.id;
+    document.getElementById('modalTitle').textContent = 'Import Requirements';
+    document.getElementById('modalSub').textContent = `"${job.title || 'Unknown'}" @ ${job.company || 'Unknown'}`;
+    document.getElementById('modalJson').value = '';
+    document.getElementById('importModal').classList.add('open');
+    setTimeout(() => document.getElementById('modalJson').focus(), 50);
+  }
+
+  function closeImportModal() {
+    document.getElementById('importModal').classList.remove('open');
+    _importJobId = null;
+  }
+
+  document.getElementById('modalCancel').addEventListener('click', closeImportModal);
+  document.getElementById('importModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('importModal')) closeImportModal();
+  });
+
+  document.getElementById('modalConfirm').addEventListener('click', () => {
+    if (!_importJobId) return;
+    const json = document.getElementById('modalJson').value.trim();
+    if (!json) { alert('Please paste the AI JSON first.'); return; }
+    if (importRequirements(_importJobId, json)) {
+      closeImportModal();
+      render();
+      updateRoadmapBadge();
+    }
+  });
+
+  // ── Roadmap badge (shows avg compat %) ────────────────────────────────
+  function updateRoadmapBadge() {
+    const db = loadReqDb();
+    const jobIds = Object.keys(db.job_requirements);
+    const el = document.getElementById('badge-roadmap');
+    if (!el) return;
+    if (!jobIds.length) { el.textContent = '—'; return; }
+    const compats = jobIds.map(jid => getJobCompat(jid)).filter(Boolean);
+    if (!compats.length) { el.textContent = '—'; return; }
+    const avg = Math.round(compats.reduce((s, c) => s + c.pct, 0) / compats.length);
+    el.textContent = avg + '%';
+  }
+
+  // ── URL ?highlight=ID handler ─────────────────────────────────────────
+  function handleHighlight() {
+    const params = new URLSearchParams(window.location.search);
+    const hid = params.get('highlight');
+    if (!hid) return;
+    // Wait for cards to render then scroll to it
+    setTimeout(() => {
+      const el = document.querySelector(`[data-id="${CSS.escape(hid)}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.style.boxShadow = '0 0 0 3px var(--teal), 0 8px 32px rgba(13,148,136,0.25)';
+        el.style.borderColor = 'var(--teal)';
+        setTimeout(() => { el.style.boxShadow = ''; el.style.borderColor = ''; }, 3000);
+      }
+    }, 400);
+  }
+
   // Init
   loadJobs();
+  updateRoadmapBadge();
+  handleHighlight();
 </script>
 </body>
 </html>
