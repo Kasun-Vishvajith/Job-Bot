@@ -308,6 +308,33 @@
     .topbar-btn:hover { background: var(--teal-dim); color: var(--teal); border-color: rgba(13,148,136,0.25); }
     .topbar-btn.danger:hover { background: var(--rose-dim); color: var(--rose); border-color: rgba(225,29,72,0.3); }
 
+    .sidebar-actions {
+      padding: 16px 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-top: 1px solid var(--rim);
+      margin-top: 16px;
+    }
+
+    .sidebar-btn {
+      height: 36px;
+      padding: 0 14px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--rim);
+      background: var(--surface-2);
+      color: var(--ink-2);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 160ms, color 160ms, border-color 160ms;
+      width: 100%;
+    }
+
+    .sidebar-btn:hover { background: var(--teal-dim); color: var(--teal); border-color: rgba(13,148,136,0.25); }
+    .sidebar-btn.danger:hover { background: var(--rose-dim); color: var(--rose); border-color: rgba(225,29,72,0.3); }
+
     /* ─── MAIN ─── */
     .main {
       grid-column: 2;
@@ -397,6 +424,19 @@
 
     .jc-pct { font-size: 15px; font-weight: 800; }
     .jc-count { font-size: 11px; color: var(--ink-3); }
+
+    .icon-btn {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--r-sm);
+      color: var(--ink-3);
+      transition: background 160ms, color 160ms, border-color 160ms;
+      background: var(--surface-2);
+      border: 1px solid var(--rim);
+      cursor: pointer;
+    }
+    .icon-btn:hover { background: var(--teal-dim); color: var(--teal); border-color: rgba(13,148,136,0.25); }
+    .icon-btn.copy:hover { background: var(--blue-dim); color: var(--blue); border-color: rgba(37,99,235,0.25); }
 
     /* ─── SKILL GROUP ─── */
     .skill-group { margin-bottom: 38px; }
@@ -814,6 +854,23 @@
         <span class="stat-value amber" id="statAvg">—</span>
       </div>
     </div>
+
+    <div class="sidebar-actions">
+      <button class="sidebar-btn" id="btnRestructure" style="border-color: rgba(124,58,237,0.22); color: var(--violet);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"/><path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5Z"/><path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z"/></svg>
+        Restructure DB
+      </button>
+
+      <button class="sidebar-btn" id="btnExport">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export DB
+      </button>
+
+      <button class="sidebar-btn danger" id="btnClearAll">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        Clear All
+      </button>
+    </div>
   </aside>
 
   <!-- ═══ TOPBAR ═══ -->
@@ -840,21 +897,6 @@
     <select class="pill-select" id="filterJob">
       <option value="all">All jobs</option>
     </select>
-
-    <button class="topbar-btn" id="btnRestructure" style="border-color: rgba(124,58,237,0.22); color: var(--violet);">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"/><path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5Z"/><path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z"/></svg>
-      Restructure DB
-    </button>
-
-    <button class="topbar-btn" id="btnExport">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Export DB
-    </button>
-
-    <button class="topbar-btn danger" id="btnClearAll">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
-      Clear All
-    </button>
   </header>
 
   <!-- ═══ MAIN ═══ -->
@@ -1059,8 +1101,18 @@ function renderMain(db) {
       if (!c) return '';
       const col = compatColor(c.pct);
       return `
-        <a class="job-compat-card" href="index.html?highlight=${encodeURIComponent(jid)}" title="Open in job board">
-          <div class="jc-title">${escHtml(jr.title || jid.slice(0, 14))}</div>
+        <div class="job-compat-card">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 2px;">
+            <div class="jc-title" style="flex:1; margin-bottom:0; padding-right:8px;">${escHtml(jr.title || jid.slice(0, 14))}</div>
+            <div style="display:flex; gap:6px; flex-shrink:0;">
+              <button class="icon-btn copy" data-action="copy-learning-prompt" data-jid="${escHtml(jid)}" title="Copy Learning Prompt">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <a class="icon-btn" href="index.html?highlight=${encodeURIComponent(jid)}" title="Open in Job Board">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
           <div class="jc-company">${escHtml(jr.company || '')}</div>
           <div class="jc-bar-wrap">
             <div class="jc-bar-fill" style="width:${c.pct}%;background:${col}"></div>
@@ -1069,7 +1121,7 @@ function renderMain(db) {
             <span class="jc-pct" style="color:${col}">${c.pct}%</span>
             <span class="jc-count">${c.completed}/${c.total} skills</span>
           </div>
-        </a>`;
+        </div>`;
     }).filter(Boolean).join('');
 
     if (cards) {
@@ -1155,9 +1207,67 @@ document.getElementById('mainContent').addEventListener('click', e => {
   if (!action) return;
   e.preventDefault();
   const row = action.closest('.skill-row');
+  const db = loadDb();
+
+  if (action.dataset.action === 'copy-learning-prompt') {
+    const jid = action.dataset.jid;
+    const jr = db.job_requirements[jid];
+    if (!jr || !jr.skills) return;
+
+    const uncompletedSkills = {
+      'Technical': [],
+      'Soft Skill': [],
+      'Language': [],
+      'Education': []
+    };
+
+    let hasUncompleted = false;
+    for (const sid of jr.skills) {
+      const s = db.skills[sid];
+      if (s && !s.completed && s.category !== 'Experience') {
+        if (uncompletedSkills[s.category]) {
+          uncompletedSkills[s.category].push(s.name);
+          hasUncompleted = true;
+        }
+      }
+    }
+
+    if (!hasUncompleted) {
+      showToast('You have already mastered all non-experience skills for this job!');
+      return;
+    }
+
+    let prompt = `I am preparing for the role of ${jr.title || 'this job'}`;
+    if (jr.company) prompt += ` at ${jr.company}`;
+    prompt += `.\nI need to learn and master the following skills, which I am currently missing:\n\n`;
+
+    for (const [cat, items] of Object.entries(uncompletedSkills)) {
+      if (items.length > 0) {
+        prompt += `${cat}:\n`;
+        items.forEach(item => prompt += `- ${item}\n`);
+        prompt += `\n`;
+      }
+    }
+
+    prompt += `For each of the skills listed above, please suggest 3 practical projects I can build to master them:
+1. A simple beginner project.
+2. A medium-level project.
+3. An advanced project.
+The goal is for me to learn by doing and upload these projects to my GitHub as proof of my technical skills. Please provide clear, actionable descriptions for each project.`;
+
+    navigator.clipboard.writeText(prompt).then(() => {
+      showToast('✓ Learning prompt copied to clipboard!');
+    }).catch(() => {
+      const ta = document.createElement("textarea");
+      ta.value = prompt; ta.style.cssText = "position:fixed;opacity:0";
+      document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+      showToast('✓ Learning prompt copied to clipboard!');
+    });
+    return;
+  }
+
   if (!row) return;
   const sid = row.dataset.sid;
-  const db = loadDb();
   if (!db.skills[sid]) return;
 
   if (action.dataset.action === 'toggle') {
