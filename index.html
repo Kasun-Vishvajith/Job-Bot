@@ -997,9 +997,15 @@
     .action-row {
       display: flex;
       gap: 6px;
-      padding: 10px 18px 0;
+      padding: 10px 0 0;
       border-top: 1px dashed var(--rim);
       margin-top: 2px;
+    }
+
+    .action-btn.archive-btn:hover {
+      background: var(--amber-dim);
+      color: var(--amber);
+      border-color: rgba(217,119,6,0.25);
     }
 
     .action-btn {
@@ -1042,7 +1048,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 18px 14px;
+      padding: 8px 0 0;
     }
 
     .compat-track {
@@ -1213,6 +1219,11 @@
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
         Picked
         <span class="nav-badge" id="badge-picked">0</span>
+      </button>
+      <button class="nav-item" data-tab="archived">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+        Archive
+        <span class="nav-badge" id="badge-archived">0</span>
       </button>
     </nav>
 
@@ -1397,8 +1408,11 @@
     activeTab: "all",
     latestSeenAt: "",
     picked: JSON.parse(localStorage.getItem("kasun-job-picked") || "{}"),
-    ratings: JSON.parse(localStorage.getItem("kasun-job-ratings") || "{}")
+    ratings: JSON.parse(localStorage.getItem("kasun-job-ratings") || "{}"),
+    archived: JSON.parse(localStorage.getItem("kasun-job-archived") || "{}")
   };
+
+  function isArchived(id) { return Boolean(state.archived[id]); }
 
   const categoryImages = {
     "Data Analyst": { mark: "DA", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=640&q=72" },
@@ -1431,6 +1445,7 @@
   function saveChoices() {
     localStorage.setItem("kasun-job-picked", JSON.stringify(state.picked));
     localStorage.setItem("kasun-job-ratings", JSON.stringify(state.ratings));
+    localStorage.setItem("kasun-job-archived", JSON.stringify(state.archived));
   }
 
   function formatDate(v) {
@@ -1520,8 +1535,15 @@
     const rating = getControl("ratingFilter","mRatingFilter").value;
 
     return state.allJobs.filter(job => {
+      const archived = isArchived(job.id);
+      if (state.activeTab === "archived") {
+        if (!archived) return false;
+      } else {
+        if (archived) return false;
+      }
+
       if (state.activeTab === "picked" && !isPicked(job.id)) return false;
-      if (state.activeTab !== "all" && state.activeTab !== "picked") {
+      if (state.activeTab !== "all" && state.activeTab !== "picked" && state.activeTab !== "archived") {
         const isInternTab = state.activeTab === "Internship";
         const hasInternInTitle = /intern/i.test(job.title || "");
         if (!(job.category === state.activeTab || (isInternTab && hasInternInTitle))) return false;
@@ -1599,29 +1621,38 @@
   //  BADGES + STATS
   // ═══════════════════════════════════════════
   function updateBadges() {
-    const tabs = ["all","Data Analyst","Data Science","AI / ML","Software","Internship","picked"];
+    const tabs = ["all","Data Analyst","Data Science","AI / ML","Software","Internship","picked","archived"];
     for (const tab of tabs) {
       const el = document.getElementById(`badge-${tab}`);
       if (!el) continue;
-      if (tab === "all") el.textContent = state.allJobs.length;
-      else if (tab === "picked") el.textContent = state.allJobs.filter(j => isPicked(j.id)).length;
-      else if (tab === "Internship") {
-        // Match same logic as filteredJobs: category=Internship OR title contains "intern"
-        el.textContent = state.allJobs.filter(j =>
-          j.category === "Internship" || /intern/i.test(j.title || "")
-        ).length;
+      if (tab === "archived") {
+        el.textContent = state.allJobs.filter(j => isArchived(j.id)).length;
+      } else {
+        const nonArchivedJobs = state.allJobs.filter(j => !isArchived(j.id));
+        if (tab === "all") el.textContent = nonArchivedJobs.length;
+        else if (tab === "picked") el.textContent = nonArchivedJobs.filter(j => isPicked(j.id)).length;
+        else if (tab === "Internship") {
+          el.textContent = nonArchivedJobs.filter(j =>
+            j.category === "Internship" || /intern/i.test(j.title || "")
+          ).length;
+        }
+        else el.textContent = nonArchivedJobs.filter(j => j.category === tab).length;
       }
-      else el.textContent = state.allJobs.filter(j => j.category === tab).length;
     }
   }
 
   function updateStats(visible) {
-    const picked = state.allJobs.filter(j => isPicked(j.id)).length;
-    const newC = state.allJobs.filter(j => j.seen_at === state.latestSeenAt).length;
-    document.getElementById("totalJobs").textContent = state.allJobs.length;
+    const activeJobs = state.allJobs.filter(j => !isArchived(j.id));
+    const picked = activeJobs.filter(j => isPicked(j.id)).length;
+    const newC = activeJobs.filter(j => j.seen_at === state.latestSeenAt).length;
+    document.getElementById("totalJobs").textContent = activeJobs.length;
     document.getElementById("newJobs").textContent = newC;
     document.getElementById("pickedJobs").textContent = picked;
-    document.getElementById("resultInfo").textContent = `${visible} of ${state.allJobs.length} jobs · Latest: ${formatDate(state.latestSeenAt)}`;
+    
+    const totalCount = state.activeTab === "archived" 
+      ? state.allJobs.filter(j => isArchived(j.id)).length 
+      : activeJobs.length;
+    document.getElementById("resultInfo").textContent = `${visible} of ${totalCount} jobs · Latest: ${formatDate(state.latestSeenAt)}`;
     updateBadges();
   }
 
@@ -1664,6 +1695,7 @@
   function renderCard(job, i) {
     const picked = isPicked(job.id);
     const rating = getRating(job.id);
+    const archived = isArchived(job.id);
     const img = categoryImages[job.category] || categoryImages.General;
     const isNew = job.seen_at === state.latestSeenAt;
     const compatData = getJobCompat(job.id);
@@ -1723,6 +1755,15 @@
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               ${compatData ? '✓ Mapped' : 'Import JSON'}
             </button>
+            <button class="action-btn archive-btn" data-action="${archived ? 'unarchive' : 'archive'}" title="${archived ? 'Restore job from archive' : 'Archive job'}">
+              ${archived ? `
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><polyline points="10 16 12 14 14 16"/><polyline points="12 14 12 9"/></svg>
+                Restore
+              ` : `
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+                Archive
+              `}
+            </button>
             <button class="action-btn copy-id-btn" data-action="copy-id" title="Copy Job ID: ${escHtml(job.id)}" style="flex:0;padding:0 10px">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             </button>
@@ -1780,6 +1821,20 @@
     }
     const id = card.dataset.id;
     const job = state.allJobs.find(j => j.id === id);
+
+    if (action.dataset.action === "archive") {
+      state.archived[id] = true;
+      saveChoices();
+      render();
+      return;
+    }
+
+    if (action.dataset.action === "unarchive") {
+      state.archived[id] = false;
+      saveChoices();
+      render();
+      return;
+    }
 
     if (action.dataset.action === "copy-prompt") {
       if (!job) return;
