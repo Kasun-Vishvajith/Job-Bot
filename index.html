@@ -1354,6 +1354,12 @@
       if (!el) continue;
       if (tab === "all") el.textContent = state.allJobs.length;
       else if (tab === "picked") el.textContent = state.allJobs.filter(j => isPicked(j.id)).length;
+      else if (tab === "Internship") {
+        // Match same logic as filteredJobs: category=Internship OR title contains "intern"
+        el.textContent = state.allJobs.filter(j =>
+          j.category === "Internship" || /intern/i.test(j.title || "")
+        ).length;
+      }
       else el.textContent = state.allJobs.filter(j => j.category === tab).length;
     }
   }
