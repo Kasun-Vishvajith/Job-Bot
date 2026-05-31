@@ -443,6 +443,27 @@
       box-shadow: 0 0 0 3px var(--blue-dim);
     }
 
+    .card.viewed-card {
+      opacity: 0.85;
+    }
+
+    .card.viewed-card::after {
+      content: "VIEWED";
+      position: absolute;
+      top: 18px;
+      right: -32px;
+      background: #10b981;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 4px 32px;
+      transform: rotate(45deg);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 20;
+      pointer-events: none;
+    }
+
     .card-thumb {
       position: relative;
       height: 130px;
@@ -1753,7 +1774,7 @@
     const delay = Math.min(i * 30, 300);
 
     return `
-      <article class="card ${picked ? "picked-card" : ""}" data-id="${escHtml(job.id)}" data-url="${escHtml(url)}" style="animation-delay:${delay}ms">
+      <article class="card ${picked ? "picked-card" : ""} ${viewed ? "viewed-card" : ""}" data-id="${escHtml(job.id)}" data-url="${escHtml(url)}" style="animation-delay:${delay}ms">
         <div class="card-thumb">
           <img src="${escHtml(img.image)}" alt="" loading="lazy" decoding="async">
           <div class="thumb-overlay">
@@ -1784,7 +1805,6 @@
             <span class="meta-pill source">${escHtml(job.source)}</span>
             <span class="meta-pill date">${formatDateShort(job.seen_at)}</span>
             ${isNew ? `<span class="meta-pill new-badge">NEW</span>` : ""}
-            ${viewed ? `<span class="meta-pill viewed-badge" style="color: #10b981; background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.2);">✓ Viewed</span>` : ""}
             ${job.work_type ? `<span class="meta-pill">${escHtml(job.work_type)}</span>` : ""}
             ${job.location ? `<span class="meta-pill">${escHtml(job.location)}</span>` : ""}
           </div>
@@ -1871,10 +1891,7 @@
       if (!state.viewed[id]) {
         state.viewed[id] = true;
         saveChoices();
-        const metaList = card.querySelector(".meta-list");
-        if (metaList && !metaList.querySelector(".viewed-badge")) {
-          metaList.insertAdjacentHTML("beforeend", `<span class="meta-pill viewed-badge" style="color: #10b981; background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.2);">✓ Viewed</span>`);
-        }
+        card.classList.add("viewed-card");
       }
     }
 
