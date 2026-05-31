@@ -2609,7 +2609,29 @@
       "salary": null,
       "description": "",
       "seen_at": "2026-05-31T11:38:34.197447"
+    },
+    "84133ac54279557fdfb4a356ce8d4a8e": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-power-bi-excel-sql-dashboard-projects-at-argo-intern-4422581176",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T14:39:25.806027"
+    },
+    "04436b665c4f1de19df17355e7888c89": {
+      "title": "Machine Learning Intern",
+      "company": "Webs IT Solution",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/machine-learning-intern-at-webs-it-solution-4421616177",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T14:39:25.806027"
     }
   },
-  "last_updated": "2026-05-31T11:38:34.197993"
+  "last_updated": "2026-05-31T14:39:25.806655"
 }
