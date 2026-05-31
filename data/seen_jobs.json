@@ -2631,7 +2631,29 @@
       "salary": null,
       "description": "",
       "seen_at": "2026-05-31T14:39:25.806027"
+    },
+    "9ed24b9224eb9535d6da2aa0fc3e9127": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-power-bi-excel-sql-dashboard-projects-at-argo-intern-4422571549",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T17:01:54.489575"
+    },
+    "394b9841938e8a175c08e73b9747f70b": {
+      "title": "Intern, Data Science (R-19011)",
+      "company": "Dun & Bradstreet",
+      "source": "LinkedIn",
+      "location": "Chennai, Tamil Nadu, India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/intern-data-science-r-19011-at-dun-bradstreet-4421628230",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T17:01:54.489575"
     }
   },
-  "last_updated": "2026-05-31T14:39:25.806655"
+  "last_updated": "2026-05-31T17:01:54.489965"
 }
