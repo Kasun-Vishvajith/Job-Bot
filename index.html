@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Kasun's Job Board</title>
+  <meta name="description" content="Kasun Vishvajith's personal job board — tracks all sent applications with ratings, filters, and skill compatibility.">
+  <title>Kasun's Job Board · Sent Applications</title>
+  <link rel="prefetch" href="roadmap.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
@@ -991,6 +993,15 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* ─── PAGE TRANSITION ─── */
+    #pg-trans {
+      position: fixed; inset: 0;
+      background: var(--void);
+      z-index: 99999; opacity: 1;
+      transition: opacity 280ms ease;
+      pointer-events: all;
+    }
+
     .card { animation: fadeUp 300ms ease backwards; }
 
     /* ─── ACTION ROW (Copy Prompt + Import JSON) ─── */
@@ -1167,6 +1178,7 @@
   </style>
 </head>
 <body>
+<div id="pg-trans" aria-hidden="true"></div>
 
 <div class="layout">
 
@@ -1486,13 +1498,30 @@
   }
 
   async function loadJobs() {
+    // 1. Try session cache first for instant render
+    try {
+      const cached = sessionStorage.getItem("seen-jobs-cache");
+      if (cached) {
+        parseJobs(JSON.parse(cached));
+      }
+    } catch (e) {
+      console.warn("Session cache parse error", e);
+    }
+
+    // 2. Fetch fresh jobs in background
     try {
       const r = await fetch("data/seen_jobs.json", { cache: "no-store" });
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      parseJobs(await r.json());
-    } catch {
-      document.getElementById("fileFallback").style.display = "block";
-      document.getElementById("resultInfo").textContent = "Select data/seen_jobs.json to load your jobs.";
+      const json = await r.json();
+      sessionStorage.setItem("seen-jobs-cache", JSON.stringify(json));
+      parseJobs(json);
+    } catch (err) {
+      console.error("Failed background fetch for jobs", err);
+      // Fallback only if we have no jobs at all
+      if (!state.allJobs || state.allJobs.length === 0) {
+        document.getElementById("fileFallback").style.display = "block";
+        document.getElementById("resultInfo").textContent = "Select data/seen_jobs.json to load your jobs.";
+      }
     }
   }
 
@@ -2095,6 +2124,32 @@ ${'━'.repeat(50)}
   loadJobs();
   updateRoadmapBadge();
   handleHighlight();
+
+  // Page transitions
+  const pgTrans = document.getElementById('pg-trans');
+  if (pgTrans) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        pgTrans.style.opacity = '0';
+        pgTrans.style.pointerEvents = 'none';
+      });
+    });
+
+    document.addEventListener('click', e => {
+      const link = e.target.closest('a[href]');
+      if (!link || link.target === '_blank') return;
+      try {
+        const url = new URL(link.href, location.href);
+        if (url.hostname !== location.hostname) return;
+        if (url.pathname === location.pathname && !url.search) return;
+        e.preventDefault();
+        const href = link.href;
+        pgTrans.style.opacity = '1';
+        pgTrans.style.pointerEvents = 'all';
+        setTimeout(() => { window.location.href = href; }, 290);
+      } catch {}
+    });
+  }
 </script>
 </body>
 </html>
