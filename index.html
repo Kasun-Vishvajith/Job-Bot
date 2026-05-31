@@ -1450,7 +1450,8 @@
     latestSeenAt: "",
     picked: JSON.parse(localStorage.getItem("kasun-job-picked") || "{}"),
     ratings: JSON.parse(localStorage.getItem("kasun-job-ratings") || "{}"),
-    archived: JSON.parse(localStorage.getItem("kasun-job-archived") || "{}")
+    archived: JSON.parse(localStorage.getItem("kasun-job-archived") || "{}"),
+    viewed: JSON.parse(localStorage.getItem("kasun-job-viewed") || "{}")
   };
 
   function isArchived(id) { return Boolean(state.archived[id]); }
@@ -1487,6 +1488,7 @@
     localStorage.setItem("kasun-job-picked", JSON.stringify(state.picked));
     localStorage.setItem("kasun-job-ratings", JSON.stringify(state.ratings));
     localStorage.setItem("kasun-job-archived", JSON.stringify(state.archived));
+    localStorage.setItem("kasun-job-viewed", JSON.stringify(state.viewed));
   }
 
   function formatDate(v) {
@@ -1743,6 +1745,7 @@
     const picked = isPicked(job.id);
     const rating = getRating(job.id);
     const archived = isArchived(job.id);
+    const viewed = Boolean(state.viewed[job.id]);
     const img = categoryImages[job.category] || categoryImages.General;
     const isNew = job.seen_at === state.latestSeenAt;
     const compatData = getJobCompat(job.id);
@@ -1781,6 +1784,7 @@
             <span class="meta-pill source">${escHtml(job.source)}</span>
             <span class="meta-pill date">${formatDateShort(job.seen_at)}</span>
             ${isNew ? `<span class="meta-pill new-badge">NEW</span>` : ""}
+            ${viewed ? `<span class="meta-pill viewed-badge" style="color: #10b981; background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.2);">✓ Viewed</span>` : ""}
             ${job.work_type ? `<span class="meta-pill">${escHtml(job.work_type)}</span>` : ""}
             ${job.location ? `<span class="meta-pill">${escHtml(job.location)}</span>` : ""}
           </div>
@@ -1859,8 +1863,22 @@
   document.getElementById("jobsRoot").addEventListener("click", e => {
     const action = e.target.closest("[data-action]");
     const link = e.target.closest("a");
-    if (!action && link) return;
     const card = e.target.closest(".card");
+    
+    // Mark as viewed on click (if it opens a link or the card itself)
+    if (card && (link || !action)) {
+      const id = card.dataset.id;
+      if (!state.viewed[id]) {
+        state.viewed[id] = true;
+        saveChoices();
+        const metaList = card.querySelector(".meta-list");
+        if (metaList && !metaList.querySelector(".viewed-badge")) {
+          metaList.insertAdjacentHTML("beforeend", `<span class="meta-pill viewed-badge" style="color: #10b981; background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.2);">✓ Viewed</span>`);
+        }
+      }
+    }
+
+    if (!action && link) return;
     if (!card) return;
     if (!action) {
       window.open(card.dataset.url, "_blank", "noopener,noreferrer");
