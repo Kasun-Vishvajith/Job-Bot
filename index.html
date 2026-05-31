@@ -1305,6 +1305,10 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         New Batch
       </button>
+      <button class="topbar-btn" id="btnImportNewJob" style="color: var(--teal); border-color: rgba(13,148,136,0.22);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Import Job
+      </button>
       <button class="topbar-btn" id="clearFilters">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
         Clear
@@ -1365,6 +1369,7 @@
       <div id="resultInfo">Loading jobs…</div>
       <div class="result-actions" id="resultActions">
         <button class="topbar-btn" id="mShowNew" style="display:none">★ New Batch</button>
+        <button class="topbar-btn" id="mImportNewJob" style="display:none; color: var(--teal); border-color: rgba(13,148,136,0.22);">Import Job</button>
         <button class="topbar-btn" id="mClearFilters" style="display:none">Clear Filters</button>
         <button class="topbar-btn danger" id="mClearPicked" style="display:none">Reset Picks</button>
       </div>
@@ -1373,6 +1378,42 @@
     <section id="jobsRoot" aria-live="polite"></section>
   </main>
 
+</div>
+
+<!-- ═══ IMPORT NEW JOB MODAL ═══ -->
+<div class="modal-overlay" id="importNewJobModal" role="dialog" aria-modal="true" aria-labelledby="modalNewJobTitle">
+  <div class="modal-box" style="max-width: 580px;">
+    <div class="modal-head">
+      <div class="modal-title" id="modalNewJobTitle">Import New Job Manually</div>
+      <div class="modal-sub">Use the AI prompt to extract job details, then paste the JSON here.</div>
+    </div>
+    <div class="modal-body" style="display: flex; flex-direction: column; gap: 16px;">
+      <div style="background: var(--surface-2); padding: 14px; border-radius: var(--r-sm); border: 1px solid var(--rim);">
+        <strong style="display:block; margin-bottom: 6px; font-size: 13px; color: var(--ink);">Step 1: Copy Prompt for AI Assistant</strong>
+        <p style="font-size: 12px; color: var(--ink-2); margin-bottom: 12px;">
+          This prompt tells the AI to extract standard fields from any job description.
+        </p>
+        <button class="topbar-btn" id="btnCopyNewJobPrompt" style="background: var(--violet-dim); color: var(--violet); border-color: rgba(124,58,237,0.22); width: 100%; justify-content: center;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right: 5px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Extraction Prompt
+        </button>
+      </div>
+      <div>
+        <strong style="display:block; margin-bottom: 6px; font-size: 13px; color: var(--ink);">Step 2: Paste AI Response JSON</strong>
+        <p style="font-size: 12px; color: var(--ink-2); margin-bottom: 8px;">
+          Paste the JSON object returned by the AI below.
+        </p>
+        <textarea class="modal-textarea" id="newJobJson" placeholder='{ "id": "...", "title": "...", ... }' style="height: 150px;"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel" id="newJobCancel">Cancel</button>
+      <button class="modal-confirm" id="newJobConfirm" style="background: var(--teal);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-right:5px"><polyline points="20 6 9 17 4 12"/></svg>
+        Add Job
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- ═══ IMPORT JSON MODAL ═══ -->
@@ -1478,7 +1519,9 @@
   //  PARSE + LOAD
   // ═══════════════════════════════════════════
   function parseJobs(data) {
-    const raw = data.seen_jobs || {};
+    const serverRaw = data.seen_jobs || {};
+    const customRaw = JSON.parse(localStorage.getItem('kasun-custom-jobs') || '{}');
+    const raw = { ...serverRaw, ...customRaw };
     const jobs = Object.entries(raw).map(([id, job]) => ({
       id,
       title: normalize(job.title),
@@ -1506,6 +1549,10 @@
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       parseJobs(await r.json());
     } catch {
+      const customRaw = JSON.parse(localStorage.getItem('kasun-custom-jobs') || '{}');
+      if (Object.keys(customRaw).length > 0) {
+        parseJobs({ seen_jobs: {} });
+      }
       document.getElementById("fileFallback").style.display = "block";
       document.getElementById("resultInfo").textContent = "Select data/seen_jobs.json to load your jobs.";
     }
@@ -1928,9 +1975,11 @@
   }
 
   document.getElementById("showNew").addEventListener("click", showNewBatch);
+  document.getElementById("btnImportNewJob").addEventListener("click", openNewJobModal);
   document.getElementById("clearFilters").addEventListener("click", clearFilters);
   document.getElementById("clearPicked").addEventListener("click", clearPicked);
   document.getElementById("mShowNew")?.addEventListener("click", showNewBatch);
+  document.getElementById("mImportNewJob")?.addEventListener("click", openNewJobModal);
   document.getElementById("mClearFilters")?.addEventListener("click", clearFilters);
   document.getElementById("mClearPicked")?.addEventListener("click", clearPicked);
 
@@ -1962,7 +2011,7 @@
     const ra = document.getElementById("resultActions");
     if (mf) mf.style.display = isMobile ? "flex" : "none";
     // Show mobile action buttons in result bar
-    ["mShowNew","mClearFilters","mClearPicked"].forEach(id => {
+    ["mShowNew","mImportNewJob","mClearFilters","mClearPicked"].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.style.display = isMobile ? "" : "none";
     });
@@ -2114,6 +2163,79 @@ ${'━'.repeat(50)}
       render();
       updateRoadmapBadge();
     }
+  });
+
+  // ── Import New Job Modal ──────────────────────────────────────────────
+  const importNewModal = document.getElementById('importNewJobModal');
+
+  function openNewJobModal() {
+    document.getElementById('newJobJson').value = '';
+    importNewModal.classList.add('open');
+    setTimeout(() => document.getElementById('newJobJson').focus(), 50);
+  }
+
+  function closeNewJobModal() {
+    importNewModal.classList.remove('open');
+  }
+
+  document.getElementById('newJobCancel').addEventListener('click', closeNewJobModal);
+  importNewModal.addEventListener('click', e => {
+    if (e.target === importNewModal) closeNewJobModal();
+  });
+
+  document.getElementById('btnCopyNewJobPrompt').addEventListener('click', e => {
+    const btn = e.currentTarget;
+    const now = new Date().toISOString();
+    const prompt = `You are a job parser. Read the job description and return ONLY a valid JSON object representing the job details. Do NOT include markdown formatting or code blocks.
+
+Use this exact JSON structure:
+{
+  "id": "unique-kebab-case-id",
+  "title": "Job Title",
+  "company": "Company Name",
+  "source": "Manual Import",
+  "location": "Location (City, Country, or Remote)",
+  "work_type": "Remote / Hybrid / On-site",
+  "salary": "Salary info if any, otherwise null",
+  "description": "A very brief 1-2 sentence summary of the role",
+  "link": "URL to the job post, if any, otherwise null",
+  "seen_at": "${now}"
+}
+
+Please extract the details from the following job posting:
+`;
+    navigator.clipboard.writeText(prompt).then(() => {
+      btn.textContent = '✓ Prompt Copied!';
+      setTimeout(() => {
+        btn.innerHTML = \`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right: 5px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Extraction Prompt\`;
+      }, 2200);
+    });
+  });
+
+  document.getElementById('newJobConfirm').addEventListener('click', () => {
+    const jsonStr = document.getElementById('newJobJson').value.trim();
+    if (!jsonStr) { alert('Please paste the AI JSON first.'); return; }
+    
+    let jobData;
+    try {
+      jobData = JSON.parse(jsonStr);
+    } catch (e) {
+      alert('Invalid JSON. Please ensure it is correctly formatted.');
+      return;
+    }
+
+    if (!jobData.id || !jobData.title) {
+      alert('JSON must include at least an "id" and "title".');
+      return;
+    }
+
+    const customJobs = JSON.parse(localStorage.getItem('kasun-custom-jobs') || '{}');
+    customJobs[jobData.id] = jobData;
+    localStorage.setItem('kasun-custom-jobs', JSON.stringify(customJobs));
+
+    // Reload jobs
+    loadJobs();
+    closeNewJobModal();
   });
 
   // ── Roadmap badge (shows avg compat %) ────────────────────────────────
