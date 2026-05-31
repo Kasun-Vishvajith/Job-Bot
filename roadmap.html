@@ -645,6 +645,106 @@
       .skill-jobs { max-width: 150px; }
       .job-overview-list { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
     }
+
+    /* ─── MODALS ─── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+ 
+    .modal-overlay.open { display: flex; }
+ 
+    .modal-box {
+      background: var(--surface-0);
+      border-radius: var(--r);
+      box-shadow: var(--sh);
+      width: 100%;
+      max-width: 520px;
+      animation: fadeUp 220ms ease;
+    }
+ 
+    .modal-head {
+      padding: 22px 24px 16px;
+      border-bottom: 1px solid var(--rim);
+    }
+ 
+    .modal-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+ 
+    .modal-sub {
+      font-size: 12px;
+      color: var(--ink-3);
+    }
+ 
+    .modal-body {
+      padding: 18px 24px;
+    }
+ 
+    .modal-textarea {
+      width: 100%;
+      height: 180px;
+      resize: vertical;
+      border: 1px solid var(--rim);
+      border-radius: var(--r-sm);
+      background: var(--surface-2);
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 160ms, box-shadow 160ms;
+      font-family: 'Courier New', monospace;
+      line-height: 1.5;
+    }
+ 
+    .modal-textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-dim); }
+ 
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 0 24px 20px;
+    }
+ 
+    .modal-cancel {
+      height: 38px;
+      padding: 0 18px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--rim);
+      background: var(--surface-2);
+      color: var(--ink-2);
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 150ms;
+    }
+ 
+    .modal-cancel:hover { background: var(--surface-3); }
+ 
+    .modal-confirm {
+      height: 38px;
+      padding: 0 20px;
+      border-radius: var(--r-sm);
+      border: none;
+      background: var(--teal);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background 150ms, transform 100ms;
+    }
+ 
+    .modal-confirm:hover { background: #0f766e; }
+    .modal-confirm:active { transform: scale(0.97); }
   </style>
 </head>
 <body>
@@ -741,6 +841,11 @@
       <option value="all">All jobs</option>
     </select>
 
+    <button class="topbar-btn" id="btnRestructure" style="border-color: rgba(124,58,237,0.22); color: var(--violet);">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"/><path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5Z"/><path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z"/></svg>
+      Restructure DB
+    </button>
+
     <button class="topbar-btn" id="btnExport">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Export DB
@@ -762,6 +867,43 @@
 </button>
 
 <div class="toast" id="toast"></div>
+
+<!-- ═══ RESTRUCTURE MODAL ═══ -->
+<div class="modal-overlay" id="restructureModal" role="dialog" aria-modal="true" aria-labelledby="restructureModalTitle">
+  <div class="modal-box" style="max-width: 580px;">
+    <div class="modal-head">
+      <div class="modal-title" id="restructureModalTitle">Clean & Restructure Database</div>
+      <div class="modal-sub">Consolidate duplicates (e.g. "ML" & "Machine Learning") using an AI assistant.</div>
+    </div>
+    <div class="modal-body" style="display: flex; flex-direction: column; gap: 16px;">
+      <div style="background: var(--surface-2); padding: 14px; border-radius: var(--r-sm); border: 1px solid var(--rim);">
+        <strong style="display:block; margin-bottom: 6px; font-size: 13px; color: var(--ink);">Step 1: Copy Prompt for AI Assistant</strong>
+        <p style="font-size: 12px; color: var(--ink-2); margin-bottom: 12px;">
+          This prompt lists all your current skills. The AI will consolidate duplicates and map them.
+        </p>
+        <button class="topbar-btn" id="btnCopyRestructurePrompt" style="background: var(--violet-dim); color: var(--violet); border-color: rgba(124,58,237,0.22); width: 100%; justify-content: center;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right: 5px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Consolidation Prompt
+        </button>
+      </div>
+
+      <div>
+        <strong style="display:block; margin-bottom: 6px; font-size: 13px; color: var(--ink);">Step 2: Paste AI Response JSON</strong>
+        <p style="font-size: 12px; color: var(--ink-2); margin-bottom: 8px;">
+          Paste the JSON object returned by the AI below. Completion checkboxes will be merged automatically.
+        </p>
+        <textarea class="modal-textarea" id="restructureJson" placeholder='{ "skills": { ... }, "mappings": { ... } }' style="height: 150px;"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel" id="restructureCancel">Cancel</button>
+      <button class="modal-confirm" id="restructureConfirm" style="background: var(--violet);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-right:5px"><polyline points="20 6 9 17 4 12"/></svg>
+        Apply Restructuring
+      </button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ═══════════════════════════════════════════
@@ -1119,6 +1261,186 @@ document.getElementById('btnClearAll').addEventListener('click', () => {
 // ═══════════════════════════════════════════
 document.getElementById('toTop').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ═══════════════════════════════════════════
+//  RESTUCTURE / MERGING UTILITIES
+// ═══════════════════════════════════════════
+function buildRestructurePrompt(db) {
+  const currentSkills = Object.entries(db.skills).map(([id, s]) => ({
+    id,
+    name: s.name,
+    category: s.category,
+    difficulty: s.difficulty || null
+  }));
+
+  return `You are a skill database normalization expert. Review the following list of skills and consolidate synonyms, duplicates, or near-identical items (e.g. merge "ML", "Machine Learning" and "Machine learning techniques" into a single canonical "Machine Learning" skill).
+
+Current Skill List:
+${JSON.stringify(currentSkills, null, 2)}
+
+Instructions:
+1. Deduplicate/merge skills that refer to the same capability.
+2. Group them under a clean, consistent "canonical" name.
+3. For each consolidated skill, assign a clean kebab-case ID (e.g. "machine-learning").
+4. Provide a mapping from ALL old IDs to the new canonical IDs.
+5. Return ONLY a valid JSON object in this exact structure — no explanation, no markdown formatting, no code fences.
+
+Expected structure:
+{
+  "skills": {
+    "canonical-id-1": {
+      "name": "Canonical Skill Name",
+      "category": "Technical",
+      "difficulty": "medium"
+    }
+  },
+  "mappings": {
+    "old-id-1": "canonical-id-1",
+    "old-id-2": "canonical-id-1"
+  }
+}
+
+Note:
+- category must be one of: Technical, Soft Skill, Language, Education, Experience
+- difficulty should match the most relevant level, or be null if not clear.
+- Include EVERY single old ID in the "mappings" object, mapping it to its chosen canonical ID.
+`;
+}
+
+function applyRestructuring(jsonText) {
+  let parsed;
+  try {
+    parsed = JSON.parse(jsonText.trim());
+  } catch (err) {
+    alert('Invalid JSON structure. Please paste the exact JSON returned by the AI.');
+    return false;
+  }
+
+  const newSkills = parsed.skills;
+  const mappings = parsed.mappings;
+
+  if (!newSkills || typeof newSkills !== 'object' || !mappings || typeof mappings !== 'object') {
+    alert('Invalid format. The JSON must contain "skills" and "mappings" objects.');
+    return false;
+  }
+
+  const db = loadDb();
+  const oldSkills = db.skills;
+  const consolidatedSkills = {};
+
+  // 1. Initialize the new canonical list
+  for (const [newId, spec] of Object.entries(newSkills)) {
+    consolidatedSkills[newId] = {
+      name: spec.name,
+      category: spec.category || 'Technical',
+      difficulty: spec.difficulty || null,
+      completed: false,
+      jobs: []
+    };
+  }
+
+  // 2. Map completion status and jobs from old skills
+  for (const [oldId, oldSpec] of Object.entries(oldSkills)) {
+    const newId = mappings[oldId];
+    if (!newId || !consolidatedSkills[newId]) {
+      // If old skill isn't mapped, preserve it to prevent data loss
+      if (!consolidatedSkills[oldId]) {
+        consolidatedSkills[oldId] = { ...oldSpec };
+      }
+      continue;
+    }
+
+    // Merge completed: if any synonymous old skill was checked, the canonical one is checked
+    if (oldSpec.completed) {
+      consolidatedSkills[newId].completed = true;
+    }
+
+    // Accumulate jobs
+    if (oldSpec.jobs && Array.isArray(oldSpec.jobs)) {
+      for (const jid of oldSpec.jobs) {
+        if (!consolidatedSkills[newId].jobs.includes(jid)) {
+          consolidatedSkills[newId].jobs.push(jid);
+        }
+      }
+    }
+  }
+
+  // 3. Update job requirements lists
+  const updatedJobRequirements = {};
+  for (const [jid, jr] of Object.entries(db.job_requirements)) {
+    const newJobSkills = [];
+    if (jr.skills && Array.isArray(jr.skills)) {
+      for (const oldSid of jr.skills) {
+        const newSid = mappings[oldSid] || oldSid;
+        if (consolidatedSkills[newSid] && !newJobSkills.includes(newSid)) {
+          newJobSkills.push(newSid);
+        }
+      }
+    }
+    updatedJobRequirements[jid] = {
+      title: jr.title || '',
+      company: jr.company || '',
+      skills: newJobSkills
+    };
+  }
+
+  db.skills = consolidatedSkills;
+  db.job_requirements = updatedJobRequirements;
+
+  saveDb(db);
+  return true;
+}
+
+// Restructure modal events
+const restModal = document.getElementById('restructureModal');
+
+document.getElementById('btnRestructure').addEventListener('click', () => {
+  document.getElementById('restructureJson').value = '';
+  restModal.classList.add('open');
+});
+
+document.getElementById('restructureCancel').addEventListener('click', () => {
+  restModal.classList.remove('open');
+});
+
+restModal.addEventListener('click', e => {
+  if (e.target === restModal) restModal.classList.remove('open');
+});
+
+document.getElementById('btnCopyRestructurePrompt').addEventListener('click', e => {
+  const db = loadDb();
+  if (Object.keys(db.skills).length === 0) {
+    alert('You have no skills to consolidate yet.');
+    return;
+  }
+  const prompt = buildRestructurePrompt(db);
+  const btn = e.currentTarget;
+  
+  navigator.clipboard.writeText(prompt).then(() => {
+    btn.textContent = '✓ Prompt Copied!';
+    setTimeout(() => {
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right: 5px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Consolidation Prompt`;
+    }, 2200);
+  }).catch(() => {
+    const ta = document.createElement("textarea");
+    ta.value = prompt; ta.style.cssText = "position:fixed;opacity:0";
+    document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+    btn.textContent = '✓ Prompt Copied!';
+    setTimeout(() => {
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right: 5px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Consolidation Prompt`;
+    }, 2200);
+  });
+});
+
+document.getElementById('restructureConfirm').addEventListener('click', () => {
+  const json = document.getElementById('restructureJson').value.trim();
+  if (!json) { alert('Please paste the AI consolidation JSON response first.'); return; }
+  if (applyRestructuring(json)) {
+    restModal.classList.remove('open');
+    render();
+    showToast('✓ Skill database consolidated successfully!');
+  }
 });
 
 // ═══════════════════════════════════════════
