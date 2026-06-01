@@ -34,6 +34,13 @@ class JobDatabase:
         self.data["last_updated"] = datetime.utcnow().isoformat()
         with open(self.db_path, "w", encoding="utf-8") as f:
             json.dump(self.data, f, indent=2)
+            
+        # Also write a JS file for local browser access without a server
+        js_path = self.db_path.with_suffix(".js")
+        with open(js_path, "w", encoding="utf-8") as f:
+            f.write("const SEEN_JOBS_DATA = ")
+            json.dump(self.data, f, indent=2)
+            f.write(";\n")
 
     def get_new_jobs(self, jobs: list[dict]) -> list[dict]:
         """Return only jobs whose IDs haven't been seen before."""
