@@ -2697,7 +2697,40 @@
       "salary": null,
       "description": "",
       "seen_at": "2026-05-31T22:55:02.180799"
+    },
+    "e7ca2b2223a2414f98323eddaf61e7ac": {
+      "title": "Manufacturing Data Analyst Intern",
+      "company": "Zone 5 Technologies",
+      "source": "LinkedIn",
+      "location": "San Luis Obispo, CA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/manufacturing-data-analyst-intern-at-zone-5-technologies-4418549335",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-06-01T05:49:27.356316"
+    },
+    "509f1579250f29738bdae2dab6db07d5": {
+      "title": "Software Developer (Internship)",
+      "company": "ALTECH",
+      "source": "LinkedIn",
+      "location": "Barcelona, Catalonia, Spain",
+      "work_type": "Remote",
+      "link": "https://es.linkedin.com/jobs/view/software-developer-internship-at-altech-4418389809",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-06-01T05:49:27.356316"
+    },
+    "50bf8ee8c161aac65303787c09c45a47": {
+      "title": "Summer Internship - Data Science Intern",
+      "company": "Uphold",
+      "source": "LinkedIn",
+      "location": "Porto, Braga, Portugal",
+      "work_type": "Remote",
+      "link": "https://pt.linkedin.com/jobs/view/summer-internship-data-science-intern-at-uphold-4419811885",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-06-01T05:49:27.356316"
     }
   },
-  "last_updated": "2026-05-31T22:55:02.181209"
+  "last_updated": "2026-06-01T05:49:27.356764"
 }
