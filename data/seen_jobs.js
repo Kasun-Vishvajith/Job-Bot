@@ -1,0 +1,2703 @@
+const SEEN_JOBS_DATA = {
+  "seen_jobs": {
+    "d68ca28658aa3806e3ffc412c7a97478": {
+      "title": "Machine Learning Intern (Paid)",
+      "company": "SportsBUZZ",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "a703e79479b04cf3f1e2b513098f3ebf": {
+      "title": "Software Developer (Paid Internship)",
+      "company": "Dev Centre House Ireland",
+      "source": "LinkedIn",
+      "location": "Vienna, Austria",
+      "work_type": "Remote",
+      "link": "https://at.linkedin.com/jobs/view/software-developer-paid-internship-at-dev-centre-house-ireland-4416879888",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "aa3c2a8f9893b78010ac7a5dd6542031": {
+      "title": "(Junior) Data Analyst",
+      "company": "OMNi-BiOTiC\u00ae by Institut AllergoSan",
+      "source": "LinkedIn",
+      "location": "Graz, Styria, Austria",
+      "work_type": "Remote",
+      "link": "https://at.linkedin.com/jobs/view/junior-data-analyst-at-omni-biotic%C2%AE-by-institut-allergosan-4419881558",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "e111dd74b4ffb697ec95bba50eba3eda": {
+      "title": "(Junior) Data Analyst (m/w/d)",
+      "company": "MONTANA",
+      "source": "LinkedIn",
+      "location": "Gr\u00fcnwald, Bavaria, Germany",
+      "work_type": "Remote",
+      "link": "https://de.linkedin.com/jobs/view/junior-data-analyst-m-w-d-at-montana-4417654115",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "e36e53d2d71a1879ce0f0cabb8f98a7e": {
+      "title": "[Intern] Software Engineer for AI model training and SRE - MFG & TPG",
+      "company": "Micron Technology",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f0fd2406d3107086f09f4a1aaafb2eb1": {
+      "title": "[Sept 2026 Intake - Fresh Grad Only] Business Operations Data Analyst",
+      "company": "Sandisk",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "ee03c68c8278ea64fe2aee39defa0951": {
+      "title": "Advanced Data Science Associate",
+      "company": "ZS",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "5aedc2a51a70650b17ebd531ae743142": {
+      "title": "AI and Data Analytics Intern",
+      "company": "Emerson",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "fe3cdebe15fa4219234f77b09a45c974": {
+      "title": "AI Application Intern",
+      "company": "Antalpha",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "c87ff300888918d929e98a50f902be75": {
+      "title": "AI Data Scientist Intern \u2013 Fall 2026",
+      "company": "BNP Paribas",
+      "source": "LinkedIn",
+      "location": "Montreal, Quebec, Canada",
+      "work_type": "Remote",
+      "link": "https://ca.linkedin.com/jobs/view/ai-data-scientist-intern-%E2%80%93-fall-2026-at-bnp-paribas-4409626072",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "25d2cc2327b1c0cd0fd58279e2eaf1eb": {
+      "title": "AI Developer Intern",
+      "company": "Forage AI",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "359fb6b0943b1cef24abbbf5b6c0e65b": {
+      "title": "AI Engineer - Internship(EN)",
+      "company": "Van Lanschot Kempen",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "b1367b03ba0887660446e584963df858": {
+      "title": "AI Engineer Intern",
+      "company": "iplairani.com",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "550dabf31c36be54fb887821753156d8": {
+      "title": "AI Intern",
+      "company": "Delaplex",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "45700c025a30b86e779ff60187069db0": {
+      "title": "AI Intern \u2013 Co-op Fall 2026",
+      "company": "Exact Sciences",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "68f24f7673d59535761408e0a4e39215": {
+      "title": "AI Software Engineering Graduate Intern",
+      "company": "Intel",
+      "source": "LinkedIn",
+      "location": "Beijing, Beijing, China",
+      "work_type": "Remote",
+      "link": "https://cn.linkedin.com/jobs/view/ai-software-engineering-graduate-intern-at-intel-4402368269",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f0ea7db27da5d23731b6b44f9c744ffb": {
+      "title": "AI Software Engineering Intern",
+      "company": "Intel",
+      "source": "LinkedIn",
+      "location": "Folsom, CA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/ai-software-engineering-intern-at-intel-4418847032",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "2fe6a85aa10bb742e9f0f9525641ccf8": {
+      "title": "AI Software Engineering Intern",
+      "company": "Intel",
+      "source": "LinkedIn",
+      "location": "Hillsboro, OR",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/ai-software-engineering-intern-at-intel-4418844342",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "50c61a557d7c580e35511fc45da98ca7": {
+      "title": "AI Software Engineering Intern",
+      "company": "Intel",
+      "source": "LinkedIn",
+      "location": "Gda\u0144sk, Pomorskie, Poland",
+      "work_type": "Remote",
+      "link": "https://pl.linkedin.com/jobs/view/ai-software-engineering-intern-at-intel-4418832787",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "0f575f5a736a82497e72f4bd029daab6": {
+      "title": "AI Software Engineering Intern",
+      "company": "Intel",
+      "source": "LinkedIn",
+      "location": "Gda\u0144sk, Pomorskie, Poland",
+      "work_type": "Remote",
+      "link": "https://pl.linkedin.com/jobs/view/ai-software-engineering-intern-at-intel-4418825868",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "ccdfe4e4a7e263bb8059feadd076472f": {
+      "title": "AI Undergraduate Internship",
+      "company": "ForFutures Financial, Planning, a financial advisory practice of Ameriprise Financial Services LLC",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "fa377d77c4d5fd9c8fa447d10783bc40": {
+      "title": "AI/ML Engineer Intern",
+      "company": "Melotech",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "756f7cc3d921fe3e57177b74f3b01aa0": {
+      "title": "AI/ML Engineer Intern",
+      "company": "Melotech",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "3ced325f594c742b26a4fbed76417137": {
+      "title": "Analytics Intern",
+      "company": "Milliman",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "2233ed1cddee1be43877bf4ba32bbc12": {
+      "title": "Applied Data Analytics Intern (Summer 2026)",
+      "company": "Legrand, North America",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "c837758f06a0525410d87520d3b4dc7e": {
+      "title": "Apprentice Data scientist (KLabs)",
+      "company": "KASIKORN Business-Technology Group [KBTG]",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "8bfb978598d14920580f893de9cd3bd9": {
+      "title": "Artificial Intelligence (AI) Internship in Raipur",
+      "company": "VsnapU",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "a097922190c2e58e678656570eee36a9": {
+      "title": "Artificial Intelligence Intern",
+      "company": "Richardson",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "bdfedc699e86462e53e16824b8b221eb": {
+      "title": "Artificial Intelligence Intern",
+      "company": "GenPark",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "76e675f59097db7cbc1176782ba98cd1": {
+      "title": "Artificial Intelligence Intern",
+      "company": "ATC",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "faa6af85bf9f2ed41c422ba502cc07c9": {
+      "title": "Artificial Intelligence Intern | Remote | Entry-Level | Intelligent Systems / Automation Technologies",
+      "company": "Inficore Soft",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "a6f148c72508110353678f87ba610b5d": {
+      "title": "Associate - Data Scientist",
+      "company": "New York Life",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "07eab66ba001fbddc1f4db091391eada": {
+      "title": "Associate Data Scientist",
+      "company": "Quantifind",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "d1663590152853bc44eb4de96339a5d0": {
+      "title": "Associate Data Scientist",
+      "company": "UL Solutions",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "678617a7b5bc60e8ba8db51ae2785574": {
+      "title": "Associate Data Scientist",
+      "company": "UL Solutions",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "71b594a91a142c252dfa9c6a6f8e7cda": {
+      "title": "Business Analyst Intern, PMO & AI Transformation",
+      "company": "HERE Technologies",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "36e08b33ce185b222ad1373dff022c69": {
+      "title": "Business Analytics Intern",
+      "company": "Dallas Mavericks",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "7f3e2937316f924a12a318f9678cfe74": {
+      "title": "Business Analytics Intern",
+      "company": "Richemont",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "4b7998a328c82e7afba6096efc341fe5": {
+      "title": "Business Data Management- Data Analyst Intern (Excel based)",
+      "company": "ALTEN Spain",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "fdc986693948bbfe9b74587ddb1b3d37": {
+      "title": "Business Intelligence Intern",
+      "company": "Ensemble Health Partners",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "b6a33e5876283553ae10502f630ed819": {
+      "title": "Business Intelligence Intern",
+      "company": "Haier Europe",
+      "source": "LinkedIn",
+      "location": "Vimercate, Lombardy, Italy",
+      "work_type": "Remote",
+      "link": "https://it.linkedin.com/jobs/view/business-intelligence-intern-at-haier-europe-4414335006",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "d8471c4215b685788d8d3b6a7773258b": {
+      "title": "Business Intelligence Intern",
+      "company": "RedotPay",
+      "source": "LinkedIn",
+      "location": "Hong Kong, Hong Kong SAR",
+      "work_type": "Remote",
+      "link": "https://hk.linkedin.com/jobs/view/business-intelligence-intern-at-redotpay-4420262270",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "ca4dddd4e0d3ea2b0312f50df927bc84": {
+      "title": "Business Intelligence Intern (Fall 2026)",
+      "company": "Shopee",
+      "source": "LinkedIn",
+      "location": "Singapore, Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/business-intelligence-intern-fall-2026-at-shopee-4388289056",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "adb57fb4626b4043f92995fb5d9c213d": {
+      "title": "Clinical AI Intern",
+      "company": "Anterior",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "e58f40534f0b08f6ccc50094cc53d0b3": {
+      "title": "Computer Vision & Machine Learning, Junior",
+      "company": "Allen Control Systems",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f3d75b3360c29c28a0907b72da4351a9": {
+      "title": "Data Analyst (Fresh Graduate)",
+      "company": "P&A Grant Thornton",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "7508e8d0b1a3b0b9fa01a65cc6f5f9d3": {
+      "title": "Data Analyst - Graduate School - UTK",
+      "company": "University of Tennessee, Knoxville",
+      "source": "LinkedIn",
+      "location": "Knoxville, TN",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/data-analyst-graduate-school-utk-at-university-of-tennessee-knoxville-4419942984",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "22a59ab8518e34a1b3fc9acd9361afc4": {
+      "title": "Data Analyst - Junior with Security Clearance",
+      "company": "Crimson Phoenix",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "84a5b3854c34c0f88804ff207c4465d8": {
+      "title": "Data Analyst - Monee (2026 Graduate)",
+      "company": "Monee",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "40654d026654a4de8f84f87782d443a3": {
+      "title": "Data Analyst Intern",
+      "company": "Appier",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "0fdb1a76bf1f940143cfb499d929e3ed": {
+      "title": "Data Analyst Intern",
+      "company": "Webs X UM",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "0c804cf251a073bd4cfe6fa7a3bd5733": {
+      "title": "Data Analyst Intern",
+      "company": "Webs X UM",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f8e59da1e9f2279b29286aa00429f37c": {
+      "title": "Data Analyst Intern",
+      "company": "Webs X UM",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "3e7f0f7b8205daefce49a3e9376202a5": {
+      "title": "Data Analyst Intern",
+      "company": "Webs X UM",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f9ea5c55306fb6bfd3c818d45695df22": {
+      "title": "Data Analyst Intern (Entry Level) | Analytics \u2022 Reporting \u2022 Business Insights | Remote",
+      "company": "Skillzenloop",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "fff35437bf0a8550cbf168215de13f8a": {
+      "title": "Data Analyst Intern (Excel, SQL, Power BI)",
+      "company": "Skillfied Mentor Jobs",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "1dd574a75bba28bffd017ec603a077ad": {
+      "title": "Data Analyst Intern (Excel, SQL, Power BI)",
+      "company": "Skillfied Mentor Jobs",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "7a515c2687da6ed72f0db8b0d9dd4cfe": {
+      "title": "Data Analyst Intern Fall 2026",
+      "company": "PACCAR Engine Company",
+      "source": "LinkedIn",
+      "location": "Columbus, MS",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/data-analyst-intern-fall-2026-at-paccar-engine-company-4362484509",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "38c2c442271a0d659f4a8e1990d697b1": {
+      "title": "Data Analyst Internship",
+      "company": "Infrabyte Consulting",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "aaabd06066c555a8679f9b52790bbe18": {
+      "title": "Data Analyst Internship Program",
+      "company": "Readygrad",
+      "source": "LinkedIn",
+      "location": "Victoria, Australia",
+      "work_type": "Remote",
+      "link": "https://au.linkedin.com/jobs/view/data-analyst-internship-program-at-readygrad-4417809063",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "28fbfeee0b0623434331f29c4ac87945": {
+      "title": "Data Analyst Project Intern (TikTok Shop - Recommendation) - 2026 Start (BS/MS)",
+      "company": "TikTok",
+      "source": "LinkedIn",
+      "location": "Singapore, Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/data-analyst-project-intern-tiktok-shop-recommendation-2026-start-bs-ms-at-tiktok-4346156500",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "28d2cb76159cfcc1475091aebdf95265": {
+      "title": "Data Analyst Training And Internship Program",
+      "company": "Ededge Groups",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f8ceeb728d9da64435634602c895045f": {
+      "title": "Data Analytics & AI Analyst - New Graduate 2026",
+      "company": "ABeam Consulting Indonesia",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "40769ef5e634b1c14bf73b9d9c48acb1": {
+      "title": "Data Analytics & Project Management Intern",
+      "company": "BNP Paribas",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "ab2b211ec59bfd678ea57cf6b4227528": {
+      "title": "Data Analytics & Project Management Intern, Travel Retail",
+      "company": "Parfums Christian Dior",
+      "source": "LinkedIn",
+      "location": "Singapore, Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/data-analytics-project-management-intern-travel-retail-at-parfums-christian-dior-4397933291",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "319d6041cf8842d00dc1c1201f805d08": {
+      "title": "Data Analytics & Report Intern",
+      "company": "Union Bank & Trust",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "92c3baa2664d3426b948ff52ef383027": {
+      "title": "Data Analytics Intern",
+      "company": "Prudential Syariah",
+      "source": "LinkedIn",
+      "location": "Jakarta Metropolitan Area",
+      "work_type": "Remote",
+      "link": "https://id.linkedin.com/jobs/view/data-analytics-intern-at-prudential-syariah-4420913882",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "12a9af0bb852ab6eb5c5115bc9c8bd3b": {
+      "title": "Data Analytics Internship in Bangalore",
+      "company": "DataZymes",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "3fe234c48ba1b30406a59357d0a79cac": {
+      "title": "Data Analytics Internship in Mumbai",
+      "company": "Flipspaces",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "41be5ff365933c2354fa1d6d8d20b226": {
+      "title": "Data Engineer Intern",
+      "company": "Americhem",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "1851a87214f79fce4aebd8ef6bbe8d86": {
+      "title": "Data Science Intern",
+      "company": "Cummings Electrical",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "5bbce65e65e979b5fe86b9b81ae659a7": {
+      "title": "Data Science Intern",
+      "company": "CODEHOOD",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "ed6271b50ce4f2e409ab593e926d8032": {
+      "title": "Data Science Intern",
+      "company": "Zurich Insurance",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "3d7bf835ce0ca3f00e3e64ddff2c0509": {
+      "title": "Data Science Intern (Customer Success)",
+      "company": "Cresta",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "d2b3c56dc45a15f59c5411a72481bbd9": {
+      "title": "Data Science Intern (Entry Level) | Python \u2022 SQL \u2022 Analytics | Remote",
+      "company": "Skillzenloop",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "50ca5ba911c1a709195eff7e671f8122": {
+      "title": "Data Science Intern (Python, SQL, Pandas)",
+      "company": "Skillfied Mentor Jobs",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "5fe5ca8f61a7e98a072d9208a2430e49": {
+      "title": "Data Science Intern | Remote | Entry-Level | Analytics / Predictive Intelligence / Data Systems",
+      "company": "Inficore Soft",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "4047c3ccc9bd546afdfbb0ed6b0d2bc9": {
+      "title": "Data Science Intern, Music & Audio",
+      "company": "Melotech",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "ea95a06d488aaa394008f3e8592df173": {
+      "title": "Data Science Project Intern (TikTok Shop-Supply Chain & Logistics) - 2026 Start (BS/MS)",
+      "company": "TikTok",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "e16166b41632c3f38eb7aaad7d26f5cb": {
+      "title": "Data Scientist Graduate",
+      "company": "targetjobs UK",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "7b0f279d8160c076857cff41cce18014": {
+      "title": "Data Scientist Intern",
+      "company": "Avathon",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "41b8ac4dade988550fbb287098878b9e": {
+      "title": "Data Scientist Junior (F/M) F/H",
+      "company": "VINCI Airports",
+      "source": "LinkedIn",
+      "location": "Nanterre, \u00cele-de-France, France",
+      "work_type": "Remote",
+      "link": "https://fr.linkedin.com/jobs/view/data-scientist-junior-f-m-f-h-at-vinci-airports-4416959159",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "40ec38de2a1cb4b68dadbed899f9b520": {
+      "title": "Data Scientist, Summer Intern",
+      "company": "SCAN",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "1d5e40b8440e6c6857ff13f70e215f9f": {
+      "title": "Deep Learning Research Intern",
+      "company": "Futurewei Technologies, Inc.",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "ac06390d9b89784bb361aaf11f94c27e": {
+      "title": "Entry Level Data Scientist - Remote",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "41389102bb4d15b16bb420bac13972e7": {
+      "title": "entry level data scientist/Java Developer",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "678ab21b9e6e1838dbe64e9b7886ab0c": {
+      "title": "Entry Level Data Scientistt/Java full stack developer",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "78357a9723ada222c985961775d1eeb0": {
+      "title": "entry level java developer/Data scientist",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "d332ff9c7ccff3686cb9e3e9c21e565a": {
+      "title": "Entry level Java programmer- remote-Junio data engineer",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "7e1eec061a50e6299381d637dc79b819": {
+      "title": "Entry-Level Data Analyst/ Data Engineer/ Data Scientist",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "2bfb4962eb177c92fcd8a67d9f789841": {
+      "title": "Entry/Junior Level Data Scientist/Python Programmer (Remote)",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "a196163faf3ee4dff1351a8bf1380086": {
+      "title": "Final year internship - Data Scientist & AI Consultant",
+      "company": "Sia",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "761f0a00707cd453705e4abc1c28e4a1": {
+      "title": "Finance Data Analyst Internship",
+      "company": "Tesla",
+      "source": "LinkedIn",
+      "location": "Amsterdam, North Holland, Netherlands",
+      "work_type": "Remote",
+      "link": "https://nl.linkedin.com/jobs/view/finance-data-analyst-internship-at-tesla-4420225155",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "9744878cf65887a45dd2ea74ca02b421": {
+      "title": "Founding AI Engineer Intern at San Francisco AI agent startup",
+      "company": "Jack & Jill",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "c221baa7239978fdd86f5a6a3c65ec5c": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f8502a5e910fc536abc8b99cb8957229": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "5729bcc3dd52c23b75ece51b3fd5a021": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "a4c02f0a4474be7e9637550ce59317fc": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "b2e9e93139bca50dc04336916e842f02": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "15b31120d41cd93a0a56425c982bee76": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "b0746cefc64fd8e737dcd5829b681ef7": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "953280cfc74bc9275670368ca7717bc1": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "cd0fb9b16a36c869fd3704b1d5e32ffb": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "bf670ae68ef83a5c031841b5194b03ae": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f55f6b35f01a310e69afdc26798a139a": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "36c25cfe254ceea5d09aa3d76dc7db2a": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "084eb96d1c328ab35fd67b502b91f616": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "efb940699e56dba43c19c34cc3f646ca": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "fa5d2b831f1b361659d00ee8b8dbc8fe": {
+      "title": "Graduate Programme 2027: Data Scientist and Analyst",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "location": "United Arab Emirates",
+      "work_type": "Remote",
+      "link": "https://ae.linkedin.com/jobs/view/graduate-programme-2027-data-scientist-and-analyst-at-revolut-4418825673",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "71cc22a7300b278725cc70bd5c7d9d1d": {
+      "title": "Graduate Programme 2027: Data Scientist and Analyst",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "a4132357b702584fd0eab0209bba4555": {
+      "title": "Graduate Programme 2027: Data Scientist and Analyst",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "fb474ae17036e6ecf5295f5712dde13a": {
+      "title": "Graduate Programme 2027: Data Scientist and Analyst",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "1e06ff2255844760de6ecc9ef83aaf44": {
+      "title": "Graduate Programme 2027: Data Scientist and Analyst",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f4b8a407f5d7d308b96fa5e2b02ab4fa": {
+      "title": "Graduate Programme 2027: Data Scientist and Analyst",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "ede5571ee3b554056646155faa0909ab": {
+      "title": "Graduate Programme 2027: Data Scientist and Analyst",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "a6e2b0e2ad977c16a8ee138576811828": {
+      "title": "Graduate Trainee, Software Development",
+      "company": "Marex",
+      "source": "LinkedIn",
+      "location": "London, England, United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/graduate-trainee-software-development-at-marex-4410762717",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f26a18ae30cad56e88e5675163e9e6b5": {
+      "title": "IBP Intern - Supply Chain Analytics & Automation",
+      "company": "Philip Morris International",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "6302fc3679e6b04a558aab154b4724cd": {
+      "title": "Intern - Data Science",
+      "company": "OCTAVE - John Keells Group",
+      "source": "LinkedIn",
+      "location": "Colombo, Western Province, Sri Lanka",
+      "work_type": "Remote",
+      "link": "https://lk.linkedin.com/jobs/view/intern-data-science-at-octave-john-keells-group-4418558773",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "85549313c5d9c1fd70e672f9e24c7c6f": {
+      "title": "Intern - Data Scientist (Analytics) - Mobility",
+      "company": "Grab",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "c9284869b3ccf7c88b8791252127414d": {
+      "title": "Intern Data Analyst",
+      "company": "Signify",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "c4ab0efb0614af96692c913650233b42": {
+      "title": "Intern, Data Analyst (Summer 2026)",
+      "company": "Singlife",
+      "source": "LinkedIn",
+      "location": "Singapore, Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/intern-data-analyst-summer-2026-at-singlife-4419166114",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "ef328203dab31e6b83c5ced0e021fdeb": {
+      "title": "Intern, Data Analytics",
+      "company": "Rakuten Viki",
+      "source": "LinkedIn",
+      "location": "Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/intern-data-analytics-at-rakuten-viki-4391580272",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "90ac43d5dd24b9947da11265c76f10f4": {
+      "title": "Intern, Data Analytics",
+      "company": "The Ascott Limited",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "5509b102f8ad82ba33edf343fa8da13a": {
+      "title": "Intern, Data Analytics",
+      "company": "Johnson Controls",
+      "source": "LinkedIn",
+      "location": "Singapore, Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/intern-data-analytics-at-johnson-controls-4402616841",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "13fb1de26ad03a8751d142c4f0b39698": {
+      "title": "Intern, Data Scientist (Analytics)",
+      "company": "Grab",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "e81cea3a10f2da7a6bc29cc90ce28def": {
+      "title": "Intern, Data Scientist (Mart)",
+      "company": "Grab",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "c663d38c4dcd34c4a0e3587c3b3cb395": {
+      "title": "Intern, Merchandising Data Analytics & Demand Planning (6-Month Internship)",
+      "company": "Under Armour",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "d787d27b215dd79c4a4c8744872eca55": {
+      "title": "Intern- Business Development Data & Analytics (Summer 2026)",
+      "company": "First Solar",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "2feea42fbb31865b3e20df866b738f74": {
+      "title": "Internship - Data Analytics (Omaha, NE)",
+      "company": "FNBO",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "82b3919cebbf0783206e4beb1fa6831f": {
+      "title": "Internship - Data Science & Analytics",
+      "company": "HARMAN International",
+      "source": "LinkedIn",
+      "location": "Amsterdam, North Holland, Netherlands",
+      "work_type": "Remote",
+      "link": "https://nl.linkedin.com/jobs/view/internship-data-science-analytics-at-harman-international-4417262379",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "91b966f6c61a1f86ead2edc895467387": {
+      "title": "Internship Data Science & AI",
+      "company": "CM.com",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "c65efd63b70a6cc6759186008d729809": {
+      "title": "Internship Embedded AI Engineering \u2013 remote possible",
+      "company": "Bosch Group",
+      "source": "Jobicy",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "99183353cffc06ef61c494d751662098": {
+      "title": "Internship Programme 2027 Software Engineer Python",
+      "company": "TALENTMATE",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "ca1794f445b1549c3ab00cc1ee528fd2": {
+      "title": "Internship Programme 2027: Data Scientist and Analyst",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "11b1a7dcf298ae4876b34a4dcfb949a2": {
+      "title": "Internship Programme 2027: Software Engineer (Python)",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "3abb3758cac2a4499c64a066159aa81b": {
+      "title": "Internship Programme 2027: Software Engineer (Python)",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "bc6c3d06c456a69d8d17114f51a2148c": {
+      "title": "Internship Programme 2027: Software Engineer (Python)",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "71ea0f927a47c51f9844e4c62ac7ff27": {
+      "title": "Internship Programme 2027: Software Engineer (Python)",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "02188e6950957cc24cc92104f0a2e186": {
+      "title": "Internship Programme 2027: Software Engineer (Python)",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "6e2a9d47c09a6b205d2790544a9a7ac0": {
+      "title": "Internship Programme 2027: Software Engineer (Python)",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "2378c88950dff8d5dc7a3d727da90c31": {
+      "title": "Internship Programme 2027: Software Engineer (Python)",
+      "company": "Revolut",
+      "source": "LinkedIn",
+      "location": "Spain",
+      "work_type": "Remote",
+      "link": "https://es.linkedin.com/jobs/view/internship-programme-2027-software-engineer-python-at-revolut-4418827652",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "c0731e1c0ce2d437bdc6b103ff11dfe1": {
+      "title": "Internship, Data Engineer, Fleet Analytics (Fall 2026)",
+      "company": "Tesla",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "240bfb68b4ce798c5274c76d905b101c": {
+      "title": "Internship, Data Engineer, Fleet Analytics (Summer 2026)",
+      "company": "Tesla",
+      "source": "LinkedIn",
+      "location": "Palo Alto, CA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/internship-data-engineer-fleet-analytics-summer-2026-at-tesla-4421250257",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "cd9d6751a54096bfb04c4c93d7ec24f2": {
+      "title": "Internship, Fullstack Software Engineer, Machine Learning Platform, AI Infrastructure (Fall 2026)",
+      "company": "Tesla",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "9dea51d9ea9b439fe5c3a79c6dbf6778": {
+      "title": "IT Data & Analytics Internship",
+      "company": "Utmost Group",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "12fbf5230646213b67a2930fb285c6b1": {
+      "title": "Junior - Data Analyst - Cagliari / Milano",
+      "company": "Deloitte",
+      "source": "LinkedIn",
+      "location": "Cagliari, Sardinia, Italy",
+      "work_type": "Remote",
+      "link": "https://it.linkedin.com/jobs/view/junior-data-analyst-cagliari-milano-at-deloitte-4408298630",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "60c22b14e143c0e3b57e06e18fd3e0dc": {
+      "title": "Junior AI /Machine learning engineer/Data scientist/Java developer",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "59b3497052a95a23880ba0fa9dde49c6": {
+      "title": "Junior AI Data Quality Analyst",
+      "company": "ZenOwn",
+      "source": "LinkedIn",
+      "location": "Romania",
+      "work_type": "Remote",
+      "link": "https://ro.linkedin.com/jobs/view/junior-ai-data-quality-analyst-at-zenown-4417251196",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "ac85b955e104745cc29bee1eb012e310": {
+      "title": "Junior AI Engineer",
+      "company": "Emonics LLC",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "8170af95d8d09c1c024a0985e1118f11": {
+      "title": "Junior AI Engineer - Python, GenAI and Machine Learning",
+      "company": "PwC Ukraine",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "1c0775e45d6abcd81711b7a0c291a5fb": {
+      "title": "Junior Biomedical Data Analyst",
+      "company": "LifeCanvas Technologies Inc.",
+      "source": "LinkedIn",
+      "location": "Cambridge, MA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-biomedical-data-analyst-at-lifecanvas-technologies-inc-4416827260",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "5ee06a40f4eb90875c4d0b678e6dd3cb": {
+      "title": "Junior Business & Data Analyst",
+      "company": "The Value Maximizer",
+      "source": "LinkedIn",
+      "location": "Florida, United States",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-business-data-analyst-at-the-value-maximizer-4420486651",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f39f24cdd0be150cfdfcd196354b877a": {
+      "title": "Junior Commercial Data Analyst (Temp June-Sept 26)",
+      "company": "UniHomes",
+      "source": "LinkedIn",
+      "location": "Sheffield, England, United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/junior-commercial-data-analyst-temp-june-sept-26-at-unihomes-4419492773",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "3de4cd7382b4526a5dbd6c5888e211c0": {
+      "title": "Junior Commercial Data Analyst (Temp June-Sept 26)",
+      "company": "UniHomes",
+      "source": "LinkedIn",
+      "location": "South Yorkshire, England, United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/junior-commercial-data-analyst-temp-june-sept-26-at-unihomes-4418817112",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "1cb6c0a1c4d4be038ea9e61ba23ee768": {
+      "title": "Junior CRM Data Analyst",
+      "company": "SkillOnNet",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "06e827422b1859e839f0116692741fe9": {
+      "title": "Junior Data & AI Scientist (m/w/d) 80 - 100%",
+      "company": "Zurich Insurance",
+      "source": "LinkedIn",
+      "location": "Zurich, Zurich, Switzerland",
+      "work_type": "Remote",
+      "link": "https://ch.linkedin.com/jobs/view/junior-data-ai-scientist-m-w-d-80-100%25-at-zurich-insurance-4422017155",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "9a039f972254bddec3bdee17a9f883aa": {
+      "title": "Junior Data Analyst",
+      "company": "KellyMitchell Group",
+      "source": "LinkedIn",
+      "location": "Greenwood Village, CO",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-analyst-at-kellymitchell-group-4419883176",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "537a6e90239df17a5c9e4c6e5cdf2ce1": {
+      "title": "Junior Data Analyst",
+      "company": "Mason Blake",
+      "source": "LinkedIn",
+      "location": "Nottingham, England, United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/junior-data-analyst-at-mason-blake-4418809896",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "920c3a26ca51e11cdf2cff8822de92bd": {
+      "title": "Junior Data Analyst",
+      "company": "Hyra",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "bb7f9b1352a99d468f1aca6252ced637": {
+      "title": "Junior Data Analyst",
+      "company": "Hyra",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "780ba8fefefff6860d18c496b8ea4c88": {
+      "title": "Junior Data Analyst",
+      "company": "Athsai",
+      "source": "LinkedIn",
+      "location": "Warsaw Metropolitan Area",
+      "work_type": "Remote",
+      "link": "https://pl.linkedin.com/jobs/view/junior-data-analyst-at-athsai-4419076315",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "563771981b45c1745acd5affc1156fd6": {
+      "title": "Junior Data Analyst",
+      "company": "Gruppo Unipol",
+      "source": "LinkedIn",
+      "location": "Bologna, Emilia-Romagna, Italy",
+      "work_type": "Remote",
+      "link": "https://it.linkedin.com/jobs/view/junior-data-analyst-at-gruppo-unipol-4417675365",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "c5a2ac293acdedb6fd89fdb7ec9865b8": {
+      "title": "Junior Data Analyst",
+      "company": "Aon",
+      "source": "LinkedIn",
+      "location": "Mexico City, Mexico",
+      "work_type": "Remote",
+      "link": "https://mx.linkedin.com/jobs/view/junior-data-analyst-at-aon-4411666420",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "e421c040225df3ea9c85ce2348d5d7b5": {
+      "title": "Junior Data Analyst",
+      "company": "AI CoLegion - VESIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "144841b33855a191939f4fb107e28d5a": {
+      "title": "Junior Data Analyst",
+      "company": "Campus4Tech",
+      "source": "LinkedIn",
+      "location": "Canada",
+      "work_type": "Remote",
+      "link": "https://ca.linkedin.com/jobs/view/junior-data-analyst-at-campus4tech-4421212045",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "cf10be244311b522d4f2df6dce24de2b": {
+      "title": "Junior Data Analyst",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "location": "San Jose, CA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-analyst-at-synergisticit-4420662749",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "4a24c48bc2ae29d6e18f162f3c1c4ef4": {
+      "title": "Junior Data Analyst",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "location": "Austin, TX",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-analyst-at-synergisticit-4420662751",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "b9014d960e0a77d954b32b93c59c5e1b": {
+      "title": "Junior Data Analyst",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "a95cc63e4694cada64ca7bc9796ebac1": {
+      "title": "Junior Data Analyst",
+      "company": "Joinrs",
+      "source": "LinkedIn",
+      "location": "Milan, Lombardy, Italy",
+      "work_type": "Remote",
+      "link": "https://it.linkedin.com/jobs/view/junior-data-analyst-at-joinrs-4418937970",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f2700c7091221cfb6abcdf4fe2beeeba": {
+      "title": "Junior Data Analyst",
+      "company": "AI-ML Club NFSU",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "827fcbc691a7f6dc979a873d3f9016da": {
+      "title": "Junior Data Analyst",
+      "company": "Catch Health",
+      "source": "LinkedIn",
+      "location": "Fort Lauderdale, FL",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-analyst-at-catch-health-4420276349",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f0c12b0ac83668d3b92795634aca1179": {
+      "title": "Junior Data Analyst",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "location": "Portland, OR",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-analyst-at-synergisticit-4420668522",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "dc3ea36378668116a98e13f343d9699f": {
+      "title": "Junior Data Analyst",
+      "company": "Kiron Partner SpA",
+      "source": "LinkedIn",
+      "location": "Rozzano, Lombardy, Italy",
+      "work_type": "Remote",
+      "link": "https://it.linkedin.com/jobs/view/junior-data-analyst-at-kiron-partner-spa-4408619992",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "e50025ac189bb76d5f2c266030e94cac": {
+      "title": "Junior Data Analyst & Automation",
+      "company": "Impacting.Digital",
+      "source": "LinkedIn",
+      "location": "Spain",
+      "work_type": "Remote",
+      "link": "https://es.linkedin.com/jobs/view/junior-data-analyst-automation-at-impacting-digital-4419808967",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "636ead94c75ae4d442522c1ea9ce6c70": {
+      "title": "Junior Data Analyst (Temp June-Sept 26)",
+      "company": "UniHomes",
+      "source": "LinkedIn",
+      "location": "South Yorkshire, England, United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/junior-data-analyst-temp-june-sept-26-at-unihomes-4418809397",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "8cb7a9af1e0ab210d3908b9d91493f2a": {
+      "title": "Junior Data Analyst (Temp June-Sept 26)",
+      "company": "UniHomes",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "daf9c68fdfba683c6738d484d4138e5a": {
+      "title": "Junior Data Analyst - Business Intelligence, Regional Operations",
+      "company": "Shopee",
+      "source": "LinkedIn",
+      "location": "Singapore, Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/junior-data-analyst-business-intelligence-regional-operations-at-shopee-3727428385",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "1f4f2237c94cd5ff4b3aff829f3ae6bf": {
+      "title": "Junior Data Analyst Circularity - Apprenticeship (f/m/d)",
+      "company": "Decathlon Digital",
+      "source": "LinkedIn",
+      "location": "Villeneuve-d\u2019Ascq, Hauts-de-France, France",
+      "work_type": "Remote",
+      "link": "https://fr.linkedin.com/jobs/view/junior-data-analyst-circularity-apprenticeship-f-m-d-at-decathlon-digital-4420421902",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "91776b66ac70c4b9be6a944e40645c55": {
+      "title": "Junior Data Analyst with BI Skills",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "location": "Los Angeles, CA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-analyst-with-bi-skills-at-synergisticit-4420665511",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "837c489b3417a34474cc74370f8e0dfe": {
+      "title": "Junior Data Analyst \u2013 Area Operations",
+      "company": "GDEnergia",
+      "source": "LinkedIn",
+      "location": "Udine, Friuli-Venezia Giulia, Italy",
+      "work_type": "Remote",
+      "link": "https://it.linkedin.com/jobs/view/junior-data-analyst-%E2%80%93-area-operations-at-gdenergia-4419902683",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "d31a714c8982a24b70959f074b9ac70d": {
+      "title": "Junior Data Analyst \u2013 Python & SQL",
+      "company": "Similarweb",
+      "source": "LinkedIn",
+      "location": "Prague, Prague, Czechia",
+      "work_type": "Remote",
+      "link": "https://cz.linkedin.com/jobs/view/junior-data-analyst-%E2%80%93-python-sql-at-similarweb-4419915142",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "540cd73a3de1719c757a462dea058c9e": {
+      "title": "Junior data analyst/data scientist -remote",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "location": "Redondo Beach, CA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-analyst-data-scientist-remote-at-synergisticit-4420485975",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "30eeaa5ed661777978cd7241d9afa21a": {
+      "title": "Junior Data Analyst/Python Programmer - Remote/Data Engineer - Remote",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "location": "Denver, CO",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-analyst-python-programmer-remote-data-engineer-remote-at-synergisticit-4420679013",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "5cc838f0c957a41513fabbbf161867e0": {
+      "title": "Junior Data Analyst/Scientist",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "033e2282776ae784a05fc3712b997072": {
+      "title": "Junior Data Scientist",
+      "company": "Lentech, Inc.",
+      "source": "LinkedIn",
+      "location": "Fort Meade, MD",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-scientist-at-lentech-inc-4417661932",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "cc2e8e3b3b357d9f21c5ace25fe48c27": {
+      "title": "Junior Data Scientist",
+      "company": "Old Mutual South Africa",
+      "source": "LinkedIn",
+      "location": "Johannesburg, Gauteng, South Africa",
+      "work_type": "Remote",
+      "link": "https://za.linkedin.com/jobs/view/junior-data-scientist-at-old-mutual-south-africa-4420987389",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "e88962c5f08144ad726ed282deb7e81f": {
+      "title": "Junior Data Scientist",
+      "company": "Kforce Inc",
+      "source": "LinkedIn",
+      "location": "Armonk, NY",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-scientist-at-kforce-inc-4419987301",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "729f89e58d08bb78214368ea2cfef404": {
+      "title": "Junior Data Scientist",
+      "company": "Fortray Global Service Limited",
+      "source": "LinkedIn",
+      "location": "England, United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/junior-data-scientist-at-fortray-global-service-limited-4418274433",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "0e021bee1233e65a06dcfcbf534a0f16": {
+      "title": "Junior Data Scientist",
+      "company": "Joinrs",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "759f989ef09cd06d84c68ca6ef64097d": {
+      "title": "Junior Data Scientist",
+      "company": "Joinrs",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f91a0320547b92ba00a8cf12f4a68fc9": {
+      "title": "Junior Data Scientist",
+      "company": "BNP Paribas",
+      "source": "LinkedIn",
+      "location": "Singapore, Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/junior-data-scientist-at-bnp-paribas-4400098755",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "0dab5918a3862fda129bd5e6e2342dca": {
+      "title": "Junior Data Scientist",
+      "company": "ARA",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "d87dc5ff7a9f040314e290531a2407d1": {
+      "title": "Junior Data Scientist",
+      "company": "TIFIN",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "a04ee8b5e1bea5b0d0cbb26b0aace4a9": {
+      "title": "Junior Data Scientist - AI Practice Team",
+      "company": "ABS Group",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "52e6c628eaf63b3dcfd9268f2960b3f9": {
+      "title": "Junior Data Scientist - QuantumBlack Studio",
+      "company": "QuantumBlack, AI by McKinsey",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "b1733901519beafbc2460cd49e9a81ce": {
+      "title": "Junior data scientist /Data engineer",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "760b0a7beccef8037a0b0737aa7cfb5a": {
+      "title": "Junior Developer - Business Analyst Internship",
+      "company": "PwC",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "5698f5201bb679d492bf6ac351f93b73": {
+      "title": "Junior Java full stack developer/Data analyst",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "b974a7cbfac6710a4348b733effb8c50": {
+      "title": "Junior Marketing Data Analyst",
+      "company": "Nova Infotek",
+      "source": "LinkedIn",
+      "location": "Pittsburgh, PA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-marketing-data-analyst-at-nova-infotek-4418862298",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "3f73a63d730481894b195da98554c5fb": {
+      "title": "Junior Transportation Data Analyst (m\\f\\d)",
+      "company": "Amer Sports",
+      "source": "LinkedIn",
+      "location": "Cracow, Ma\u0142opolskie, Poland",
+      "work_type": "Remote",
+      "link": "https://pl.linkedin.com/jobs/view/junior-transportation-data-analyst-m-f-d-at-amer-sports-4411224033",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "28ef6880214e5fb4971e4a611faa11f2": {
+      "title": "Junior/Entry Level Data Scientist/Analyst",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "67b26c3eec7d77203a42649e22868380": {
+      "title": "Junior/Mid Data Scientist",
+      "company": "KALAPA",
+      "source": "LinkedIn",
+      "location": "Hanoi Capital Region",
+      "work_type": "Remote",
+      "link": "https://vn.linkedin.com/jobs/view/junior-mid-data-scientist-at-kalapa-4419015307",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "20a4c119275c25c78eee09356293b0ce": {
+      "title": "Junior/Senior Data Analyst (Pricing)",
+      "company": "LINE MAN Wongnai",
+      "source": "LinkedIn",
+      "location": "Bangkok City, Thailand",
+      "work_type": "Remote",
+      "link": "https://th.linkedin.com/jobs/view/junior-senior-data-analyst-pricing-at-line-man-wongnai-4418596174",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "b5b2b1497913f658852ea95e0bc035e8": {
+      "title": "Machine Learning - Intern",
+      "company": "dubizzle",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "940b5d56bbf58a1a45d90a503e44edee": {
+      "title": "Machine Learning Engineer Graduate (Data-Search-Recommendation TikTok.US - Seattle) - 2026 Start (BS/MS)",
+      "company": "TikTok",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "0b049d111422ca11513ee20b86ff6d39": {
+      "title": "Machine Learning Graduate (E-Commerce Governance)-2026 Start (BS/MS)",
+      "company": "ByteDance",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "7f6031b89781bd1746a27e623333507b": {
+      "title": "Machine Learning Graduate (eCommerce Recommendation) - 2026 Start (BS/MS)",
+      "company": "ByteDance",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "c774d57a87982a76e0c92f6525857865": {
+      "title": "Machine Learning Intern",
+      "company": "Webs IT Solution",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "44023f5ef6c8c57d06a3dce90fe1077b": {
+      "title": "Machine Learning Intern | Remote | Entry-Level | Predictive Systems / Intelligent Modeling",
+      "company": "Inficore Soft",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "5d2430795d031b701ddfabf995bcfd57": {
+      "title": "Machine Learning LLM Application Intern (Global LIVE Operation Intelligence) - 2026 Start (BS/MS)",
+      "company": "TikTok",
+      "source": "LinkedIn",
+      "location": "Singapore, Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/machine-learning-llm-application-intern-global-live-operation-intelligence-2026-start-bs-ms-at-tiktok-4322881329",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "9864cf55714545e8adf5a09699b52093": {
+      "title": "Marketing Data Analyst, Monee (2026 Graduate)",
+      "company": "Monee",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "1f459643b65e0fc4237022b4e4333e56": {
+      "title": "MIS- Lead Handling And Data Analyst Internship in Thane, Navi Mumbai, Navi Mumbai, Vashi Navi Mumbai, Navi Mumbai, Mumbai, Belapur, Dombivli, Mumbai, Mumbai, Navi Mumbai",
+      "company": "BNM Business Solutions LLP",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "da756ac7f5816663a476851676c40375": {
+      "title": "MIS- Lead Handling And Data Analyst Internship in Thane, Navi Mumbai, Navi Mumbai, Vashi Navi Mumbai, Navi Mumbai, Mumbai, Belapur, Dombivli, Mumbai, Mumbai, Navi Mumbai",
+      "company": "BNM Business Solutions LLP",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "4ee7f71528b0f53865903d7677fbaf54": {
+      "title": "MIS- Lead Handling And Data Analyst Internship in Thane, Navi Mumbai, Navi Mumbai, Vashi Navi Mumbai, Navi Mumbai, Mumbai, Belapur, Dombivli, Mumbai, Mumbai, Navi Mumbai",
+      "company": "BNM Business Solutions LLP",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "604e4a0b1ad80cacd886c31bc2f9f333": {
+      "title": "MIS- Lead Handling And Data Analyst Internship in Thane, Navi Mumbai, Navi Mumbai, Vashi Navi Mumbai, Navi Mumbai, Mumbai, Belapur, Dombivli, Mumbai, Mumbai, Navi Mumbai",
+      "company": "BNM Business Solutions LLP",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "6793601f620dc1a9232dbb7cd3eb2ba3": {
+      "title": "MIS- Lead Handling And Data Analyst Internship in Thane, Navi Mumbai, Navi Mumbai, Vashi Navi Mumbai, Navi Mumbai, Mumbai, Belapur, Dombivli, Mumbai, Mumbai, Navi Mumbai",
+      "company": "BNM Business Solutions LLP",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "08e45ca877a317ce0c4cbfc89fbebb38": {
+      "title": "Modelling & AI Machine Learning Intern",
+      "company": "BNP Paribas",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "e47d9fea0797b38d16e81028e94b09fd": {
+      "title": "Part-Time AI Software Engineering Intern UK (Full Stack) \u2013 Healthcare",
+      "company": "Princeton Biopartners",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "8cce6fbee9d1d7fb1b4593d6d2792f7a": {
+      "title": "PR Data Science Project Intern (TikTok Platform Responsibility) - 2026 Start (BS/MS)",
+      "company": "TikTok",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f5a8205593417b8a25fbb526725f2244": {
+      "title": "Project Data Analyst (Entry / Junior Level)",
+      "company": "EL GAS NOTICIAS",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f7a224fc9d6c7927801e1a9370824d0c": {
+      "title": "Research Assistant Neuroscience Research",
+      "company": "Kennedy Krieger Institute",
+      "source": "RemoteOK",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "430d2f16bdd48b18c46d2e508607d31c": {
+      "title": "Software Developer (Internship)",
+      "company": "ALTECH",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "5d2163242061909d058b0c75f47b6434": {
+      "title": "Software Development Intern",
+      "company": "OW Ocean Winds",
+      "source": "LinkedIn",
+      "location": "Madrid, Community of Madrid, Spain",
+      "work_type": "Remote",
+      "link": "https://es.linkedin.com/jobs/view/software-development-intern-at-ow-ocean-winds-4417641837",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "02508b25d91dfc4f67eb4044611421ef": {
+      "title": "Software Engineer Intern",
+      "company": "Applus+ Laboratories",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "f867804fd8c919813af86446df084f36": {
+      "title": "Software Engineer Intern - Machine Learning Workflow",
+      "company": "Halo Industries, Inc.",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "4310bd478b14b88032e2fad2a4fa33f4": {
+      "title": "Software Engineer Trainee",
+      "company": "Genrobotics",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "d2b636a953dbd2f0aaad3662bda0e24b": {
+      "title": "Software Engineer, AI Platform - Intern",
+      "company": "Nuro",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "74a88f470ce16d966012fba753e3a48f": {
+      "title": "Software Engineering Intern (Python & IoT)",
+      "company": "Ackcio",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "103847ff3107f7c9c3115966a81650ed": {
+      "title": "Stage | Marketing Data Intern",
+      "company": "Hyundai Motor Company",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "2666b996346ef004943819b5441206e7": {
+      "title": "Summer Intern (Data Science & Analytics)",
+      "company": "Jobright.ai",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "2e9a68b5ba1efaa7e9e297e0f016a5ae": {
+      "title": "Summer Intern BI and Analytics",
+      "company": "swipejobs",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "6bad0f6c910b0fa85f1fc6585db1a416": {
+      "title": "Supply Chain AI & Analytics Associate",
+      "company": "Hyve Solutions",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "280607aa091508c331146ed8594a06d2": {
+      "title": "Trainee Data - Reporting Consultant",
+      "company": "Kainos",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T10:14:03.157313"
+    },
+    "7ef5ede800e1ff3d5fb3bb92046d8ffc": {
+      "title": "Advanced Data Analytics - Quant Data Specialist, Associate",
+      "company": "BlackRock",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T11:21:46.376111"
+    },
+    "f978483111f08b957375a798ce97591a": {
+      "title": "Associate - Agentic AI - Data analytics engineer",
+      "company": "HARMAN India",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T11:21:46.376111"
+    },
+    "9b3b148e12626df0927e60fc7d4c0ba2": {
+      "title": "Associate - Data Scientist",
+      "company": "United Airlines India Knowledge Center",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T11:21:46.376111"
+    },
+    "f0f0b86afe06bc9c376fbf3809fcb5e0": {
+      "title": "Data Analyst Intern",
+      "company": "Cantor Fitzgerald",
+      "source": "LinkedIn",
+      "location": "Hyderabad, Telangana, India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-at-cantor-fitzgerald-4418847934",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "0824ce2665a653a03b27f12bad10b04f": {
+      "title": "Data Analyst Intern",
+      "company": "Volkswagen Group Singapore",
+      "source": "LinkedIn",
+      "location": "Singapore, Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/data-analyst-intern-at-volkswagen-group-singapore-4418696707",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "be297161d82f71516b157d1c3909b4f6": {
+      "title": "Data Analyst Intern",
+      "company": "ZURU Toys",
+      "source": "LinkedIn",
+      "location": "Los Angeles Metropolitan Area",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/data-analyst-intern-at-zuru-toys-4411407609",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "918c6185849f037d1e9bbc49dca9beec": {
+      "title": "Data Analyst Intern",
+      "company": "Maxis",
+      "source": "LinkedIn",
+      "location": "Kuala Lumpur, Federal Territory of Kuala Lumpur, Malaysia",
+      "work_type": "Remote",
+      "link": "https://my.linkedin.com/jobs/view/data-analyst-intern-at-maxis-4402358535",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "5df6232ddce710ac509f207b329e0b9a": {
+      "title": "Data Analyst Intern - Regional BI & Planning (Fall 2026)",
+      "company": "Shopee",
+      "source": "LinkedIn",
+      "location": "Singapore, Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/data-analyst-intern-regional-bi-planning-fall-2026-at-shopee-4419153976",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "5adca6ce58f5dd4a8a61c777ed526928": {
+      "title": "Junior Business / Data Analyst",
+      "company": "D&B Technologies & Data Services",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T11:21:46.376111"
+    },
+    "46f0a535ad6340ae4f42cd477e74cbb1": {
+      "title": "Junior Data Analyst Intern",
+      "company": "Cerved",
+      "source": "LinkedIn",
+      "location": "San Donato Milanese, Lombardy, Italy",
+      "work_type": "Remote",
+      "link": "https://it.linkedin.com/jobs/view/junior-data-analyst-intern-at-cerved-4375262709",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f84e58ea02fd55ac0e25de1826e9644b": {
+      "title": "Phoenix Intern - Data Science",
+      "company": "Myntra",
+      "source": "LinkedIn",
+      "location": "Bengaluru, Karnataka, India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/phoenix-intern-data-science-at-myntra-4420289982",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "cf48ea8ad7d621e2cb4af41a780018e5": {
+      "title": "Data Labeling Specialists",
+      "company": "Workada",
+      "source": "Remotive",
+      "seen_at": "2026-05-30T14:35:17.206381"
+    },
+    "4fa17d0533e9181db9027534a3a3fec9": {
+      "title": "AI Software Engineering Graduate Intern",
+      "company": "Intel",
+      "source": "LinkedIn",
+      "location": "Shanghai, Shanghai, China",
+      "work_type": "Remote",
+      "link": "https://cn.linkedin.com/jobs/view/ai-software-engineering-graduate-intern-at-intel-4402362323",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "53808f30c9619d7e87f602ce332269c3": {
+      "title": "Data Analysis Intern | Remote | Entry-Level | Excel / SQL / Visualization",
+      "company": "Inficore Soft",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T14:35:17.206381"
+    },
+    "690f24e015b0d3c36b4b135a9955c0ab": {
+      "title": "Data Analysis Intern, Applied System Engineering - Fall 2026",
+      "company": "NVIDIA AI",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T14:35:17.206381"
+    },
+    "fe4d8c7c946dd8dd280ebe9f9d52b1cd": {
+      "title": "Data Analyst Intern",
+      "company": "Hawkroot",
+      "source": "LinkedIn",
+      "location": "United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/data-analyst-intern-at-hawkroot-4419144899",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "e5b41de7b150364974f05cffefebb0f2": {
+      "title": "Data Analyst Intern",
+      "company": "E Source",
+      "source": "LinkedIn",
+      "location": "United States",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/data-analyst-intern-at-e-source-4416846325",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "79a92109ba7d3d26608c677a410c1ceb": {
+      "title": "Data Analyst Intern",
+      "company": "Criteo",
+      "source": "LinkedIn",
+      "location": "Barcelona, Catalonia, Spain",
+      "work_type": "Remote",
+      "link": "https://es.linkedin.com/jobs/view/data-analyst-intern-at-criteo-4390814627",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "3d80d7fb2dc9cf0ad32af4fa16984cfd": {
+      "title": "Data Analyst Intern",
+      "company": "PSECU",
+      "source": "LinkedIn",
+      "location": "Harrisburg, PA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/data-analyst-intern-at-psecu-4418282401",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "31dffa5d8a9b65b6a7fbda228dabc3c4": {
+      "title": "Data Analyst Intern (TikTok Shop AMS Data Science) - 2026 Summer (BS/MS)",
+      "company": "TikTok",
+      "source": "LinkedIn",
+      "location": "Seattle, WA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/data-analyst-intern-tiktok-shop-ams-data-science-2026-summer-bs-ms-at-tiktok-4280505216",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "86744bee8f149a908de5f40cecbb6399": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T14:35:17.206381"
+    },
+    "12ac9c0a3654653ccdab9b85080bcf06": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T14:35:17.206381"
+    },
+    "e52f7b603ae0a3e9bdb996f2f8becd24": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T14:35:17.206381"
+    },
+    "262843305347d7a44079f99a21681fc2": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T14:35:17.206381"
+    },
+    "c5dc89120651557f023de84b2bc6dc10": {
+      "title": "Data Analyst Project Intern (TikTok Shop EMEA Data Science) - 2026 Start (BS/MS\uff09",
+      "company": "TikTok",
+      "source": "LinkedIn",
+      "location": "London, England, United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/data-analyst-project-intern-tiktok-shop-emea-data-science-2026-start-bs-ms%EF%BC%89-at-tiktok-4389802572",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "af91351f819f98e89a0ce60b7939ca98": {
+      "title": "Machine Learning Systems Intern",
+      "company": "MeshyAI",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T14:35:17.206381"
+    },
+    "5d1286384b8b4f5696b9eb242cc77b39": {
+      "title": "Product Data Scientist Intern",
+      "company": "Criteo",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T14:35:17.206381"
+    },
+    "7c2fcebdaa736fee249fbd325f14618b": {
+      "title": "Software Dev Engineer Intern Machine Learning, Amazon Robotics",
+      "company": "Amazon",
+      "source": "LinkedIn",
+      "location": "Berlin, Germany",
+      "work_type": "Remote",
+      "link": "https://de.linkedin.com/jobs/view/software-dev-engineer-intern-machine-learning-amazon-robotics-at-amazon-4412153249",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f0766c87fbe30d91c6ccf69346bef543": {
+      "title": "Analytics Engineer Intern (Jul - Dec )",
+      "company": "Cartier",
+      "source": "LinkedIn",
+      "location": "Singapore, Singapore",
+      "work_type": "Remote",
+      "link": "https://sg.linkedin.com/jobs/view/analytics-engineer-intern-jul-dec-at-cartier-4417867039",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "da0a65ea7504833e5675105597048108": {
+      "title": "Analytics Engineering Intern",
+      "company": "On Point Strategy",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T16:54:45.541483"
+    },
+    "d1b28e6fa532f417a5b63f180c44b176": {
+      "title": "Associate, Data Analytics",
+      "company": "Checkout.com",
+      "source": "LinkedIn",
+      "location": "\u00c9b\u00e8ne, Moka, Mauritius",
+      "work_type": "Remote",
+      "link": "https://mu.linkedin.com/jobs/view/associate-data-analytics-at-checkout-com-4400803167",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f55041eb784e215adbdf1f50ce0de80a": {
+      "title": "Data Analyst Junior (H/F)",
+      "company": "Maison Junot",
+      "source": "LinkedIn",
+      "location": "Paris, \u00cele-de-France, France",
+      "work_type": "Remote",
+      "link": "https://fr.linkedin.com/jobs/view/data-analyst-junior-h-f-at-maison-junot-4420409306",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "426e4eebdc71b57b367852ab8aa6e869": {
+      "title": "Intern Data Science & Data Analytics Financial Services (f/m/x)",
+      "company": "BMW Group",
+      "source": "LinkedIn",
+      "location": "Munich, Bavaria, Germany",
+      "work_type": "Remote",
+      "link": "https://de.linkedin.com/jobs/view/intern-data-science-data-analytics-financial-services-f-m-x-at-bmw-group-4416896473",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "e9ef0ccb76b1988c91afb13ae9685f5a": {
+      "title": "Junior Analytics Specialist",
+      "company": "Spiralyze",
+      "source": "LinkedIn",
+      "location": "Belgrade, Serbia",
+      "work_type": "Remote",
+      "link": "https://rs.linkedin.com/jobs/view/junior-analytics-specialist-at-spiralyze-4422007739",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "5de09838dcf6790f25ecabc71862cece": {
+      "title": "Junior CRM Data Analyst",
+      "company": "SkillOnNet",
+      "source": "LinkedIn",
+      "location": "Cyprus",
+      "work_type": "Remote",
+      "link": "https://cy.linkedin.com/jobs/view/junior-crm-data-analyst-at-skillonnet-4417855799",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "909e9a7aaeead469cd9063fdd6221c5c": {
+      "title": "Junior Data Analyst",
+      "company": "AI Xplore",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T16:54:45.541483"
+    },
+    "af258e0f01c5b144d71d6fdbb0725219": {
+      "title": "Junior Data Analyst",
+      "company": "Howden",
+      "source": "LinkedIn",
+      "location": "London, England, United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/junior-data-analyst-at-howden-4418590176",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "ff5dbf323180cc52fcb72931bce8281e": {
+      "title": "Machine Learning Dataset Intern",
+      "company": "AVL in Italy",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T16:54:45.541483"
+    },
+    "6ec79ec42cbe920bd976ec830ec1b699": {
+      "title": "Part-Time AI Software Engineering Intern US (Full Stack) \u2013 Healthcare",
+      "company": "Princeton Biopartners",
+      "source": "LinkedIn",
+      "location": "United States",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/part-time-ai-software-engineering-intern-us-full-stack-%E2%80%93-healthcare-at-princeton-biopartners-4419516731",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f7d337818eb181f0da1882cc34af3c93": {
+      "title": "Data Analyst Intern (Excel, SQL, Power BI) || Remove Fresher Tag",
+      "company": "Wake Up Whistle",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-excel-sql-power-bi-remove-fresher-tag-at-wake-up-whistle-4422525858",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "2c73914b4951aa2b6d7484f546537901": {
+      "title": "Data Analyst Intern (Excel, SQL, Power BI) || Remove Fresher Tag",
+      "company": "Wake Up Whistle",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-excel-sql-power-bi-remove-fresher-tag-at-wake-up-whistle-4422528612",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "b43ee0becce591681267a051b91f21c9": {
+      "title": "Data Analyst Intern (Excel, SQL, Power BI) || Remove Fresher Tag",
+      "company": "Wake Up Whistle",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-excel-sql-power-bi-remove-fresher-tag-at-wake-up-whistle-4422517673",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "13a32bd58d3318b1cd622e44927e6dac": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-power-bi-excel-sql-dashboard-projects-at-argo-intern-4422530678",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "7553c69ac3729c6607e424f2e4c6823c": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-power-bi-excel-sql-dashboard-projects-at-argo-intern-4422511920",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "a3ed4b940e424b2c86742576a1aa0651": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-power-bi-excel-sql-dashboard-projects-at-argo-intern-4422526664",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "cb1ce1e11a1b2fbf727854c30e50f990": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-power-bi-excel-sql-dashboard-projects-at-argo-intern-4422522680",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "a74c4507f6960f7c30750b8848a7a5b4": {
+      "title": "Data Analyst Intern",
+      "company": "Webs X UM",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-at-webs-x-um-4421349995",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "7ea4dcbd9d07d81f29c181f797ccf591": {
+      "title": "Data Analyst Intern - X Delivery",
+      "company": "Boston Consulting Group (BCG)",
+      "source": "LinkedIn",
+      "seen_at": "2026-05-30T22:53:51.480645"
+    },
+    "576cddef6723cd25879ecae9714aee63": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-power-bi-excel-sql-dashboard-projects-at-argo-intern-4422514743",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "e72b1c6e3769ec17d5b6abe96d6caf81": {
+      "title": "Junior Data & CRM Analyst",
+      "company": "APWireless Infrastructure Partners, LLC",
+      "source": "LinkedIn",
+      "location": "Madrid, Community of Madrid, Spain",
+      "work_type": "Remote",
+      "link": "https://es.linkedin.com/jobs/view/junior-data-crm-analyst-at-apwireless-infrastructure-partners-llc-4415250009",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T05:12:02.585824"
+    },
+    "6d34de9658afc271ceb978982fedfd2b": {
+      "title": "Associate - Data Analyst",
+      "company": "The Souled Store",
+      "source": "LinkedIn",
+      "location": "Mumbai Metropolitan Region",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/associate-data-analyst-at-the-souled-store-4417861140",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "4cad2b94d19f6f86eacacddbc42184dd": {
+      "title": "Associate Data Analyst, People Analytics & Automation",
+      "company": "JD Finish Line",
+      "source": "LinkedIn",
+      "location": "Indianapolis, IN",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/associate-data-analyst-people-analytics-automation-at-jd-finish-line-4422037642",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "0b7ec0b6868c9cc357fc7197d56e1620": {
+      "title": "Data Analyst (Entry Level)",
+      "company": "Murj",
+      "source": "LinkedIn",
+      "location": "United States",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/data-analyst-entry-level-at-murj-4419515291",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "4b053cc30e12e7bbac79850e43056e40": {
+      "title": "Data Analyst (Entry-Level / Junior)",
+      "company": "Club de Finanzas & Negocios UPC",
+      "source": "LinkedIn",
+      "location": "Paris, \u00cele-de-France, France",
+      "work_type": "Remote",
+      "link": "https://fr.linkedin.com/jobs/view/data-analyst-entry-level-junior-at-club-de-finanzas-negocios-upc-4418361678",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "8f4b349ef22e552df85ffba5da8b6766": {
+      "title": "Data Analyst Intern",
+      "company": "Webs X UM",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-at-webs-x-um-4421375069",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "3961c5158cd916a40b4ee986aa89bae1": {
+      "title": "Data Analyst Intern",
+      "company": "Webs X UM",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-at-webs-x-um-4421375056",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "a8e4788f2b94aa4e767e08a60878487c": {
+      "title": "Data Analyst Intern",
+      "company": "Webs X UM",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-at-webs-x-um-4421377066",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "b97cd9184f5250e6d3bc251e82a7dc46": {
+      "title": "Data Analyst Intern",
+      "company": "Webs X UM",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-at-webs-x-um-4421378066",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "9d8ba76912680f1a9efcfb399369d4f7": {
+      "title": "Data Analyst Intern (Entry Level) | Analytics \u2022 Reporting \u2022 Business Insights | Remote",
+      "company": "Skillzenloop",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-entry-level-analytics-%E2%80%A2-reporting-%E2%80%A2-business-insights-remote-at-skillzenloop-4418362643",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "41593a502f57356d4ba48d417ab9763a": {
+      "title": "Data Analyst Intern (Excel, SQL, Power BI) || Remove Fresher Tag",
+      "company": "Wake Up Whistle",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-excel-sql-power-bi-remove-fresher-tag-at-wake-up-whistle-4422543223",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "6c1fe7e0f8e6974e701dcb60cb9af93e": {
+      "title": "Data and AI Engineer - Junior",
+      "company": "Accenture",
+      "source": "LinkedIn",
+      "location": "\u00c9b\u00e8ne, Moka, Mauritius",
+      "work_type": "Remote",
+      "link": "https://mu.linkedin.com/jobs/view/data-and-ai-engineer-junior-at-accenture-4419009018",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f1b2ad38ed9e57b1ddc644324c193fe0": {
+      "title": "Data Science Internship",
+      "company": "Procter & Gamble",
+      "source": "LinkedIn",
+      "location": "Brussels, Brussels Region, Belgium",
+      "work_type": "Remote",
+      "link": "https://be.linkedin.com/jobs/view/data-science-internship-at-procter-gamble-4377185896",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "88a96f43bf5c894a515d86a13a200cc7": {
+      "title": "Entry Level Data Analyst",
+      "company": "Emonics LLC",
+      "source": "LinkedIn",
+      "location": "San Jose, CA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/entry-level-data-analyst-at-emonics-llc-4418277460",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "478f9539d97ddf667167827288be43ba": {
+      "title": "Entry-Level Data Analyst",
+      "company": "SynergisticIT",
+      "source": "LinkedIn",
+      "location": "Fremont, CA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/entry-level-data-analyst-at-synergisticit-4420671215",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "db51e645d4c67495e37e36b3af37b236": {
+      "title": "Fresher Data Analyst (Entry / Junior Level)",
+      "company": "La Wallonie \u00e0 Abidjan - Service commercial de l'Ambassade de Belgique",
+      "source": "LinkedIn",
+      "location": "France",
+      "work_type": "Remote",
+      "link": "https://fr.linkedin.com/jobs/view/fresher-data-analyst-entry-junior-level-at-la-wallonie-%C3%A0-abidjan-service-commercial-de-l-ambassade-de-belgique-4422583013",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "c869028020b850bb17516051526aca4a": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "location": "United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/graduate-data-scientist-at-bending-spoons-4422523885",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "c1e0a314aec3dc08ab3a910ce15537b4": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "location": "London, England, United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/graduate-data-scientist-at-bending-spoons-4422534910",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "1fb4df59ca32a7d2f789a2d17112ad46": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "location": "Madrid, Community of Madrid, Spain",
+      "work_type": "Remote",
+      "link": "https://es.linkedin.com/jobs/view/graduate-data-scientist-at-bending-spoons-4422522932",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "523781209cf21ae229911fd2a56ac72e": {
+      "title": "Graduate data scientist",
+      "company": "Bending Spoons",
+      "source": "LinkedIn",
+      "location": "Italy",
+      "work_type": "Remote",
+      "link": "https://it.linkedin.com/jobs/view/graduate-data-scientist-at-bending-spoons-4422526906",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "c63fd6de91d0d0f78e86389a22daaea5": {
+      "title": "Graduate Leadership Program | Data Analyst",
+      "company": "Further",
+      "source": "LinkedIn",
+      "location": "Cleveland, OH",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/graduate-leadership-program-data-analyst-at-further-4419979857",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "e9a879f1d1c08f375d03157c7aec82db": {
+      "title": "Junior Analyst - Power Bi Dashboard Developer",
+      "company": "StepStone Group",
+      "source": "LinkedIn",
+      "location": "La Jolla, CA",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-analyst-power-bi-dashboard-developer-at-stepstone-group-4408925901",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "1da36755d05c23862a9a1e9e4688a711": {
+      "title": "Junior Data Analyst",
+      "company": "Hyra",
+      "source": "LinkedIn",
+      "location": "United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/junior-data-analyst-at-hyra-4421359310",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f86208ab5b7822b533f87bb32eed1d2a": {
+      "title": "Junior Data Analyst",
+      "company": "Hyra",
+      "source": "LinkedIn",
+      "location": "United Kingdom",
+      "work_type": "Remote",
+      "link": "https://uk.linkedin.com/jobs/view/junior-data-analyst-at-hyra-4421373189",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "f727624d7439f5f662360156c19939ae": {
+      "title": "Junior Data Analyst",
+      "company": "Helic & Co.",
+      "source": "LinkedIn",
+      "location": "United States",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-analyst-at-helic-co-4421340871",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "66f8d6a0f6ec76833997a634d8502d5b": {
+      "title": "Junior Data Analyst",
+      "company": "Addison Group",
+      "source": "LinkedIn",
+      "location": "Washington, DC",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-analyst-at-addison-group-4421257628",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "a78acafec3ad019f4cccf2695e12ac7a": {
+      "title": "Junior Data Analyst",
+      "company": "Turn2Partners",
+      "source": "LinkedIn",
+      "location": "Washington, DC",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/junior-data-analyst-at-turn2partners-4417941752",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "62ab708a89c1dcd253d791a79b65a105": {
+      "title": "Junior Data Scientist",
+      "company": "LyondellBasell",
+      "source": "LinkedIn",
+      "location": "Poznan, Wielkopolskie, Poland",
+      "work_type": "Remote",
+      "link": "https://pl.linkedin.com/jobs/view/junior-data-scientist-at-lyondellbasell-4419071589",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "d6d81262407dc89245447aba3b6888b2": {
+      "title": "Junior Data Scientist",
+      "company": "LSEG",
+      "source": "LinkedIn",
+      "location": "Cairo, Cairo, Egypt",
+      "work_type": "Remote",
+      "link": "https://eg.linkedin.com/jobs/view/junior-data-scientist-at-lseg-4409667492",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "e9c6c472bc341668ba8451395cbde6c9": {
+      "title": "Machine Learning Intern",
+      "company": "Webs IT Solution",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/machine-learning-intern-at-webs-it-solution-4421398302",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "8c5053d55d3dffcb324345875048a2a5": {
+      "title": "MIS- Lead Handling And Data Analyst Internship in Navi Mumbai, Thane, Dombivli, Mumbai, Belapur, Mumbai, Vashi Navi Mumbai, Mumbai, Navi Mumbai, Navi Mumbai, Navi Mumbai",
+      "company": "BNM Business Solutions LLP",
+      "source": "LinkedIn",
+      "location": "Thane, Maharashtra, India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/mis-lead-handling-and-data-analyst-internship-in-navi-mumbai-thane-dombivli-mumbai-belapur-mumbai-vashi-navi-mumbai-mumbai-navi-mumbai-navi-mumbai-navi-mumbai-at-bnm-business-solutions-llp-4418696458",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "1dd89a6ed5b2689af1781cc079246e7d": {
+      "title": "MIS- Lead Handling And Data Analyst Internship in Navi Mumbai, Thane, Dombivli, Mumbai, Belapur, Mumbai, Vashi Navi Mumbai, Mumbai, Navi Mumbai, Navi Mumbai, Navi Mumbai",
+      "company": "BNM Business Solutions LLP",
+      "source": "LinkedIn",
+      "location": "Mumbai Metropolitan Region",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/mis-lead-handling-and-data-analyst-internship-in-navi-mumbai-thane-dombivli-mumbai-belapur-mumbai-vashi-navi-mumbai-mumbai-navi-mumbai-navi-mumbai-navi-mumbai-at-bnm-business-solutions-llp-4418691507",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "bfd49f811b451300fc2d1a4d7451f4bd": {
+      "title": "MIS- Lead Handling And Data Analyst Internship in Navi Mumbai, Thane, Dombivli, Mumbai, Belapur, Mumbai, Vashi Navi Mumbai, Mumbai, Navi Mumbai, Navi Mumbai, Navi Mumbai",
+      "company": "BNM Business Solutions LLP",
+      "source": "LinkedIn",
+      "location": "Navi Mumbai, Maharashtra, India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/mis-lead-handling-and-data-analyst-internship-in-navi-mumbai-thane-dombivli-mumbai-belapur-mumbai-vashi-navi-mumbai-mumbai-navi-mumbai-navi-mumbai-navi-mumbai-at-bnm-business-solutions-llp-4418905402",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "ecb455485fbd0eca38411504665a4e00": {
+      "title": "MIS- Lead Handling And Data Analyst Internship in Navi Mumbai, Thane, Dombivli, Mumbai, Belapur, Mumbai, Vashi Navi Mumbai, Mumbai, Navi Mumbai, Navi Mumbai, Navi Mumbai",
+      "company": "BNM Business Solutions LLP",
+      "source": "LinkedIn",
+      "location": "Thane, Maharashtra, India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/mis-lead-handling-and-data-analyst-internship-in-navi-mumbai-thane-dombivli-mumbai-belapur-mumbai-vashi-navi-mumbai-mumbai-navi-mumbai-navi-mumbai-navi-mumbai-at-bnm-business-solutions-llp-4419106876",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "94614a17eeb84111154aadd834909214": {
+      "title": "MIS- Lead Handling And Data Analyst Internship in Navi Mumbai, Thane, Dombivli, Mumbai, Belapur, Mumbai, Vashi Navi Mumbai, Mumbai, Navi Mumbai, Navi Mumbai, Navi Mumbai",
+      "company": "BNM Business Solutions LLP",
+      "source": "LinkedIn",
+      "location": "Kalyan Dombivli, Maharashtra, India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/mis-lead-handling-and-data-analyst-internship-in-navi-mumbai-thane-dombivli-mumbai-belapur-mumbai-vashi-navi-mumbai-mumbai-navi-mumbai-navi-mumbai-navi-mumbai-at-bnm-business-solutions-llp-4419104972",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "83248683f2d260f863d7966a3b286ffc": {
+      "title": "Project Data Analyst (Entry / Junior Level)",
+      "company": "EL GAS NOTICIAS",
+      "source": "LinkedIn",
+      "location": "Paris, \u00cele-de-France, France",
+      "work_type": "Remote",
+      "link": "https://fr.linkedin.com/jobs/view/project-data-analyst-entry-junior-level-at-el-gas-noticias-4418372604",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "c71ce200a16fb65c99d535c19edd5ae8": {
+      "title": "Research Data Analyst Associate",
+      "company": "Northwestern University",
+      "source": "LinkedIn",
+      "location": "Chicago, IL",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/research-data-analyst-associate-at-northwestern-university-4419482860",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T08:00:16.652888"
+    },
+    "b847722b7dd797ab83439c852acee798": {
+      "title": "Junior Data Analyst",
+      "company": "Vested Finance",
+      "source": "LinkedIn",
+      "location": "Gandhinagar, Gujarat, India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/junior-data-analyst-at-vested-finance-4418357701",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T11:38:34.197447"
+    },
+    "84133ac54279557fdfb4a356ce8d4a8e": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-power-bi-excel-sql-dashboard-projects-at-argo-intern-4422581176",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T14:39:25.806027"
+    },
+    "04436b665c4f1de19df17355e7888c89": {
+      "title": "Machine Learning Intern",
+      "company": "Webs IT Solution",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/machine-learning-intern-at-webs-it-solution-4421616177",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T14:39:25.806027"
+    },
+    "9ed24b9224eb9535d6da2aa0fc3e9127": {
+      "title": "Data Analyst Intern | Power BI, Excel & SQL Dashboard Projects",
+      "company": "ArGo Intern",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-power-bi-excel-sql-dashboard-projects-at-argo-intern-4422571549",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T17:01:54.489575"
+    },
+    "394b9841938e8a175c08e73b9747f70b": {
+      "title": "Intern, Data Science (R-19011)",
+      "company": "Dun & Bradstreet",
+      "source": "LinkedIn",
+      "location": "Chennai, Tamil Nadu, India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/intern-data-science-r-19011-at-dun-bradstreet-4421628230",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T17:01:54.489575"
+    },
+    "ede3b4f08df2d2c102f26dcafdf5fb5e": {
+      "title": "Business Intelligence Intern",
+      "company": "KPH HEALTHCARE SERVICES, INC",
+      "source": "LinkedIn",
+      "location": "Syracuse, NY",
+      "work_type": "Remote",
+      "link": "https://www.linkedin.com/jobs/view/business-intelligence-intern-at-kph-healthcare-services-inc-4317352123",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T22:55:02.180799"
+    },
+    "0be99f091d418b04dfca83c64853991f": {
+      "title": "Data Analyst Intern",
+      "company": "Webs X UM",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-at-webs-x-um-4421622431",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T22:55:02.180799"
+    },
+    "a09f114ca19e0e37f6df29e458dc9d3f": {
+      "title": "Data Analyst Intern (Excel, SQL, Power BI) || Remove Fresher Tag",
+      "company": "Wake Up Whistle",
+      "source": "LinkedIn",
+      "location": "India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/data-analyst-intern-excel-sql-power-bi-remove-fresher-tag-at-wake-up-whistle-4422584439",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T22:55:02.180799"
+    },
+    "5ca39f1a79b3fd109d6793a98f7b796b": {
+      "title": "MIS- Lead Handling And Data Analyst Internship in Navi Mumbai, Thane, Dombivli, Mumbai, Belapur, Mumbai, Vashi Navi Mumbai, Mumbai, Navi Mumbai, Navi Mumbai, Navi Mumbai",
+      "company": "BNM Business Solutions LLP",
+      "source": "LinkedIn",
+      "location": "Navi Mumbai, Maharashtra, India",
+      "work_type": "Remote",
+      "link": "https://in.linkedin.com/jobs/view/mis-lead-handling-and-data-analyst-internship-in-navi-mumbai-thane-dombivli-mumbai-belapur-mumbai-vashi-navi-mumbai-mumbai-navi-mumbai-navi-mumbai-navi-mumbai-at-bnm-business-solutions-llp-4421265518",
+      "salary": null,
+      "description": "",
+      "seen_at": "2026-05-31T22:55:02.180799"
+    }
+  },
+  "last_updated": "2026-05-31T22:55:02.181209"
+};

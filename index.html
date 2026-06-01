@@ -946,6 +946,9 @@
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
+<!-- Fallback for local file:// execution -->
+<script src="data/seen_jobs.js"></script>
+
 <script>
   // ═══════════════════════════════════════════
   //  STATE — identical logic to original
@@ -1059,6 +1062,10 @@
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       parseJobs(await r.json());
     } catch {
+      if (typeof SEEN_JOBS_DATA !== "undefined") {
+        parseJobs(SEEN_JOBS_DATA);
+        return;
+      }
       const customRaw = JSON.parse(localStorage.getItem('kasun-custom-jobs') || '{}');
       if (Object.keys(customRaw).length > 0) {
         parseJobs({ seen_jobs: {} });
