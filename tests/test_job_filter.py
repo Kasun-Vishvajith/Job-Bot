@@ -21,6 +21,8 @@ FILTERING = {
     "entry_level_keywords": ["junior", "graduate", "entry level", "early career"],
     "max_years_experience": 3,
     "permanent_only": True,
+    "require_sri_lanka_remote_eligibility": True,
+    "remote_eligibility_keywords": ["worldwide", "anywhere", "sri lanka", "asia", "apac"],
     "min_keyword_matches": 1,
 }
 
@@ -63,6 +65,23 @@ class JobFilterTests(unittest.TestCase):
             location="Berlin, Germany", work_type="On-site", description="Junior data engineer"
         )
         self.assertFalse(accepted)
+
+    def test_rejects_country_restricted_remote_role(self):
+        accepted, reason = self.check(
+            location="Remote",
+            description="Junior AI engineer. Applicants must reside in the United States.",
+        )
+        self.assertFalse(accepted)
+        self.assertIn("eligibility", reason)
+
+    def test_accepts_sri_lankan_onsite_role(self):
+        accepted, _ = self.check(
+            title="Graduate Data Engineer",
+            location="Colombo, Sri Lanka",
+            work_type="On-site",
+            description="Permanent graduate opportunity.",
+        )
+        self.assertTrue(accepted)
 
 
 if __name__ == "__main__":

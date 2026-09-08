@@ -194,6 +194,27 @@ job_sites:
         type: "dailyremote"
         enabled: false             # HTML + one request/query
 
+      - name: "We Work Remotely RSS"
+        type: "rss"
+        enabled: true
+        default_location: "Worldwide Remote"
+        work_type: "Remote"
+        employment_type: "Full-time"
+        feeds:
+          - "https://weworkremotely.com/categories/remote-programming-jobs.rss"
+          - "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss"
+
+      - name: "ITPro.lk"
+        type: "rss"
+        enabled: true
+        default_location: "Sri Lanka"
+        default_company: "ITPro.lk Employer"
+        employment_type: "Full-time"
+        feeds:
+          - "https://itpro.lk/rss/ai-and-data/"
+          - "https://itpro.lk/rss/devops-cloud/"
+          - "https://itpro.lk/rss/software-engineering/"
+
       - name: "HiringCafe"
         type: "hiringcafe"
         enabled: false             # Enable once tested locally
@@ -328,7 +349,7 @@ job_sites:
 
   # ── Local Sri Lanka Job Sites ────────────────────────────────────────────────
   local_sites:
-    enabled: false                 # Remote-first focus; enable manually for Sri Lanka
+    enabled: true
     sites:
       - name: "TopJobs LK"
         url: "https://www.topjobs.lk/applicant/vacancybyfunctionalarea.jsp?FA=SDQ&jst=OPEN"
@@ -336,17 +357,17 @@ job_sites:
         enabled: true
 
       - name: "XpressJobs - Data Science"
-        url: "https://xpressjobs.lk/jobs/?q=data+science+intern&cat=all"
+        url: "https://xpress.jobs/search-jobs/data+science"
         type: "xpressjobs"
         enabled: true
 
       - name: "XpressJobs - Data Analyst"
-        url: "https://xpressjobs.lk/jobs/?q=data+analyst+intern&cat=all"
+        url: "https://xpress.jobs/search-jobs/data+analyst"
         type: "xpressjobs"
         enabled: true
 
       - name: "XpressJobs - Machine Learning"
-        url: "https://xpressjobs.lk/jobs/?q=machine+learning+intern&cat=all"
+        url: "https://xpress.jobs/search-jobs/machine+learning"
         type: "xpressjobs"
         enabled: true
 
@@ -356,29 +377,29 @@ job_sites:
         enabled: true
 
       - name: "XpressJobs - AI"
-        url: "https://xpressjobs.lk/jobs/?q=AI+intern&cat=all"
+        url: "https://xpress.jobs/search-jobs/AI+engineer"
         type: "xpressjobs"
         enabled: true
 
       # iJobs.lk — popular Sri Lanka job board
       - name: "iJobs LK - Data Science"
-        url: "https://www.ijobs.lk/SearchJobs?Keyword=data+science+intern"
+        url: "https://www.ijobs.lk/SearchJobs?Keyword=data+science"
         type: "ijobs"
         enabled: true
 
       - name: "iJobs LK - Data Analyst"
-        url: "https://www.ijobs.lk/SearchJobs?Keyword=data+analyst+intern"
+        url: "https://www.ijobs.lk/SearchJobs?Keyword=data+analyst"
         type: "ijobs"
         enabled: true
 
       - name: "iJobs LK - Machine Learning"
-        url: "https://www.ijobs.lk/SearchJobs?Keyword=machine+learning+intern"
+        url: "https://www.ijobs.lk/SearchJobs?Keyword=machine+learning"
         type: "ijobs"
         enabled: true
 
   # ── Company Career Pages ─────────────────────────────────────────────────────
   company_pages:
-    enabled: false                 # Generic HTML pages are JS-heavy; ATS APIs replace them
+    enabled: true                  # Secondary discovery; each page is fetched only once
     pages:
       # ── Local Sri Lanka Companies ───────────────────────────────────────────
       - name: "WSO2"
@@ -407,6 +428,106 @@ job_sites:
         type: "generic"
         default_location: "Colombo, Sri Lanka"
         keywords: ["data", "analytics", "AI", "machine learning", "intern"]
+        enabled: true
+
+      - name: "Rootcode"
+        url: "https://rootcode.ai/careers"
+        type: "generic"
+        default_location: "Sri Lanka"
+        keywords: ["data", "AI", "machine learning", "automation", "software", "cloud"]
+        enabled: true
+
+      - name: "LSEG"
+        url: "https://www.lseg.com/en/careers"
+        type: "generic"
+        default_location: "Colombo, Sri Lanka"
+        keywords: ["data", "analytics", "AI", "machine learning", "software", "graduate"]
+        enabled: true
+
+      - name: "Virtusa"
+        url: "https://www.virtusa.com/careers"
+        type: "generic"
+        default_location: "Colombo, Sri Lanka"
+        keywords: ["data", "AI", "machine learning", "software", "DevOps", "cloud"]
+        enabled: true
+
+      # International discovery pages without stable public APIs. These are
+      # fetched once; the normal filter still requires Sri Lanka eligibility.
+      - name: "Wellfound"
+        url: "https://wellfound.com/jobs"
+        type: "generic"
+        default_location: "Remote"
+        keywords: ["AI", "machine learning", "data", "automation", "DevOps"]
+        enabled: true
+
+      - name: "Y Combinator Jobs"
+        url: "https://www.ycombinator.com/jobs"
+        type: "generic"
+        default_location: "Remote"
+        keywords: ["AI", "machine learning", "data", "automation", "DevOps"]
+        enabled: true
+
+      - name: "Working Nomads"
+        url: "https://www.workingnomads.com/remote-artificial-intelligence-jobs"
+        type: "generic"
+        default_location: "Remote"
+        keywords: ["AI", "machine learning", "data", "automation", "DevOps"]
+        enabled: true
+
+      - name: "Real Work From Anywhere"
+        url: "https://www.realworkfromanywhere.com/"
+        type: "generic"
+        default_location: "Worldwide Remote"
+        keywords: ["AI", "machine learning", "data", "automation", "DevOps"]
+        enabled: true
+
+      - name: "Remote.com Jobs"
+        url: "https://remote.com/jobs"
+        type: "generic"
+        default_location: "Remote"
+        keywords: ["AI", "machine learning", "data", "automation", "DevOps"]
+        enabled: true
+
+      - name: "DataScienceJobs"
+        url: "https://datasciencejobs.com/"
+        type: "generic"
+        default_location: "Remote"
+        keywords: ["data scientist", "data engineer", "machine learning", "AI"]
+        enabled: true
+
+      - name: "AIJobs.com"
+        url: "https://www.aijobs.com/"
+        type: "generic"
+        default_location: "Remote"
+        keywords: ["AI", "machine learning", "robotics", "computer vision", "data"]
+        enabled: true
+
+      - name: "Jobspresso"
+        url: "https://jobspresso.co/remote-ai-data-jobs/"
+        type: "generic"
+        default_location: "Remote"
+        keywords: ["AI", "machine learning", "data", "automation", "DevOps"]
+        enabled: true
+
+      - name: "Arc"
+        url: "https://arc.dev/remote-jobs/data-science"
+        type: "generic"
+        default_location: "Remote"
+        keywords: ["data science", "machine learning", "AI", "data engineer"]
+        enabled: true
+
+      - name: "Turing"
+        url: "https://www.turing.com/jobs"
+        type: "generic"
+        default_location: "Remote"
+        keywords: ["AI", "machine learning", "data", "DevOps", "automation"]
+        enabled: true
+
+      - name: "Toptal"
+        url: "https://www.toptal.com/talent/apply"
+        type: "generic"
+        default_location: "Worldwide Remote"
+        keywords: ["AI", "machine learning", "data", "DevOps", "automation"]
         enabled: true
 
       # ── Remote-Friendly Tech Companies ──────────────────────────────────────
@@ -554,9 +675,8 @@ notifications:
 
 # ── SCHEDULE ──────────────────────────────────────────────────────────────────
 schedule:
-  # Once daily at midnight Sri Lanka time (UTC+5:30)
-  # 12am LKT = 18:30 UTC (previous day)
-  times_utc: ["18:30"]
+  # Twice daily at midnight and noon Sri Lanka time (UTC+5:30)
+  times_utc: ["06:30", "18:30"]
 
 
 # ── FILTERING ─────────────────────────────────────────────────────────────────
@@ -569,6 +689,16 @@ filtering:
   enforce_entry_level: true
   permanent_only: true
   max_years_experience: 3
+  require_sri_lanka_remote_eligibility: true
+  remote_eligibility_keywords:
+    - "worldwide"
+    - "anywhere"
+    - "global remote"
+    - "work from anywhere"
+    - "sri lanka"
+    - "asia"
+    - "apac"
+    - "all countries"
   entry_level_keywords:
     - "entry level"
     - "entry-level"
@@ -593,4 +723,4 @@ ai_filtering:
   enabled: true
   min_suitability_score: 70       # Filter out jobs below this score (0-100)
   model: "gemini-2.5-flash"       # Cost-efficient, high-speed model
-  max_jobs_per_run: 60            # At most 3 batches; protects Actions runtime/API quota
+  max_jobs_per_run: 120           # At most 6 Gemini batches within the 45-minute run

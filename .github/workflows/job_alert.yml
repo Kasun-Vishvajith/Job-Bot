@@ -2,7 +2,7 @@ name: Job Alert Bot
 
 on:
   schedule:
-    - cron: "30 18 * * *"   # Once daily at 00:00 LKT (midnight)
+    - cron: "30 6,18 * * *" # 12:00 and 00:00 LKT
   workflow_dispatch:          # Allow manual trigger from GitHub UI
 
 permissions:
@@ -15,8 +15,8 @@ concurrency:
 jobs:
   scrape-and-notify:
     runs-on: ubuntu-latest
-    # Hard ceiling; normal API-first runs should finish well below this.
-    timeout-minutes: 15
+    # Public-repository standard runners do not consume private Actions minutes.
+    timeout-minutes: 45
 
     steps:
       - name: Checkout repository

@@ -81,6 +81,12 @@ class JobFilter:
         ]
         self.max_years_experience = filtering.get("max_years_experience", 1)
         self.permanent_only = filtering.get("permanent_only", False)
+        self.require_sri_lanka_remote_eligibility = filtering.get(
+            "require_sri_lanka_remote_eligibility", False
+        )
+        self.remote_eligibility_keywords = [
+            value.lower() for value in filtering.get("remote_eligibility_keywords", [])
+        ]
 
     def filter(self, jobs: list[dict]) -> list[dict]:
         matched = []
@@ -121,6 +127,16 @@ class JobFilter:
                     f"remote_only=true: work_type='{work_type}' "
                     f"and location '{job.get('location')}' is not in Sri Lanka"
                 )
+            if (
+                work_type == "remote"
+                and self.require_sri_lanka_remote_eligibility
+                and not is_local_sri_lanka
+                and not any(
+                    re.search(rf"\b{re.escape(term)}\b", text)
+                    for term in self.remote_eligibility_keywords
+                )
+            ):
+                return False, "remote role does not explicitly include Sri Lanka/worldwide/APAC eligibility"
 
         # ── 1. Must-have keywords (intern/internship MUST appear) ─────────────
         if self.strict_filtering and self.must_have:

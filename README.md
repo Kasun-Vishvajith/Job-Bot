@@ -2,22 +2,24 @@
 
 Automatically searches for technical early-career jobs and sends email plus Telegram alerts for new matches. The default configuration is tuned for worldwide remote, permanent roles requiring 0-3 years of experience, with an emphasis on AI/ML, automation, data, DevOps/cloud/platform, and automotive software/data engineering.
 
-The bot runs once daily on GitHub Actions, so you do not need to keep a server online.
+The bot runs twice daily on GitHub Actions, so you do not need to keep a server online.
 
 ## What It Searches
 
-- Broad remote feeds: Remotive, Arbeitnow, RemoteOK, Jobicy, and Himalayas
+- Broad remote feeds: Remotive, Arbeitnow, RemoteOK, Jobicy, Himalayas, and We Work Remotely RSS
+- Sri Lankan sources: ITPro.lk official category RSS, TopJobs, XpressJobs, and iJobs
 - Public ATS feeds: selected Greenhouse and Lever employers, including mobility/automotive companies
-- Optional HTML/large-board/local scrapers remain available but are disabled by default to conserve Actions minutes
+- Direct employer pages: WSO2, IFS, Sysco LABS, 99x, Rootcode, LSEG, and Virtusa
+- Secondary discovery pages include Wellfound, YC Jobs, Working Nomads, Real Work From Anywhere, Remote.com, DataScienceJobs, AIJobs, Jobspresso, Arc, Turing, and Toptal
 
-The strongest worldwide remote search path is the `remote_job_boards` section. LinkedIn, Indeed, TopJobs LK, XpressJobs, and generic company pages remain configurable for manual experiments, but are disabled in the Actions-efficient default profile.
+LinkedIn, Indeed, and Glassdoor remain disabled because hosted runners are commonly blocked; native alerts are more reliable for those three sites.
 
 ## Current Target Profile
 
 The included `config.yaml` is focused on:
 
-- Fully remote jobs from anywhere in the world
-- Hybrid and on-site jobs in Colombo/Sri Lanka
+- International remote jobs that explicitly include worldwide, Sri Lanka, Asia, or APAC eligibility
+- Remote, hybrid, and on-site jobs throughout Sri Lanka
 - Data science, data analyst, machine learning, AI, analytics, BI, Python data, and related roles
 - Permanent graduate, new-grad, junior, associate, entry-level, early-career, or explicit 0-3 year roles
 - Filtering out senior, lead, staff, principal, head, director, VP, and roles asking for high experience
@@ -45,7 +47,7 @@ python main.py
 Important sections:
 
 - `profile.keywords`: data skills and target roles
-- `profile.must_have_keywords`: internship, junior, graduate, and 0-year indicators
+- `profile.must_have_keywords`: junior, graduate, entry-level, and 0-3 year indicators
 - `profile.work_types`: controls `remote`, `hybrid`, and `on-site` acceptance
 - `job_sites.remote_job_boards.search_terms`: the main worldwide remote search queries
 - `job_sites.linkedin.search_queries` and `job_sites.indeed.search_queries`: remote plus Colombo/Sri Lanka queries
@@ -70,7 +72,7 @@ If `GEMINI_API_KEY` is missing, the bot still runs and uses the normal keyword f
 
 ## GitHub Actions
 
-The workflow in `.github/workflows/job_alert.yml` runs once per day at 12:00 AM Sri Lanka time and has a 15-minute hard timeout. API feeds are intentionally fetched once per run and filtered locally.
+The workflow runs at 12:00 AM and 12:00 PM Sri Lanka time with a 45-minute safety timeout. API and RSS feeds are fetched once per run; HTML discovery pages are also fetched only once each.
 
 You can also run it manually from the Actions tab with `Run workflow`.
 
@@ -103,7 +105,7 @@ job-alert-bot/
 1. Scrapers collect raw jobs from all enabled sources.
 2. `utils/filter.py` keeps jobs that match data-related keywords.
 3. If `filtering.enforce_entry_level` is true, the job must mention an early-career signal or an explicit experience requirement no higher than the configured three years.
-4. `profile.work_types` controls remote/hybrid/on-site acceptance. Remote roles are accepted worldwide; hybrid and on-site roles must match the Sri Lanka location rules.
+4. International remote roles must explicitly include worldwide, Sri Lanka, Asia, or APAC eligibility. Sri Lankan remote, hybrid, and on-site roles are accepted.
 5. `utils/ai_filter.py` optionally asks Gemini to score each job and reject weak matches, senior roles, hybrid/on-site roles outside Sri Lanka, or region-restricted remote roles.
 6. `utils/database.py` removes jobs already seen in previous runs.
 7. `utils/notifier.py` sends alerts.
@@ -116,10 +118,10 @@ Add terms under `job_sites.remote_job_boards.search_terms`:
 job_sites:
   remote_job_boards:
     search_terms:
-      - "data science intern"
-      - "junior data analyst"
-      - "entry level machine learning"
-      - "graduate AI analyst"
+      - "AI engineer"
+      - "junior data engineer"
+      - "entry level machine learning engineer"
+      - "graduate DevOps engineer"
 ```
 
 The API-first sources use `match_keywords` for broad local filtering; `search_terms` are retained for optional HTML scrapers.
@@ -132,7 +134,7 @@ Add pages under `job_sites.company_pages.pages`:
 - name: "Example Company"
   url: "https://example.com/careers"
   type: "generic"
-  keywords: ["data", "analytics", "machine learning", "intern", "junior"]
+  keywords: ["data", "analytics", "machine learning", "AI", "DevOps", "junior"]
 ```
 
 Generic career-page scraping is best-effort. Some company sites render jobs with JavaScript or block automated requests, so dedicated remote job boards usually give better results.
@@ -162,5 +164,5 @@ Scraper returns 0 jobs:
 ## Notes
 
 - The default search is intentionally broad across remote boards to maximize discovery.
-- The entry-level filter is intentionally strict so internships and 0-year roles are prioritized.
+- The early-career filter is intentionally strict: permanent 0-3 year roles are prioritized and internships are rejected.
 - `data/seen_jobs.json` is the duplicate-prevention database and is automatically updated by GitHub Actions.

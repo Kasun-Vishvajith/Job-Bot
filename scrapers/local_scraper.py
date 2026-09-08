@@ -151,7 +151,7 @@ class LocalSiteScraper:
 
         if not cards:
             log.debug("  [XpressJobs] No job cards found — trying link-based fallback")
-            return self._fallback_link_parse(soup, "https://xpressjobs.lk", "XpressJobs")
+            return self._fallback_link_parse(soup, "https://xpress.jobs", "XpressJobs")
 
         for card in cards:
             try:
@@ -169,7 +169,7 @@ class LocalSiteScraper:
                 salary = salary_el.get_text(strip=True) if salary_el else None
                 link = title_el.get("href", "")
                 if link and not link.startswith("http"):
-                    link = "https://xpressjobs.lk" + link
+                    link = urljoin("https://xpress.jobs", link)
 
                 jobs.append({
                     "id": self._make_id(title, company, link),

@@ -19,6 +19,7 @@ import hashlib
 import logging
 import time
 import random
+import re
 from datetime import datetime
 from typing import Iterable, Optional
 from urllib.parse import urljoin
@@ -94,6 +95,8 @@ class RemoteJobBoardScraper:
                     fetched = self._scrape_greenhouse(source)
                 elif source_type == "lever":
                     fetched = self._scrape_lever(source)
+                elif source_type == "rss":
+                    fetched = self._scrape_rss(source)
                 elif source_type == "theirstack":
                     fetched = self._scrape_theirstack(source)
                 elif source_type == "himalayas":
@@ -458,6 +461,49 @@ class RemoteJobBoardScraper:
                 ))
         return jobs
 
+    # ── RSS feeds ────────────────────────────────────────────────────────────
+
+    def _scrape_rss(self, source: dict) -> list[dict]:
+        """Read official RSS feeds with one request per configured category."""
+        jobs = []
+        for feed_url in source.get("feeds", []):
+            try:
+                soup = self._get_soup(feed_url, parser="xml")
+            except Exception as exc:
+                log.warning("  [RSS:%s] failed: %s", feed_url, exc)
+                continue
+            for item in soup.select("item"):
+                title = self._rss_text(item, "title")
+                description = self._rss_text(item, "description")
+                categories = " ".join(el.get_text(" ", strip=True) for el in item.select("category"))
+                if not self._matches(title, description, categories):
+                    continue
+                location = (
+                    self._rss_text(item, "region")
+                    or self._rss_text(item, "location")
+                    or source.get("default_location", "Remote")
+                )
+                company = (
+                    self._rss_text(item, "company")
+                    or self._rss_text(item, "creator")
+                    or source.get("default_company", source["name"])
+                )
+                jobs.append(self._job(
+                    title=title,
+                    company=company,
+                    location=location,
+                    link=self._rss_text(item, "link") or self._rss_text(item, "guid"),
+                    source=source["name"],
+                    salary=self._extract_salary(f"{title} {description}"),
+                    description=description,
+                    posted=self._rss_text(item, "pubDate") or self._rss_text(item, "date"),
+                    employment_type=source.get("employment_type", "Full-time"),
+                    work_type=source.get("work_type") or self._detect_work_type(location, description),
+                ))
+                if len(jobs) >= self.max_results_per_source:
+                    return jobs
+        return jobs
+
     # ── TheirStack (free tier) ────────────────────────────────────────────────
 
     def _scrape_theirstack(self, source: dict) -> list[dict]:
@@ -642,12 +688,12 @@ class RemoteJobBoardScraper:
         resp.raise_for_status()
         return resp.json()
 
-    def _get_soup(self, url: str) -> BeautifulSoup:
+    def _get_soup(self, url: str, parser: str = "html.parser") -> BeautifulSoup:
         resp = requests.get(url, headers=_headers(), timeout=self.request_timeout)
         if resp.status_code != 200:
             log.warning("  HTTP %d for %s", resp.status_code, url)
         resp.raise_for_status()
-        return BeautifulSoup(resp.text, "html.parser")
+        return BeautifulSoup(resp.text, parser)
 
     def _job(
         self,
@@ -724,6 +770,18 @@ class RemoteJobBoardScraper:
         if "hybrid" in text:
             return "Hybrid"
         return "On-site"
+
+    def _rss_text(self, item, name: str) -> str:
+        element = item.find(name)
+        return element.get_text(" ", strip=True) if element else ""
+
+    def _extract_salary(self, text: str) -> Optional[str]:
+        match = re.search(
+            r"(?:USD|LKR|EUR|GBP|\$|£|€)\s?[\d,.]+(?:\s*(?:-|–|to)\s*(?:USD|LKR|EUR|GBP|\$|£|€)?\s?[\d,.]+)?(?:\s*(?:/|per)\s*(?:hour|month|year|annum))?",
+            text or "",
+            re.IGNORECASE,
+        )
+        return match.group(0).strip() if match else None
 
     def _make_id(self, title: str, company: str, link: str) -> str:
         raw = f"{title.lower().strip()}-{company.lower().strip()}-{link}"
