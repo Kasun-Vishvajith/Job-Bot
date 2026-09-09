@@ -20,12 +20,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python 3.11
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           cache: "pip"
@@ -42,4 +42,18 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python collector.py
+        run: |
+          set -o pipefail
+          python collector.py 2>&1 | tee job-bot.log
+
+      - name: Publish search summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Job Bot search summary"
+            echo
+            echo '```text'
+            grep -E "TOTAL raw|After keyword filter|Database gate result|NEW candidates|After AI filter|No new matching|scraper FAILED|listings in" job-bot.log || echo "Collector did not produce a search summary."
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
