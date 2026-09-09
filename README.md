@@ -22,6 +22,7 @@ The included `config.yaml` is focused on:
 - Remote, hybrid, and on-site jobs throughout Sri Lanka
 - Data science, data analyst, machine learning, AI, analytics, BI, Python data, and related roles
 - Permanent graduate, new-grad, junior, associate, entry-level, early-career, or explicit 0-3 year roles
+- A final-year data science profile with three months of software engineering and data science internship experience
 - Filtering out senior, lead, staff, principal, head, director, VP, and roles asking for high experience
 
 Hybrid and on-site jobs are accepted only when they match the configured Sri Lanka location rules.
@@ -106,9 +107,10 @@ job-alert-bot/
 2. `utils/filter.py` keeps jobs that match data-related keywords.
 3. If `filtering.enforce_entry_level` is true, the job must mention an early-career signal or an explicit experience requirement no higher than the configured three years.
 4. International remote roles must explicitly include worldwide, Sri Lanka, Asia, or APAC eligibility. Sri Lankan remote, hybrid, and on-site roles are accepted.
-5. `utils/ai_filter.py` optionally asks Gemini to score each job and reject weak matches, senior roles, hybrid/on-site roles outside Sri Lanka, or region-restricted remote roles.
-6. `utils/database.py` removes jobs already seen in previous runs.
-7. `utils/notifier.py` sends alerts.
+5. `utils/database.py` applies a deterministic, non-AI duplicate gate before Gemini. It matches exact IDs, normalized listing URLs, and normalized company-plus-position identities, including duplicates returned by different sources in the same run.
+6. An existing vacancy is reconsidered only when its position, application deadline, salary, or location gains or changes information. The new record is marked as an updated listing and linked to the record it supersedes.
+7. `utils/ai_filter.py` optionally asks Gemini to score only the remaining new or updated jobs and reject weak matches, senior roles, hybrid/on-site roles outside Sri Lanka, or region-restricted remote roles.
+8. `utils/notifier.py` sends alerts and labels changed listings in the dashboard, email, and Telegram output.
 
 ## Adding More Remote Searches
 
@@ -165,4 +167,4 @@ Scraper returns 0 jobs:
 
 - The default search is intentionally broad across remote boards to maximize discovery.
 - The early-career filter is intentionally strict: permanent 0-3 year roles are prioritized and internships are rejected.
-- `data/seen_jobs.json` is the duplicate-prevention database and is automatically updated by GitHub Actions.
+- `data/seen_jobs.json` is the duplicate and listing-version database and is automatically updated by GitHub Actions.

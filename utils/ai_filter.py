@@ -108,6 +108,7 @@ class AIFilter:
     def _evaluate_jobs(self, jobs: List[Dict]) -> Dict[str, Dict]:
         candidate_summary = (
             f"Name: {self.profile_cfg.get('name', 'Candidate')}\n"
+            f"Experience: {self.profile_cfg.get('experience_summary', '')}\n"
             f"Skills: {', '.join(self.profile_cfg.get('keywords', []))}\n"
             f"Must-have keywords: {', '.join(self.profile_cfg.get('must_have_keywords', []))}\n"
             f"Exclude keywords: {', '.join(self.profile_cfg.get('exclude_keywords', []))}"

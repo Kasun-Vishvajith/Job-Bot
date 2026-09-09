@@ -102,6 +102,13 @@ class Notifier:
                     <strong style="color:#16a34a;">💰 {job['salary']}</strong>
                 </div>"""
 
+            change_section = ""
+            if job.get("is_updated"):
+                change_section = f"""
+                <div style="margin:8px 0;padding:6px 10px;background:#fff7ed;border-left:3px solid #f97316;border-radius:4px;">
+                    <strong style="color:#c2410c;">🔄 UPDATED LISTING: {job.get('change_summary', '')}</strong>
+                </div>"""
+
             suitability_section = ""
             if job.get("suitability_score") is not None:
                 score = job["suitability_score"]
@@ -132,6 +139,7 @@ class Notifier:
                 <h3 style="margin:4px 0 6px;color:#111827;font-size:17px;font-weight:700;">{job.get('title','')}</h3>
                 <div style="color:#374151;font-size:14px;margin-bottom:4px;">🏢 {job.get('company','')}</div>
                 <div style="color:#6b7280;font-size:13px;margin-bottom:10px;">{work_emoji} {job.get('work_type','')} &nbsp;·&nbsp; 📍 {job.get('location','')}</div>
+                {change_section}
                 {salary_section}
                 {suitability_section}
                 <div style="margin:10px 0;">{keywords_html}</div>
@@ -178,6 +186,10 @@ class Notifier:
             lines.append(f"    Source   : {job.get('source', '')}")
             if job.get("salary"):
                 lines.append(f"    Salary   : {job['salary']}")
+            if job.get("application_deadline"):
+                lines.append(f"    Deadline : {job['application_deadline']}")
+            if job.get("is_updated"):
+                lines.append(f"    UPDATED  : {job.get('change_summary', 'Listing details changed')}")
             if job.get("matched_keywords"):
                 lines.append(f"    Keywords : {', '.join(job['matched_keywords'])}")
             if job.get("link"):
@@ -248,6 +260,12 @@ class Notifier:
 
         if job.get("salary"):
             lines.append(f"💰 {job['salary']}")
+
+        if job.get("application_deadline"):
+            lines.append(f"⏳ Apply by: {job['application_deadline']}")
+
+        if job.get("is_updated"):
+            lines.append(f"🔄 *UPDATED:* {job.get('change_summary', 'Listing details changed')}")
 
         if job.get("matched_keywords"):
             kw_str = " · ".join(f"`{kw}`" for kw in job["matched_keywords"][:4])

@@ -1171,6 +1171,10 @@
       employment_type: normalize(job.employment_type),
       link: normalize(job.link || job.url),
       salary: normalize(job.salary),
+      application_deadline: normalize(job.application_deadline),
+      is_updated: Boolean(job.is_updated),
+      changed_fields: Array.isArray(job.changed_fields) ? job.changed_fields : [],
+      change_summary: normalize(job.change_summary),
       description: normalize(job.description),
       seen_at: normalize(job.seen_at),
       category: categoryFor(job)
@@ -1604,8 +1608,10 @@
 
           <div class="meta-list">
             <span class="meta-pill source">${escHtml(job.source)}</span>
+            ${job.is_updated ? `<span class="meta-pill new-badge">🔄 ${escHtml(job.change_summary || 'UPDATED LISTING')}</span>` : ''}
             ${job.employment_type ? `<span class="meta-pill">${escHtml(job.employment_type)}</span>` : ''}
             ${job.salary ? `<span class="meta-pill">💰 ${escHtml(job.salary)}</span>` : ''}
+            ${job.application_deadline ? `<span class="meta-pill">⏳ ${escHtml(job.application_deadline)}</span>` : ''}
             <span class="meta-pill date">${formatDateShort(job.seen_at)}</span>
             <button class="action-btn copy-id-btn" data-action="copy-id" title="Copy Job ID: ${escHtml(job.id)}" style="flex:0;padding:0 10px;height:20px;">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>

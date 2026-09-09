@@ -18,6 +18,11 @@
 # ── YOUR PROFILE ──────────────────────────────────────────────────────────────
 profile:
   name: "Candidate"
+  experience_summary: >-
+    Final-year BSc Data Science candidate with 3 months of internship
+    experience across software engineering and data science. Hands-on with
+    Python, R, SQL, statistical modelling, machine learning, ETL pipelines,
+    MySQL, MongoDB, Docker, CI/CD, GitHub Actions, and basic Databricks.
 
   # Keywords that describe you — the bot will match jobs containing these
   keywords:

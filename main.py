@@ -200,6 +200,11 @@ def run():
     # Deduplicate before calling Gemini so repeat daily runs do not spend API
     # time scoring jobs that are already on the dashboard or already rejected.
     candidates = db.get_new_jobs(matched_jobs)
+    dedupe_stats = db.last_dedupe_stats
+    log.info(
+        "Database gate result: %d new + %d changed; %d unchanged duplicates skipped",
+        dedupe_stats["new"], dedupe_stats["updated"], dedupe_stats["unchanged"],
+    )
     ai_limit = config.get("ai_filtering", {}).get("max_jobs_per_run", 60)
     candidates = candidates[:ai_limit]
     log.info("NEW candidates for AI review: %d", len(candidates))
