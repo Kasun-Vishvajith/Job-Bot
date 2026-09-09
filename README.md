@@ -40,7 +40,7 @@ cd job-alert-bot
 
 ```bash
 pip install -r requirements.txt
-python main.py
+python collector.py
 ```
 
 3. Edit `config.yaml`.
@@ -96,7 +96,7 @@ The dashboard shows salary exactly when the source listing or Gemini finds expli
 
 ```text
 job-alert-bot/
-├── main.py
+├── collector.py
 ├── config.yaml
 ├── requirements.txt
 ├── .github/workflows/job_alert.yml
