@@ -84,9 +84,16 @@ class AIFilter:
                 job["suitability_score"] = int(raw_score) if raw_score is not None else 50
                 job["suitability_reason"] = evaluation.get("reason", "")
 
-                extracted_sal = evaluation.get("extracted_salary", "Not mentioned")
-                if extracted_sal and extracted_sal.lower() not in ("not mentioned", "none", ""):
+                extracted_sal = str(evaluation.get("extracted_salary", "")).strip()
+                salary_found = bool(evaluation.get("salary_found"))
+                if salary_found and extracted_sal and extracted_sal.lower() not in ("not mentioned", "none"):
                     job["salary"] = extracted_sal
+                    job["salary_status"] = "listed"
+                elif job.get("salary"):
+                    job["salary_status"] = "listed"
+                else:
+                    job["salary"] = ""
+                    job["salary_status"] = "not_mentioned"
             else:
                 job["suitability_score"] = 50
                 job["suitability_reason"] = "Could not parse AI suitability."
@@ -117,8 +124,9 @@ class AIFilter:
         job_list_str = ""
         for i, job in enumerate(jobs):
             desc = job.get("description", "")
-            # BUG FIX: Limit snippet to 400 chars (was 300 — still too short for context)
-            desc_snippet = desc[:400] + "..." if len(desc) > 400 else desc
+            # Compensation often appears near the end of a listing. Keep enough
+            # source text for extraction while preserving bounded batch sizes.
+            desc_snippet = desc[:1500] + "..." if len(desc) > 1500 else desc
             job_list_str += (
                 f"\n--- Job #{i+1} ---\n"
                 f"ID: {job.get('id')}\n"
@@ -144,7 +152,7 @@ Evaluation Instructions:
    - Approve hybrid, office-flex, and on-site roles only when they are located in Colombo, Sri Lanka, or clearly open to Sri Lanka-based candidates.
    - Reject hybrid, office-flex, or on-site roles outside Sri Lanka.
    - If a role is remote but restricted to a country/region where Sri Lanka-based candidates are not eligible, give it a score BELOW 50.
-3. Salary Extraction: Search the job snippet/text for any mention of salary, hourly rate, stipend, payout, or compensation. If found, write it under `extracted_salary`. If not mentioned, write "Not mentioned".
+3. Salary extraction must be evidence-based. Extract compensation only when a numeric amount or range and currency are explicitly present in the supplied listing. Preserve its pay period (hourly/monthly/yearly) when stated. Never estimate salary from the title, employer, location, or market knowledge. Set `salary_found` to false and `extracted_salary` to "Not mentioned" when explicit evidence is absent.
 
 Scoring Scale:
 - 90-100: Exceptional match (AI/ML, automation, data science/engineering, DevOps/cloud/platform, or automotive software/data role at 0-3 years that is fully remote worldwide or based in Sri Lanka).
@@ -169,9 +177,10 @@ Provide the score, a brief 1-sentence reasoning explanation, and the extracted s
                                     "id": {"type": "STRING"},
                                     "suitability_score": {"type": "INTEGER"},
                                     "reason": {"type": "STRING"},
+                                    "salary_found": {"type": "BOOLEAN"},
                                     "extracted_salary": {"type": "STRING"},
                                 },
-                                "required": ["id", "suitability_score", "reason", "extracted_salary"],
+                                "required": ["id", "suitability_score", "reason", "salary_found", "extracted_salary"],
                             },
                         }
                     },

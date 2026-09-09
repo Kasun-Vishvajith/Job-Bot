@@ -9,4 +9,5 @@ __pycache__/
 *.pfx
 credentials.json
 secrets.json
-
+data/seen_jobs.json
+data/seen_jobs.js

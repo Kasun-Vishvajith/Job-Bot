@@ -13,7 +13,7 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Kasun's Job Board</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23e07b18'/><text x='50' y='72' font-family='sans-serif' font-size='70' font-weight='900' fill='%23ffffff' text-anchor='middle'>J</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231f5c4a'/><text x='50' y='70' font-family='serif' font-size='62' font-weight='700' fill='%23ffffff' text-anchor='middle'>J</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -796,6 +796,53 @@
     @media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
     }
+
+    /* Quiet editorial layer: restrained colour and strong information hierarchy. */
+    :root {
+      --void: #f5f5f1; --surface-0: #ffffff; --surface-1: #fbfbf8;
+      --surface-2: #f0f1ec; --surface-3: #e8eee9;
+      --rim: rgba(25,39,34,.10); --rim-strong: rgba(25,39,34,.20);
+      --blue: #1f5c4a; --blue-pale: #2f7661; --blue-dim: rgba(31,92,74,.09);
+      --blue-glow: transparent; --ink: #18221e; --ink-2: #46534e; --ink-3: #78827e;
+      --teal: #1f5c4a; --teal-dim: rgba(31,92,74,.09);
+      --amber: #8a6726; --amber-dim: rgba(138,103,38,.09);
+      --r: 10px; --r-sm: 7px;
+      --sh: 0 10px 28px rgba(25,39,34,.07); --sh-sm: 0 3px 12px rgba(25,39,34,.06);
+    }
+    html.dark-theme {
+      --void: #111714; --surface-0: #18201c; --surface-1: #1c2521;
+      --surface-2: #232e29; --surface-3: #27362f;
+      --rim: rgba(236,242,238,.08); --rim-strong: rgba(236,242,238,.16);
+      --blue: #79b59f; --blue-pale: #9ac9b8; --blue-dim: rgba(121,181,159,.12);
+      --blue-glow: transparent; --ink: #eef3f0; --ink-2: #bdc9c3; --ink-3: #89968f;
+      --teal: #79b59f; --teal-dim: rgba(121,181,159,.12);
+      --sh: 0 12px 30px rgba(0,0,0,.22); --sh-sm: 0 3px 12px rgba(0,0,0,.18);
+    }
+    body { background: var(--void); background-image: none; }
+    body::before, .brand::before { display: none; }
+    .brand-label, .page-title { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
+    .brand-label { font-size: 19px; }
+    .brand-sub, .nav-label { text-transform: none; letter-spacing: normal; }
+    .page-head { padding-top: 8px; }
+    .page-title { font-size: clamp(26px,3vw,38px); letter-spacing: normal; text-wrap: balance; }
+    .page-sub { max-width: 62ch; text-wrap: pretty; }
+    .sidebar, .topbar { box-shadow: none; }
+    .topbar { background: var(--surface-0); }
+    .grid { grid-template-columns: repeat(auto-fill,minmax(330px,1fr)); gap: 16px; }
+    .card { border: 1px solid var(--rim); box-shadow: var(--sh-sm); animation: none; overflow: hidden; }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--sh); border-color: var(--rim-strong); }
+    .card-thumb { display: none; }
+    .job-title { line-height: 1.32; text-wrap: balance; }
+    .company-name, .result-bar, .meta-list { text-wrap: pretty; }
+    .stat-value, .nav-badge, .rating-txt, #resultInfo { font-variant-numeric: tabular-nums; }
+    .meta-pill.salary { color: var(--teal); background: var(--teal-dim); }
+    .meta-pill.salary.missing { color: var(--ink-3); background: var(--surface-2); }
+    .open-btn { background: var(--blue); }
+    .open-btn:hover { background: var(--blue-pale); }
+    button, a, select, input { transition-duration: 160ms; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -806,7 +853,7 @@
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <div class="brand-label">Early-Career Job Bot</div>
-      <div class="brand-sub">Job Board · 2025</div>
+      <div class="brand-sub">Private opportunity desk</div>
     </div>
 
     <nav class="nav-section">
@@ -983,12 +1030,12 @@
   <!-- ═══ MAIN ═══ -->
   <main class="main">
     <div class="page-head">
-      <h1 class="page-title">Sent Job Listings</h1>
-      <p class="page-sub">BSc Hons in Data Science · University of Colombo</p>
+      <h1 class="page-title">Opportunity portfolio</h1>
+      <p class="page-sub">Focused early-career roles across data, software and intelligent systems.</p>
     </div>
 
     <div id="fileFallback" class="file-fallback">
-      <strong>Could not load data/seen_jobs.json automatically.</strong> Start a local server or select the file below.
+      <strong>The private job service is unavailable.</strong> For local use, select an exported database file below.
       <label class="file-input-label">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         Choose seen_jobs.json
@@ -1070,9 +1117,6 @@
 <button class="to-top" id="toTop" aria-label="Back to top">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
-
-<!-- Fallback for local file:// execution -->
-<script src="data/seen_jobs.js"></script>
 
 <script>
   // ═══════════════════════════════════════════
@@ -1171,6 +1215,7 @@
       employment_type: normalize(job.employment_type),
       link: normalize(job.link || job.url),
       salary: normalize(job.salary),
+      salary_status: normalize(job.salary_status) || (job.salary ? "listed" : "not_mentioned"),
       application_deadline: normalize(job.application_deadline),
       is_updated: Boolean(job.is_updated),
       changed_fields: Array.isArray(job.changed_fields) ? job.changed_fields : [],
@@ -1189,27 +1234,16 @@
 
   async function loadJobs() {
     try {
-      const r = await fetch("data/seen_jobs.json", { cache: "no-store" });
+      const r = await fetch("/api/jobs", { cache: "no-store", credentials: "same-origin" });
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       parseJobs(await r.json());
     } catch (err) {
-      try {
-        if (typeof SEEN_JOBS_DATA !== "undefined") {
-          parseJobs(SEEN_JOBS_DATA);
-          return;
-        }
-      } catch (innerErr) {
-        document.getElementById("resultInfo").textContent = "JS Fallback Error: " + innerErr.message;
-        document.getElementById("fileFallback").style.display = "block";
-        return;
-      }
-      
       const customRaw = JSON.parse(localStorage.getItem('kasun-custom-jobs') || '{}');
       if (Object.keys(customRaw).length > 0) {
         parseJobs({ seen_jobs: {} });
       }
       document.getElementById("fileFallback").style.display = "block";
-      document.getElementById("resultInfo").textContent = "Select data/seen_jobs.json to load your jobs. (Fetch err: " + err.message + ")";
+      document.getElementById("resultInfo").textContent = "Private job data could not be loaded. You may import a local export below.";
     }
   }
 
@@ -1610,7 +1644,7 @@
             <span class="meta-pill source">${escHtml(job.source)}</span>
             ${job.is_updated ? `<span class="meta-pill new-badge">🔄 ${escHtml(job.change_summary || 'UPDATED LISTING')}</span>` : ''}
             ${job.employment_type ? `<span class="meta-pill">${escHtml(job.employment_type)}</span>` : ''}
-            ${job.salary ? `<span class="meta-pill">💰 ${escHtml(job.salary)}</span>` : ''}
+            <span class="meta-pill salary ${job.salary ? '' : 'missing'}">${job.salary ? `Salary · ${escHtml(job.salary)}` : 'Salary · Not mentioned'}</span>
             ${job.application_deadline ? `<span class="meta-pill">⏳ ${escHtml(job.application_deadline)}</span>` : ''}
             <span class="meta-pill date">${formatDateShort(job.seen_at)}</span>
             <button class="action-btn copy-id-btn" data-action="copy-id" title="Copy Job ID: ${escHtml(job.id)}" style="flex:0;padding:0 10px;height:20px;">

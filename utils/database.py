@@ -1,12 +1,9 @@
-"""
-Job Database
-Stores seen job IDs in a JSON file to prevent duplicate notifications.
-Designed to work with GitHub Actions (committed back to the repo).
-"""
+"""Private job state with a PostgreSQL backend and local JSON fallback."""
 
 import json
 import hashlib
 import logging
+import os
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -21,21 +18,49 @@ RETENTION_DAYS = 60
 class JobDatabase:
     def __init__(self, db_path: Path):
         self.db_path = db_path
-        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        self.database_url = os.environ.get("DATABASE_URL", "").strip()
+        if not self.database_url:
+            self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.data = self._load()
         self.last_dedupe_stats = {"new": 0, "updated": 0, "unchanged": 0}
 
     def _load(self) -> dict:
+        if self.database_url:
+            try:
+                with self._connect() as conn:
+                    self._ensure_table(conn)
+                    row = conn.execute(
+                        "SELECT payload FROM job_bot_state WHERE id = 1"
+                    ).fetchone()
+                    return row[0] if row else {"seen_jobs": {}, "ignored_jobs": {}, "last_updated": ""}
+            except Exception as exc:
+                raise RuntimeError("Could not load the private PostgreSQL job database") from exc
         if self.db_path.exists():
             try:
                 with open(self.db_path, "r", encoding="utf-8") as f:
                     return json.load(f)
             except (json.JSONDecodeError, IOError) as e:
                 log.warning("Could not load database, starting fresh: %s", e)
-        return {"seen_jobs": {}, "last_updated": ""}
+        return {"seen_jobs": {}, "ignored_jobs": {}, "last_updated": ""}
 
     def _save(self):
         self.data["last_updated"] = datetime.utcnow().isoformat()
+        if self.database_url:
+            try:
+                with self._connect() as conn:
+                    self._ensure_table(conn)
+                    conn.execute(
+                        """INSERT INTO job_bot_state (id, payload, updated_at)
+                           VALUES (1, %s::jsonb, NOW())
+                           ON CONFLICT (id) DO UPDATE
+                           SET payload = EXCLUDED.payload, updated_at = NOW()""",
+                        (json.dumps(self.data),),
+                    )
+                    conn.commit()
+                return
+            except Exception as exc:
+                raise RuntimeError("Could not save the private PostgreSQL job database") from exc
+
         with open(self.db_path, "w", encoding="utf-8") as f:
             json.dump(self.data, f, indent=2)
             
@@ -45,6 +70,23 @@ class JobDatabase:
             f.write("const SEEN_JOBS_DATA = ")
             json.dump(self.data, f, indent=2)
             f.write(";\n")
+
+    def _connect(self):
+        try:
+            import psycopg
+        except ImportError as exc:
+            raise RuntimeError("DATABASE_URL is set but psycopg is not installed") from exc
+        return psycopg.connect(self.database_url, connect_timeout=15)
+
+    @staticmethod
+    def _ensure_table(conn):
+        conn.execute(
+            """CREATE TABLE IF NOT EXISTS job_bot_state (
+                   id SMALLINT PRIMARY KEY CHECK (id = 1),
+                   payload JSONB NOT NULL,
+                   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+               )"""
+        )
 
     def get_new_jobs(self, jobs: list[dict]) -> list[dict]:
         """Apply deterministic duplicate/change detection before any AI call."""
@@ -120,6 +162,7 @@ class JobDatabase:
                     "company": job.get("company", ""),
                     "location": job.get("location", ""),
                     "salary": job.get("salary", ""),
+                    "salary_status": job.get("salary_status", "not_mentioned"),
                     "application_deadline": job.get("application_deadline", ""),
                     "link": job.get("link", ""),
                     "seen_at": now.isoformat(),
@@ -148,6 +191,7 @@ class JobDatabase:
                     "employment_type": job.get("employment_type", ""),
                     "link": job.get("link", ""),
                     "salary": job.get("salary", ""),
+                    "salary_status": job.get("salary_status", "not_mentioned"),
                     "application_deadline": job.get("application_deadline", ""),
                     "is_updated": bool(job.get("is_updated")),
                     "supersedes_id": job.get("supersedes_id", ""),

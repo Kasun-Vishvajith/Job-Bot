@@ -6,7 +6,7 @@ on:
   workflow_dispatch:          # Allow manual trigger from GitHub UI
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: daily-job-alert
@@ -41,18 +41,5 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python main.py
-
-      - name: Commit updated job database
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "Job Alert Bot"
-          git add data/seen_jobs.json data/seen_jobs.js
-          git diff --staged --quiet && echo "No changes to commit" && exit 0
-          git stash
-          git pull origin main --no-rebase
-          git stash pop || true
-          git add data/seen_jobs.json data/seen_jobs.js
-          git diff --staged --quiet && echo "No new changes after merge" && exit 0
-          git commit -m "chore: update job database [skip ci]"
-          git push

@@ -2,7 +2,7 @@
 
 Automatically searches for technical early-career jobs and sends email plus Telegram alerts for new matches. The default configuration is tuned for worldwide remote, permanent roles requiring 0-3 years of experience, with an emphasis on AI/ML, automation, data, DevOps/cloud/platform, and automotive software/data engineering.
 
-The bot runs twice daily on GitHub Actions, so you do not need to keep a server online.
+The collector runs twice daily on GitHub Actions. The private dashboard is designed for Vercel and reads its data through a server-side API backed by PostgreSQL.
 
 ## What It Searches
 
@@ -68,6 +68,7 @@ Add these in your GitHub repository under Settings -> Secrets and variables -> A
 | `TELEGRAM_BOT_TOKEN` | Telegram bot token |
 | `TELEGRAM_CHAT_ID` | Telegram chat ID |
 | `GEMINI_API_KEY` | Optional but recommended Gemini API key |
+| `DATABASE_URL` | Private PostgreSQL connection string shared with Vercel |
 
 If `GEMINI_API_KEY` is missing, the bot still runs and uses the normal keyword filter only.
 
@@ -77,7 +78,19 @@ The workflow runs at 12:00 AM and 12:00 PM Sri Lanka time with a 45-minute safet
 
 You can also run it manually from the Actions tab with `Run workflow`.
 
-After each successful run, the workflow commits `data/seen_jobs.json` so the same job is not sent again.
+After each successful run, the workflow saves job state to the private PostgreSQL database. Collected jobs are never committed to this public repository.
+
+## Private Vercel deployment
+
+1. Import this GitHub repository into Vercel.
+2. In the Vercel project, open **Storage**, create a free Neon Postgres database, and connect it to the project. Confirm that Vercel created a `DATABASE_URL` environment variable.
+3. Under **Settings → Deployment Protection**, enable **Vercel Authentication** for production and preview deployments. Without this step, the dashboard is public.
+4. Add `GEMINI_API_KEY` as a **Sensitive** production environment variable. Do not prefix it with `NEXT_PUBLIC_` or place it in browser code.
+5. Deploy the project. The `/api/jobs` function creates the small state table automatically on first use.
+6. Copy the same `DATABASE_URL` value into the GitHub repository secret named `DATABASE_URL`. Add `GEMINI_API_KEY` to GitHub Actions secrets as well.
+7. Re-enable the **Job Alert Bot** workflow in GitHub Actions and run it manually once. The first run starts with an empty private database.
+
+The dashboard shows salary exactly when the source listing or Gemini finds explicit numeric compensation. It displays **Not mentioned** when the listing provides none; Gemini is instructed never to estimate it.
 
 ## Project Structure
 
@@ -98,7 +111,8 @@ job-alert-bot/
 │   ├── ai_filter.py
 │   ├── database.py
 │   └── notifier.py
-└── data/seen_jobs.json
+├── api/jobs.py
+└── vercel.json
 ```
 
 ## How Filtering Works
@@ -167,4 +181,5 @@ Scraper returns 0 jobs:
 
 - The default search is intentionally broad across remote boards to maximize discovery.
 - The early-career filter is intentionally strict: permanent 0-3 year roles are prioritized and internships are rejected.
-- `data/seen_jobs.json` is the duplicate and listing-version database and is automatically updated by GitHub Actions.
+- PostgreSQL is the private duplicate and listing-version database used by both GitHub Actions and Vercel.
+- Local runs without `DATABASE_URL` still use ignored `data/seen_jobs.json` and `data/seen_jobs.js` files for development only.
