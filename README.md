@@ -85,7 +85,7 @@ After each successful run, the workflow saves job state to the private PostgreSQ
 1. Import this GitHub repository into Vercel.
 2. In the Vercel project, open **Storage**, create a free Neon Postgres database, and connect it to the project. Confirm that Vercel created a `DATABASE_URL` environment variable.
 3. Under **Settings → Deployment Protection**, enable **Vercel Authentication** for production and preview deployments. Without this step, the dashboard is public.
-4. Add `GEMINI_API_KEY` as a **Sensitive** production environment variable. Do not prefix it with `NEXT_PUBLIC_` or place it in browser code.
+4. Do not add Gemini, Gmail, or Telegram credentials to Vercel; the dashboard does not use them. They belong only in GitHub Actions secrets.
 5. Deploy the project. The `/api/jobs` function creates the small state table automatically on first use.
 6. Copy the same `DATABASE_URL` value into the GitHub repository secret named `DATABASE_URL`. Add `GEMINI_API_KEY` to GitHub Actions secrets as well.
 7. Re-enable the **Job Alert Bot** workflow in GitHub Actions and run it manually once. The first run starts with an empty private database.
