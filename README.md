@@ -12,7 +12,7 @@ The bot runs twice daily on GitHub Actions, so you do not need to keep a server 
 - Direct employer pages: WSO2, IFS, Sysco LABS, 99x, Rootcode, LSEG, and Virtusa
 - Secondary discovery pages include Wellfound, YC Jobs, Working Nomads, Real Work From Anywhere, Remote.com, DataScienceJobs, AIJobs, Jobspresso, Arc, Turing, and Toptal
 
-LinkedIn, Indeed, and Glassdoor remain disabled because hosted runners are commonly blocked; native alerts are more reliable for those three sites.
+LinkedIn public search is enabled on a best-effort basis for both Sri Lanka-eligible remote roles and Sri Lankan roles of all work types. Indeed and Glassdoor remain disabled because hosted runners are commonly blocked.
 
 ## Current Target Profile
 

@@ -7,8 +7,8 @@ REMOTE-ONLY MODE:
   - Uses f_WT=2 (Work Type = Remote) filter — this is the parameter that
     produces the "✓ Remote" badge on LinkedIn job listings.
   - Post-parse enforcement: any job not detected as remote is rejected.
-  - All search queries should use location="Remote" or omit location entirely;
-    the f_WT=2 param handles the remote filtering at the API level.
+  - A query can set `remote: true` independently from its location. This lets
+    us ask LinkedIn for remote jobs surfaced specifically for Sri Lanka.
 
 BUG FIXES applied:
   - `time.sleep` was only called after the first page; now called consistently.
@@ -64,6 +64,8 @@ class LinkedInScraper:
         self.config = config
         self.max_pages = config.get("max_pages", 2)
         self.queries = config.get("search_queries", [])
+        self.full_time_only = config.get("full_time_only", True)
+        self.experience_levels = config.get("experience_levels", ["2", "3"])
 
     def scrape(self) -> list[dict]:
         jobs = []
@@ -71,21 +73,26 @@ class LinkedInScraper:
             if isinstance(query_item, dict):
                 query = query_item.get("keywords", "")
                 location = query_item.get("location", "")
+                is_remote_query = query_item.get(
+                    "remote", not location or location.lower() == "remote"
+                )
             else:
                 query = query_item
                 location = ""
+                is_remote_query = True
 
             log.debug("  [LinkedIn] Searching: '%s' in '%s'", query, location or "any")
 
             for page in range(self.max_pages):
                 start = page * 25
-                # Determine if this is a remote-specific or local query
-                is_remote_query = not location or location.lower() == "remote"
-
                 url = (
                     f"{LINKEDIN_BASE}?keywords={requests.utils.quote(query)}"
                     f"&start={start}&f_TPR=r604800"
                 )
+                if self.full_time_only:
+                    url += "&f_JT=F"
+                if self.experience_levels:
+                    url += f"&f_E={requests.utils.quote(','.join(self.experience_levels))}"
                 # f_WT=2 = LinkedIn's "✓ Remote" badge filter — only for remote queries
                 if is_remote_query:
                     url += "&f_WT=2"
@@ -98,6 +105,7 @@ class LinkedInScraper:
                     if is_remote_query:
                         # Remote query: force Remote tag (trusted via f_WT=2)
                         job["work_type"] = "Remote"
+                        job["employment_type"] = "Full-time"
                     # else: keep the auto-detected work_type from _parse_card
                     if not job.get("location") or job["location"] == "Unknown Location":
                         job["location"] = location if location else "Remote"
@@ -195,6 +203,7 @@ class LinkedInScraper:
             "link": link,
             "salary": None,
             "work_type": self._detect_work_type(location),
+            "employment_type": "Full-time",
             "source": "LinkedIn",
             "posted": posted,
             "scraped_at": datetime.utcnow().isoformat(),

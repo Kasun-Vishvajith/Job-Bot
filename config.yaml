@@ -260,38 +260,29 @@ job_sites:
 
   # ── LinkedIn (f_WT=2 for Remote queries, no filter for SL queries) ──────────
   linkedin:
-    enabled: false                 # Usually blocked; saves dozens of Actions requests
+    enabled: true
+    full_time_only: true
+    experience_levels: ["2", "3"] # LinkedIn entry-level and associate filters
     search_queries:
-      # Remote worldwide (uses f_WT=2 remote filter)
-      - { keywords: "data science intern", location: "Remote" }
-      - { keywords: "data analyst intern", location: "Remote" }
-      - { keywords: "machine learning intern", location: "Remote" }
-      - { keywords: "AI intern", location: "Remote" }
-      - { keywords: "analytics intern", location: "Remote" }
-      - { keywords: "junior data analyst", location: "Remote" }
-      - { keywords: "junior data scientist", location: "Remote" }
-      - { keywords: "entry level data analyst", location: "Remote" }
-      - { keywords: "entry level data scientist", location: "Remote" }
-      - { keywords: "graduate data analyst", location: "Remote" }
-      - { keywords: "new grad data scientist", location: "Remote" }
-      - { keywords: "python data intern", location: "Remote" }
-      - { keywords: "NLP intern", location: "Remote" }
-      - { keywords: "computer vision intern", location: "Remote" }
-      - { keywords: "deep learning intern", location: "Remote" }
-      # Sri Lanka / Colombo (NO remote filter — all work types accepted)
-      - { keywords: "data science intern", location: "Colombo, Sri Lanka" }
-      - { keywords: "data analyst intern", location: "Colombo, Sri Lanka" }
-      - { keywords: "machine learning intern", location: "Colombo, Sri Lanka" }
-      - { keywords: "AI intern", location: "Colombo, Sri Lanka" }
-      - { keywords: "analytics intern", location: "Colombo, Sri Lanka" }
-      - { keywords: "junior data analyst", location: "Colombo, Sri Lanka" }
-      - { keywords: "junior data scientist", location: "Colombo, Sri Lanka" }
-      - { keywords: "entry level data analyst", location: "Colombo, Sri Lanka" }
-      - { keywords: "graduate data analyst", location: "Colombo, Sri Lanka" }
-      - { keywords: "data science intern", location: "Sri Lanka" }
-      - { keywords: "data analyst intern", location: "Sri Lanka" }
-      - { keywords: "junior data analyst", location: "Sri Lanka" }
-    max_pages: 3
+      # International remote results explicitly surfaced for Sri Lanka.
+      - { keywords: "AI engineer", location: "Sri Lanka", remote: true }
+      - { keywords: "machine learning engineer", location: "Sri Lanka", remote: true }
+      - { keywords: "automation engineer", location: "Sri Lanka", remote: true }
+      - { keywords: "data engineer", location: "Sri Lanka", remote: true }
+      - { keywords: "data scientist", location: "Sri Lanka", remote: true }
+      - { keywords: "DevOps engineer", location: "Sri Lanka", remote: true }
+      - { keywords: "cloud engineer", location: "Sri Lanka", remote: true }
+      - { keywords: "MLOps engineer", location: "Sri Lanka", remote: true }
+      # Sri Lankan roles of all work types.
+      - { keywords: "AI engineer", location: "Sri Lanka", remote: false }
+      - { keywords: "machine learning engineer", location: "Sri Lanka", remote: false }
+      - { keywords: "automation engineer", location: "Sri Lanka", remote: false }
+      - { keywords: "data engineer", location: "Sri Lanka", remote: false }
+      - { keywords: "data scientist", location: "Sri Lanka", remote: false }
+      - { keywords: "DevOps engineer", location: "Sri Lanka", remote: false }
+      - { keywords: "cloud engineer", location: "Sri Lanka", remote: false }
+      - { keywords: "MLOps engineer", location: "Sri Lanka", remote: false }
+    max_pages: 2
 
   # ── Indeed (remote filter for Remote queries, none for SL queries) ───────────
   indeed:
