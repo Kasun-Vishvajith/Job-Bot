@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <script>
     // Initialize theme immediately to prevent FOUC
-    const savedTheme = localStorage.getItem("kasun-theme") || "dark";
+    const savedTheme = localStorage.getItem("kasun-theme") || "light";
     if (savedTheme === "dark") {
       document.documentElement.classList.add("dark-theme");
     } else {
@@ -13,922 +13,184 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Kasun's Job Board</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231f5c4a'/><text x='50' y='70' font-family='serif' font-size='62' font-weight='700' fill='%23ffffff' text-anchor='middle'>J</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230071e3'/><text x='50' y='70' font-family='serif' font-size='62' font-weight='700' fill='%23ffffff' text-anchor='middle'>J</text></svg>">
   <style>
-    :root {
-      /* ── Premium Light Theme (Stone & Warm Amber) ── */
-      --void:         #faf9f6;                      /* soft alabaster warm white */
-      --surface-0:    #ffffff;
-      --surface-1:    #ffffff;
-      --surface-2:    #f4f3ee;                      /* warm stone */
-      --surface-3:    #f5ecd5;                      /* warm pale cream-amber */
-      --rim:          rgba(27, 24, 20, 0.08);       /* extremely subtle borders */
-      --rim-strong:   rgba(27, 24, 20, 0.16);
-      
-      /* Accent colors */
-      --blue:         #e07b18;                      /* warm safety orange primary */
-      --blue-pale:    #f59e0b;
-      --blue-dim:     rgba(224, 123, 24, 0.08);
-      --blue-glow:    rgba(224, 123, 24, 0.03);
-      
-      /* Typography */
-      --ink:          #1c1814;                      /* charcoal */
-      --ink-2:        #483f35;
-      --ink-3:        #8a7c6e;
-      
-      /* Semantics */
-      --teal:         #0d9488;                      /* modern pine teal */
-      --teal-dim:     rgba(13, 148, 136, 0.08);
-      --rose:         #e11d48;                      /* crimson rose */
-      --rose-dim:     rgba(225, 29, 72, 0.06);
-      --sky:          #2563eb;                      /* royal blue */
-      --sky-dim:      rgba(37, 99, 235, 0.08);
-      --amber:        #b45309;                      /* dark amber */
-      --amber-dim:    rgba(180, 83, 9, 0.08);
-      --violet:       #7c3aed;
-      --violet-dim:   rgba(124, 58, 237, 0.08);
-      --green:        #10b981;
-      --green-dim:    rgba(16, 185, 129, 0.08);
-      
-      /* Category Colors */
-      --cat-ai:       #d97706;
-      --cat-ds:       #2563eb;
-      --cat-da:       #0d9488;
-      --cat-sw:       #b45309;
-      --cat-in:       #e11d48;
-      --cat-re:       #0891b2;
-      --cat-an:       #059669;
-      --cat-ge:       #78350f;
-      
-      /* Rating Stars */
-      --star-off:     #e5e7eb;
-      --star-on:      #f59e0b;
-      
-      /* Tokens */
-      --r:            12px;
-      --r-sm:         8px;
-      --sh:           0 12px 30px -10px rgba(27, 24, 20, 0.12), 0 2px 8px -2px rgba(27, 24, 20, 0.04);
-      --sh-sm:        0 4px 16px -2px rgba(27, 24, 20, 0.06);
-      --sidebar-w:    248px;
-      --topbar-h:     58px;
-      
-      /* Background Glows */
-      --bg-glow-1:    rgba(224, 123, 24, 0.04);
-      --bg-glow-2:    rgba(13, 148, 136, 0.03);
-      --arrow-img:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%238a7c6e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    }
 
-    :root.dark-theme {
-      /* ── Premium Dark Theme (Slate & Glowing Orange) ── */
-      --void:         #0a0b0d;                      /* deep rich void */
-      --surface-0:    #12141a;                      /* cards & widgets */
-      --surface-1:    #161922;                      /* panels */
-      --surface-2:    #1d212c;                      /* inputs / buttons */
-      --surface-3:    #2b2418;                      /* glowing amber-dark tint */
-      --rim:          rgba(255, 255, 255, 0.06);    /* soft glow outline */
-      --rim-strong:   rgba(255, 255, 255, 0.12);
-      
-      /* Accent colors */
-      --blue:         #f97316;                      /* glowing orange primary */
-      --blue-pale:    #fb923c;
-      --blue-dim:     rgba(249, 115, 22, 0.12);
-      --blue-glow:    rgba(249, 115, 22, 0.05);
-      
-      /* Typography */
-      --ink:          #f3f4f6;                      /* clean off-white */
-      --ink-2:        #d1d5db;                      /* soft silver */
-      --ink-3:        #9ca3af;                      /* muted grey */
-      
-      /* Semantics */
-      --teal:         #14b8a6;                      /* neon teal */
-      --teal-dim:     rgba(20, 184, 166, 0.12);
-      --rose:         #f43f5e;                      /* neon rose */
-      --rose-dim:     rgba(244, 63, 94, 0.10);
-      --sky:          #3b82f6;
-      --sky-dim:      rgba(59, 130, 246, 0.12);
-      --amber:        #fbbf24;
-      --amber-dim:    rgba(251, 191, 36, 0.12);
-      --violet:       #a78bfa;
-      --violet-dim:   rgba(167, 139, 250, 0.12);
-      --green:        #10b981;
-      --green-dim:    rgba(16, 185, 129, 0.12);
-      
-      /* Category Colors */
-      --cat-ai:       #fb923c;
-      --cat-ds:       #60a5fa;
-      --cat-da:       #2dd4bf;
-      --cat-sw:       #fbbf24;
-      --cat-in:       #fb7185;
-      --cat-re:       #22d3ee;
-      --cat-an:       #34d399;
-      --cat-ge:       #c084fc;
-      
-      /* Rating Stars */
-      --star-off:     #374151;
-      --star-on:      #fbbf24;
-      
-      /* Tokens */
-      --sh:           0 16px 36px -12px rgba(0, 0, 0, 0.6), 0 2px 12px -2px rgba(249, 115, 22, 0.04);
-      --sh-sm:        0 4px 18px -4px rgba(0, 0, 0, 0.4);
-      
-      /* Background Glows */
-      --bg-glow-1:    rgba(249, 115, 22, 0.05);
-      --bg-glow-2:    rgba(20, 184, 166, 0.04);
-      --arrow-img:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-
-    body {
-      background: var(--void);
-      color: var(--ink);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      font-size: 14px;
-      line-height: 1.55;
-      min-height: 100dvh;
-      overflow-x: hidden;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 60% at 0% 0%, var(--bg-glow-1) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 50% at 100% 100%, var(--bg-glow-2) 0%, transparent 55%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    button, input, select { font: inherit; color: inherit; }
-    button { cursor: pointer; background: none; border: none; }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; }
-
-    /* ─── LAYOUT ─── */
-    .layout {
-      display: grid;
-      grid-template-columns: var(--sidebar-w) 1fr;
-      grid-template-rows: var(--topbar-h) 1fr;
-      min-height: 100dvh;
-    }
-
-    /* ─── SIDEBAR ─── */
-    .sidebar {
-      grid-row: 1 / 3;
-      background: var(--surface-0);
-      border-right: 1px solid var(--rim);
-      display: flex;
-      flex-direction: column;
-      position: sticky;
-      top: 0;
-      height: 100dvh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 24px 0 20px;
-      z-index: 100;
-      box-shadow: 3px 0 12px rgba(0,0,0,0.02);
-      transition: background 0.3s ease, border-color 0.3s ease;
-    }
-
-    .brand {
-      padding: 0 18px 20px;
-      border-bottom: 1px solid var(--rim);
-      position: relative;
-    }
-
-    .brand::before {
-      content: '';
-      position: absolute;
-      top: -24px; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--blue) 0%, var(--amber) 40%, var(--rose) 70%, var(--sky) 100%);
-    }
-
-    .brand-label { font-size: 17px; font-weight: 800; color: var(--ink); line-height: 1.1; letter-spacing: -0.02em; }
-    .brand-sub { font-size: 10px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; font-weight: 600; }
-
-    .nav-section { padding: 14px 10px 0; }
-    .nav-label { font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-3); padding: 0 8px; margin-bottom: 4px; font-weight: 700; }
-
-    .nav-item {
-      display: flex; align-items: center; gap: 9px;
-      padding: 8px 10px;
-      border-radius: var(--r-sm);
-      font-size: 13px; font-weight: 500; color: var(--ink-2);
-      transition: background 0.2s, color 0.2s;
-      width: 100%; text-align: left; cursor: pointer;
-      border: none; background: none; position: relative;
-      text-decoration: none;
-    }
-
-    .nav-item:hover { background: var(--blue-dim); color: var(--blue); }
-    .nav-item.active { background: var(--blue-dim); color: var(--blue); font-weight: 700; }
-    .nav-item.active::before { content: ''; position: absolute; left: 0; top: 15%; bottom: 15%; width: 3px; background: var(--blue); border-radius: 2px; }
-    .nav-icon { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.65; }
-    .nav-item.active .nav-icon { opacity: 1; }
-
-    .nav-badge {
-      margin-left: auto;
-      background: var(--surface-2); color: var(--ink-3);
-      font-size: 10px; font-weight: 700;
-      padding: 2px 6px; border-radius: 4px;
-      min-width: 20px; text-align: center;
-      border: 1px solid var(--rim);
-    }
-    .nav-item.active .nav-badge { background: rgba(224,123,24,0.14); color: var(--blue); }
-
-    .sidebar-stats {
-      margin-top: auto; padding: 16px 16px 0;
-      border-top: 1px solid var(--rim);
-      display: flex; flex-direction: column; gap: 9px;
-    }
-    .stat-row { display: flex; justify-content: space-between; align-items: baseline; }
-    .stat-label { font-size: 11px; color: var(--ink-3); font-weight: 500; }
-    .stat-value { font-size: 21px; font-weight: 900; color: var(--ink); line-height: 1; letter-spacing: -0.02em; }
-    .stat-value.gold { color: var(--amber); }
-    .stat-value.teal { color: var(--teal); }
-
-    /* ─── TOPBAR ─── */
-    .topbar {
-      grid-column: 2;
-      background: var(--surface-0);
-      border-bottom: 1px solid var(--rim);
-      display: flex; align-items: center; gap: 8px;
-      padding: 0 20px;
-      position: sticky; top: 0; z-index: 90;
-      height: var(--topbar-h);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.01);
-      transition: background 0.3s ease, border-color 0.3s ease;
-    }
-
-    .search-wrap { flex: 1; max-width: 380px; position: relative; }
-    .search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--ink-3); pointer-events: none; }
-
-    #search {
-      width: 100%;
-      background: var(--surface-2); border: 1px solid var(--rim); border-radius: var(--r-sm);
-      height: 36px; padding: 0 10px 0 36px;
-      color: var(--ink); font-size: 13px; font-weight: 500; outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-    }
-    #search::placeholder { color: var(--ink-3); }
-    #search:focus { border-color: var(--blue); background: var(--surface-0); box-shadow: 0 0 0 3px var(--blue-dim); }
-
-    .topbar-controls { display: flex; align-items: center; gap: 6px; margin-left: auto; }
-
-    .pill-select {
-      background: var(--surface-2); border: 1px solid var(--rim); border-radius: var(--r-sm);
-      height: 34px; padding: 0 26px 0 9px;
-      color: var(--ink-2); font-size: 12px; font-weight: 600; outline: none;
-      appearance: none; -webkit-appearance: none; cursor: pointer;
-      background-image: var(--arrow-img);
-      background-repeat: no-repeat; background-position: right 7px center;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .pill-select:focus { border-color: var(--blue); }
-    .pill-select option { background: var(--surface-1); color: var(--ink); }
-
-    .topbar-btn {
-      height: 34px; padding: 0 11px;
-      border-radius: var(--r-sm); border: 1px solid var(--rim);
-      background: var(--surface-2); color: var(--ink-2);
-      font-size: 12px; font-weight: 600;
-      display: flex; align-items: center; gap: 5px;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-      white-space: nowrap;
-    }
-    .topbar-btn:hover { background: var(--blue-dim); color: var(--blue); border-color: var(--blue); }
-    .topbar-btn.danger:hover { border-color: var(--rose); color: var(--rose); background: var(--rose-dim); }
-
-    .mobile-menu-btn {
-      display: none; width: 36px; height: 36px;
-      align-items: center; justify-content: center;
-      border-radius: var(--r-sm); border: 1px solid var(--rim);
-      background: var(--surface-2); color: var(--ink-2); flex-shrink: 0;
-    }
-
-    /* ─── MAIN ─── */
-    .main { grid-column: 2; padding: 24px 24px 60px; min-width: 0; }
-
-    .page-head { margin-bottom: 20px; }
-    .page-title { font-size: clamp(20px, 2.6vw, 28px); font-weight: 900; color: var(--ink); line-height: 1.1; letter-spacing: -0.03em; }
-    .page-sub { font-size: 13px; font-weight: 500; color: var(--ink-3); margin-top: 4px; }
-
-    .result-bar {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 6px 0 14px; border-bottom: 1px solid var(--rim); margin-bottom: 20px;
-    }
-    #resultInfo { font-size: 12px; font-weight: 600; color: var(--ink-3); }
-    .result-actions { display: flex; gap: 6px; }
-
-    /* ─── GROUPS ─── */
-    .group { margin-bottom: 32px; }
-    .group-title {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
-      font-weight: 800; color: var(--ink-3); margin-bottom: 14px;
-    }
-    .group-title::after { content: ''; flex: 1; height: 1px; background: var(--rim); }
-    .group-count {
-      background: var(--blue-dim); color: var(--blue);
-      font-size: 10px; font-weight: 800;
-      padding: 2px 7px; border-radius: 4px;
-      border: 1px solid var(--rim);
-    }
-
-    /* ─── TILE GRID ─── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 16px;
-    }
-
-    /* ─── TILE CARD (Premium Redesign) ─── */
-    .card {
-      background: var(--surface-0);
-      border: 1px solid var(--rim);
-      border-radius: var(--r);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-                  transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-                  box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                  opacity 0.25s ease;
-      cursor: pointer;
-      animation: fadeUp 350ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
-      min-height: 350px;
-      box-shadow: var(--sh-sm);
-    }
-
-    .card:hover {
-      border-color: var(--blue);
-      transform: translateY(-4px) scale(1.01);
-      box-shadow: var(--sh);
-    }
-
-    /* Left accent bar — coloured by category */
-    .card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 4px;
-      border-radius: var(--r) 0 0 var(--r);
-      z-index: 2;
-    }
-
-    .card.cat-ai::before    { background: var(--cat-ai); }
-    .card.cat-ds::before    { background: var(--cat-ds); }
-    .card.cat-da::before    { background: var(--cat-da); }
-    .card.cat-sw::before    { background: var(--cat-sw); }
-    .card.cat-in::before    { background: var(--cat-in); }
-    .card.cat-re::before    { background: var(--cat-re); }
-    .card.cat-an::before    { background: var(--cat-an); }
-    .card.cat-ge::before    { background: var(--cat-ge); }
-
-    .card.picked-card {
-      border-color: var(--blue-pale);
-      box-shadow: 0 0 0 3px var(--blue-dim), var(--sh-sm);
-    }
-
-    /* Archive animation out */
-    .card.card-archiving {
-      opacity: 0 !important;
-      transform: scale(0.9) translateY(12px) !important;
-      pointer-events: none;
-    }
-
-    /* ── RIBBON ── */
-    .card.viewed-card::after,
-    .card.last-viewed-card::after {
-      content: attr(data-ribbon);
-      position: absolute;
-      top: 12px; right: -28px;
-      font-size: 8.5px; font-weight: 900;
-      letter-spacing: 0.1em;
-      padding: 3px 28px;
-      transform: rotate(45deg);
-      z-index: 10; pointer-events: none;
-    }
-
-    .card.viewed-card::after {
-      background: var(--teal);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(20,184,166,0.3);
-    }
-
-    .card.last-viewed-card::after {
-      background: var(--blue);
-      color: #fff;
-      box-shadow: 0 2px 8px var(--blue-dim);
-    }
-
-    .card.viewed-card { opacity: 0.93; }
-
-    /* ── NEW DOT ── */
-    .new-dot {
-      position: absolute; top: 8px; right: 8px;
-      width: 8px; height: 8px;
-      background: var(--rose); border-radius: 50%;
-      box-shadow: 0 0 0 3px var(--rose-dim);
-      z-index: 5;
-    }
-
-    /* ── CARD THUMB ── */
-    .card-thumb {
-      height: 125px;
-      background-size: cover;
-      background-position: center;
-      background-color: var(--surface-2);
-      border-bottom: 1px solid var(--rim);
-      flex-shrink: 0;
-      position: relative;
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .card:hover .card-thumb {
-      transform: scale(1.03);
-    }
-
-    .card-thumb::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.35));
-      pointer-events: none;
-    }
-
-    /* ── CARD BODY ── */
-    .card-body {
-      padding: 16px 16px 14px 20px;
-      display: flex; flex-direction: column; flex: 1; gap: 8px;
-    }
-
-    .card-top-row {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; gap: 6px;
-    }
-
-    .card-title-block { flex: 1; min-width: 0; }
-
-    .cat-tag {
-      display: inline-flex; align-items: center;
-      font-size: 9px; font-weight: 800;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 2px 6px; border-radius: 4px;
-      margin-bottom: 6px;
-      border: 1px solid transparent;
-      transition: background 0.3s, color 0.3s;
-    }
-    .cat-tag.cat-ai  { background: var(--blue-dim);  color: var(--cat-ai); border-color: rgba(249,115,22,0.2); }
-    .cat-tag.cat-ds  { background: var(--sky-dim);   color: var(--cat-ds); border-color: rgba(37,99,235,0.18); }
-    .cat-tag.cat-da  { background: var(--teal-dim);  color: var(--cat-da); border-color: rgba(13,148,136,0.18); }
-    .cat-tag.cat-sw  { background: var(--amber-dim);  color: var(--cat-sw); border-color: rgba(180,83,9,0.18); }
-    .cat-tag.cat-in  { background: var(--rose-dim);  color: var(--cat-in); border-color: rgba(225,29,72,0.15); }
-    .cat-tag.cat-re  { background: rgba(8,145,178,0.08);  color: var(--cat-re); border-color: rgba(8,145,178,0.18); }
-    .cat-tag.cat-an  { background: rgba(5,150,105,0.08);  color: var(--cat-an); border-color: rgba(5,150,105,0.18); }
-    .cat-tag.cat-ge  { background: rgba(120,53,15,0.08);  color: var(--cat-ge); border-color: rgba(120,53,15,0.18); }
-
-    .job-title {
-      font-size: 14.5px; font-weight: 800; line-height: 1.25;
-      color: var(--ink); letter-spacing: -0.01em;
-    }
-    .job-title a { color: inherit; transition: color 0.2s; }
-    .job-title a:hover { color: var(--blue); }
-
-    .company-name { font-size: 12px; font-weight: 600; color: var(--ink-3); margin-top: 2px; }
-
-    .heart-btn {
-      flex-shrink: 0; width: 30px; height: 30px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: var(--r-sm); border: 1px solid var(--rim);
-      background: var(--surface-2); color: var(--ink-3);
-      font-size: 14px;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-    .heart-btn:hover { border-color: var(--rose); color: var(--rose); background: var(--rose-dim); }
-    .heart-btn.picked { color: var(--rose); border-color: var(--rose); background: var(--rose-dim); }
-
-    /* ── STARS (Larger Redesign) ── */
-    .stars-row { display: flex; align-items: center; gap: 6px; }
-    .stars { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 2px; }
-    .stars:hover .star-btn { color: var(--star-off); }
-    .star-btn {
-      font-size: 20px; color: var(--star-off); /* Larger Star Rate */
-      transition: transform 0.15s, color 0.15s, opacity 0.15s; padding: 0; line-height: 1;
-      width: 22px; height: 22px;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0.85;
-    }
-    .star-btn.on { color: var(--star-on); opacity: 1; }
-    .stars .star-btn:hover,
-    .stars .star-btn:hover ~ .star-btn { color: var(--star-on); opacity: 1; }
-    .stars .star-btn:hover { transform: scale(1.2); }
-    .rating-txt { font-size: 11px; font-weight: 600; color: var(--ink-3); }
-
-    /* ── META PILLS ── */
-    .meta-list { display: flex; flex-wrap: wrap; gap: 4px; }
-    .meta-pill {
-      display: inline-flex; align-items: center; gap: 3px;
-      padding: 3px 8px; border-radius: 6px;
-      font-size: 11px; font-weight: 700;
-      background: var(--surface-2); color: var(--ink-2);
-      border: 1px solid var(--rim);
-      white-space: nowrap; max-width: 160px;
-      overflow: hidden; text-overflow: ellipsis;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-    .meta-pill.source { background: var(--sky-dim); color: var(--sky); border-color: rgba(37,99,235,0.15); }
-    .meta-pill.new-badge { background: var(--rose-dim); color: var(--rose); border-color: rgba(225,29,72,0.15); font-weight: 800; letter-spacing: 0.05em; }
-    .meta-pill.date { background: var(--teal-dim); color: var(--teal); border-color: rgba(13,148,136,0.15); }
-
-    /* ── CARD FOOTER ── */
-    .card-footer {
-      display: flex; gap: 6px;
-      padding: 10px 16px 12px 20px;
-      border-top: 1px solid var(--rim);
-      background: var(--surface-2);
-      margin-top: auto;
-      border-bottom-left-radius: var(--r);
-      border-bottom-right-radius: var(--r);
-      transition: background 0.3s ease, border-color 0.3s ease;
-    }
-
-    .open-btn {
-      flex: 1;
-      display: flex; align-items: center; justify-content: center; gap: 5px;
-      height: 32px; border-radius: var(--r-sm);
-      border: 1px solid var(--rim); background: var(--surface-0);
-      color: var(--ink-2); font-size: 12px; font-weight: 700;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-      text-decoration: none;
-    }
-    .open-btn:hover { background: var(--blue-dim); color: var(--blue); border-color: var(--blue); }
-
-    .pick-btn {
-      height: 32px; padding: 0 13px; border-radius: var(--r-sm);
-      border: 1px solid var(--rim); background: var(--surface-0);
-      color: var(--ink-2); font-size: 12px; font-weight: 700;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-      white-space: nowrap;
-    }
-    .pick-btn:hover { background: var(--blue-dim); color: var(--blue); border-color: var(--blue); }
-    .pick-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
-
-    /* ── ACTION ROW ── */
-    .action-row {
-      display: flex; gap: 4px;
-      padding: 8px 0 0;
-      border-top: 1px dashed var(--rim);
-      margin-top: auto;
-    }
-
-    .action-btn {
-      flex: 1;
-      display: flex; align-items: center; justify-content: center; gap: 3px;
-      height: 26px; border-radius: var(--r-sm);
-      border: 1px solid var(--rim);
-      background: var(--surface-2); color: var(--ink-3);
-      font-size: 10.5px; font-weight: 700;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-      white-space: nowrap; letter-spacing: 0.01em;
-    }
-    .action-btn.prompt-btn:hover { background: var(--blue-dim); color: var(--blue); border-color: var(--blue); }
-    .action-btn.import-btn:hover { background: var(--teal-dim); color: var(--teal); border-color: var(--teal); }
-    .action-btn.import-btn.mapped { background: var(--teal-dim); color: var(--teal); border-color: var(--teal); }
-    .action-btn.archive-btn:hover { background: var(--amber-dim); color: var(--amber); border-color: var(--amber); }
-    .copy-id-btn { flex: 0; padding: 0 8px; }
-
-    /* ── COMPAT BAR ── */
-    .compat-bar { display: flex; align-items: center; gap: 7px; padding: 5px 0 0; }
-    .compat-track { flex: 1; height: 5px; background: var(--surface-2); border-radius: 3px; overflow: hidden; border: 1px solid var(--rim); }
-    .compat-fill { height: 100%; border-radius: 3px; transition: width 0.45s ease; }
-    .compat-label { font-size: 10px; font-weight: 800; flex-shrink: 0; }
-
-    /* ── EMPTY ── */
-    .empty { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--ink-3); }
-    .empty-icon { font-size: 36px; margin-bottom: 10px; opacity: 0.35; }
-    .empty-title { font-size: 18px; font-weight: 800; color: var(--ink-2); margin-bottom: 6px; }
-    .empty-sub { font-size: 13px; font-weight: 500; }
-
-    /* ── FILE FALLBACK ── */
-    .file-fallback {
-      display: none; margin-bottom: 16px; padding: 12px 14px;
-      border: 2px dashed rgba(224,123,24,0.40); border-radius: var(--r-sm);
-      background: var(--blue-glow); color: var(--ink-2);
-      font-size: 13px; font-weight: 500;
-    }
-    .file-input-label {
-      display: inline-flex; align-items: center; gap: 6px;
-      margin-top: 9px; padding: 6px 12px;
-      border-radius: var(--r-sm); border: 1.5px solid rgba(224,123,24,0.40);
-      background: var(--blue-dim); color: var(--blue);
-      font-size: 12px; font-weight: 700; cursor: pointer;
-    }
-    .file-input-label:hover { background: rgba(224,123,24,0.18); }
-    #jsonFile { display: none; }
-
-    /* ── SCROLL TOP ── */
-    .to-top {
-      position: fixed; right: 20px; bottom: 20px;
-      width: 42px; height: 42px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: var(--r-sm); background: var(--ink);
-      border: 1px solid var(--rim-strong); color: var(--void); font-size: 16px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-      z-index: 200;
-    }
-    .to-top:hover { background: var(--ink-2); transform: translateY(-2px); box-shadow: 0 7px 20px rgba(0,0,0,0.22); }
-
-    /* ── SIDEBAR OVERLAY ── */
-    .sidebar-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.4); z-index: 150;
-      backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
-    }
-
-    /* ── MODALS ── */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.45); z-index: 1000;
-      align-items: center; justify-content: center;
-      padding: 20px;
-      backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
-    }
-    .modal-overlay.open { display: flex; }
-    .modal-box {
-      background: var(--surface-0); border-radius: var(--r);
-      border: 1px solid var(--rim-strong); box-shadow: var(--sh);
-      width: 100%; max-width: 520px;
-      animation: fadeUp 200ms ease;
-      transition: background 0.3s ease, border-color 0.3s ease;
-    }
-    .modal-head { padding: 18px 20px 12px; border-bottom: 1px solid var(--rim); }
-    .modal-title { font-size: 15px; font-weight: 800; color: var(--ink); margin-bottom: 2px; }
-    .modal-sub { font-size: 12px; font-weight: 500; color: var(--ink-3); }
-    .modal-body { padding: 14px 20px; }
-    .modal-textarea {
-      width: 100%; height: 170px; resize: vertical;
-      border: 1px solid var(--rim-strong); border-radius: var(--r-sm);
-      background: var(--surface-2); padding: 9px 11px;
-      font-size: 12px; color: var(--ink); outline: none;
-      transition: border-color 0.2s, background 0.2s;
-      font-family: 'Courier New', monospace; line-height: 1.5;
-    }
-    .modal-textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-dim); }
-    .modal-footer { display: flex; justify-content: flex-end; gap: 8px; padding: 0 20px 16px; }
-    .modal-cancel {
-      height: 34px; padding: 0 14px; border-radius: var(--r-sm);
-      border: 1px solid var(--rim); background: var(--surface-2);
-      color: var(--ink-2); font-size: 12px; font-weight: 600;
-      transition: background 0.2s;
-    }
-    .modal-cancel:hover { background: var(--surface-3); }
-    .modal-confirm {
-      height: 34px; padding: 0 16px; border-radius: var(--r-sm);
-      border: 1px solid var(--rim-strong); background: var(--teal); color: #fff;
-      font-size: 12px; font-weight: 800;
-      transition: background 0.2s, transform 0.08s;
-    }
-    .modal-confirm:hover { background: #0f766e; }
-    .modal-confirm:active { transform: scale(0.97); }
-
-    /* Theme toggle micro-animation */
-    #themeToggle svg {
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    #themeToggle:hover svg {
-      transform: rotate(30deg);
-    }
-
-    /* ─── ANIMATIONS ─── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ─── RESPONSIVE ─── */
-
-    /* Landscape tablet */
-    @media (min-width: 901px) and (max-width: 1280px) {
-      :root { --sidebar-w: 210px; }
-      .grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-      .main { padding: 20px 18px 60px; }
-    }
-
-    /* Wide desktop */
-    @media (min-width: 1500px) {
-      .grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
-    }
-
-    /* Tablet / mobile breakpoint */
-    @media (max-width: 900px) {
-      :root { --sidebar-w: 260px; }
-
-      .layout {
-        grid-template-columns: 1fr;
-        grid-template-rows: var(--topbar-h) 1fr;
-      }
-
-      .sidebar {
-        grid-row: auto;
-        position: fixed;
-        left: 0; top: 0;
-        height: 100dvh;
-        z-index: 200;
-        transform: translateX(-110%);
-        transition: transform 240ms cubic-bezier(0.4,0,0.2,1);
-      }
-      .sidebar.open { transform: translateX(0); }
-      .sidebar-overlay.open { display: block; }
-
-      .topbar { grid-column: 1; padding: 0 12px; }
-      .search-wrap { max-width: none; flex: 1; }
-      .mobile-menu-btn { display: flex; }
-      .topbar-controls { display: none; }
-
-      .main { grid-column: 1; padding: 14px 12px 80px; }
-      .page-head { margin-bottom: 14px; }
-
-      .result-bar {
-        flex-direction: column; align-items: flex-start; gap: 8px; padding-bottom: 12px;
-      }
-      .result-actions {
-        width: 100%; display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: 5px;
-      }
-      .topbar-btn { justify-content: center; font-size: 11px; padding: 0 7px; }
-
-      /* Mobile sticky filters */
-      .mobile-filters {
-        display: flex; gap: 6px; overflow-x: auto;
-        scrollbar-width: none; padding: 8px 10px;
-        background: var(--surface-0);
-        border-bottom: 1px solid var(--rim);
-        position: sticky; top: var(--topbar-h); z-index: 80;
-        -webkit-overflow-scrolling: touch;
-      }
-      .mobile-filters::-webkit-scrollbar { display: none; }
-      .mobile-filters .pill-select { flex-shrink: 0; height: 30px; font-size: 11px; padding-left: 8px; }
-
-      /* Mobile: 2 columns */
-      .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-
-      .to-top { right: 10px; bottom: 16px; width: 38px; height: 38px; }
-    }
-
-    /* Phone portrait: 1 column */
-    @media (max-width: 500px) {
-      .grid { grid-template-columns: 1fr; }
-      .meta-pill.source { display: none; }
-    }
-
-    /* Landscape phone: 2 columns */
-    @media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
-      .grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    /* Quiet editorial layer: restrained colour and strong information hierarchy. */
-    :root {
-      --void: #f5f5f1; --surface-0: #ffffff; --surface-1: #fbfbf8;
-      --surface-2: #f0f1ec; --surface-3: #e8eee9;
-      --rim: rgba(25,39,34,.10); --rim-strong: rgba(25,39,34,.20);
-      --blue: #1f5c4a; --blue-pale: #2f7661; --blue-dim: rgba(31,92,74,.09);
-      --blue-glow: transparent; --ink: #18221e; --ink-2: #46534e; --ink-3: #78827e;
-      --teal: #1f5c4a; --teal-dim: rgba(31,92,74,.09);
-      --amber: #8a6726; --amber-dim: rgba(138,103,38,.09);
-      --r: 10px; --r-sm: 7px;
-      --sh: 0 10px 28px rgba(25,39,34,.07); --sh-sm: 0 3px 12px rgba(25,39,34,.06);
-    }
-    html.dark-theme {
-      --void: #111714; --surface-0: #18201c; --surface-1: #1c2521;
-      --surface-2: #232e29; --surface-3: #27362f;
-      --rim: rgba(236,242,238,.08); --rim-strong: rgba(236,242,238,.16);
-      --blue: #79b59f; --blue-pale: #9ac9b8; --blue-dim: rgba(121,181,159,.12);
-      --blue-glow: transparent; --ink: #eef3f0; --ink-2: #bdc9c3; --ink-3: #89968f;
-      --teal: #79b59f; --teal-dim: rgba(121,181,159,.12);
-      --sh: 0 12px 30px rgba(0,0,0,.22); --sh-sm: 0 3px 12px rgba(0,0,0,.18);
-    }
-    body { background: var(--void); background-image: none; }
-    body::before, .brand::before { display: none; }
-    .brand-label, .page-title { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
-    .brand-label { font-size: 19px; }
-    .brand-sub, .nav-label { text-transform: none; letter-spacing: normal; }
-    .page-head { padding-top: 8px; }
-    .page-title { font-size: clamp(26px,3vw,38px); letter-spacing: normal; text-wrap: balance; }
-    .page-sub { max-width: 62ch; text-wrap: pretty; }
-    .sidebar, .topbar { box-shadow: none; }
-    .topbar { background: var(--surface-0); }
-    .grid { grid-template-columns: repeat(auto-fill,minmax(330px,1fr)); gap: 16px; }
-    .card { border: 1px solid var(--rim); box-shadow: var(--sh-sm); animation: none; overflow: hidden; }
-    .card:hover { transform: translateY(-2px); box-shadow: var(--sh); border-color: var(--rim-strong); }
-    .card-thumb { display: none; }
-    .job-title { line-height: 1.32; text-wrap: balance; }
-    .company-name, .result-bar, .meta-list { text-wrap: pretty; }
-    .stat-value, .nav-badge, .rating-txt, #resultInfo { font-variant-numeric: tabular-nums; }
-    .meta-pill.salary { color: var(--teal); background: var(--teal-dim); }
-    .meta-pill.salary.missing { color: var(--ink-3); background: var(--surface-2); }
-    .open-btn { background: var(--blue); }
-    .open-btn:hover { background: var(--blue-pale); }
-    button, a, select, input { transition-duration: 160ms; }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
-    }
-
-/* Vela-inspired workspace: graphite, cool blue, generous type and spacing. */
-:root { --sidebar-w:250px; --topbar-h:auto; --r:14px; --r-sm:8px;
- --blue:#425dcc; --blue-pale:#526ede; --blue-dim:rgba(90,117,220,.12);
- --void:#f3f5f9; --surface-0:#fff; --surface-1:#fafbfe; --surface-2:#edf0f6;
- --ink:#192031; --ink-2:#465167; --ink-3:#647086; }
-html.dark-theme { color-scheme:dark; --void:#0e1117; --surface-0:#151922;
- --surface-1:#191e28; --surface-2:#202632; --surface-3:#293248;
- --rim:#2a303d; --rim-strong:#465168; --ink:#edf0f7; --ink-2:#c0c8d8; --ink-3:#98a3b8;
- --blue:#8ba6ff; --blue-pale:#aac0ff; --blue-dim:rgba(139,166,255,.12);
- --teal:#7ed5bc; --teal-dim:rgba(126,213,188,.10); --amber:#e5be78;
- --sh:none; --sh-sm:none; --star-off:#637087; --star-on:#e5be78; }
-body,button,input,select,textarea { font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif; }
-body { font-size:16px; line-height:1.6; }
-.layout { grid-template-columns:var(--sidebar-w) minmax(0,1fr); grid-template-rows:auto 1fr; }
-.sidebar { padding:32px 14px 24px; background:var(--surface-0); }
-.brand { padding:0 12px 28px; }
-.brand-label { font-family:inherit; font-size:20px; font-weight:650; line-height:1.35; letter-spacing:-.6px; }
-.brand-sub { font-size:12px; margin-top:8px; color:var(--ink-3); }
-.nav-section { padding:24px 0 0; }
-.nav-label { font-size:12px; text-transform:uppercase; letter-spacing:.09em; margin-bottom:10px; }
-.nav-item { min-height:46px; padding:10px 12px; font-size:14px; gap:12px; margin-bottom:4px; }
-.nav-item.active { font-weight:600; }
-.nav-item.active::before { display:none; }
-.nav-icon { width:18px; height:18px; }
-.nav-badge { font-size:12px; font-weight:500; border:0; padding:2px 7px; }
-.nav-item.active .nav-badge { background:var(--blue-dim); }
-.sidebar-stats { padding:22px 12px 0; gap:16px; }
-.stat-label { font-size:14px; } .stat-value { font-size:20px; font-weight:600; }
-.topbar { position:relative; height:auto; min-height:140px; flex-wrap:wrap; padding:24px 36px; gap:16px; align-content:center; background:var(--void); }
-.search-wrap { flex:1 1 100%; max-width:none; }
-#search { height:46px; font-size:14px; background:var(--surface-0); padding-left:40px; }
-.search-icon { left:14px; }
-.topbar-controls { width:100%; flex-wrap:wrap; gap:8px; margin:0; }
-.pill-select,.topbar-btn { height:38px; font-size:14px; font-weight:500; background-color:var(--surface-0); }
-.topbar-btn { padding:0 12px; }
-.main { padding:32px 36px 64px; width:100%; max-width:1700px; margin:0 auto; }
-.page-head { padding:0; margin-bottom:28px; }
-.page-title { font-family:inherit; font-size:clamp(28px,3vw,38px); font-weight:600; letter-spacing:-1.2px; line-height:1.2; }
-.page-sub { font-size:16px; font-weight:400; margin-top:10px; }
-.result-bar { padding:0 0 18px; margin-bottom:26px; } #resultInfo { font-size:14px; font-weight:400; }
-.group-title { font-size:14px; text-transform:none; letter-spacing:0; font-weight:600; margin-bottom:16px; }
-.group-count { font-size:12px; font-weight:500; }
-.grid { grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr)); gap:20px; }
-.card { min-height:0; border-radius:14px; box-shadow:none; }
-.card::before { display:none; }
-.card:hover { transform:none; border-color:var(--rim-strong); box-shadow:none; }
-.card.picked-card { border-color:var(--blue); box-shadow:inset 0 0 0 1px var(--blue-dim); }
-.card-body { padding:24px; gap:14px; }
-.cat-tag { font-size:12px; font-weight:500; text-transform:none; letter-spacing:0; padding:3px 8px; margin-bottom:12px; }
-.job-title { font-size:20px; font-weight:600; line-height:1.4; letter-spacing:-.35px; text-wrap:pretty; overflow-wrap:anywhere; }
-.company-name { font-size:14px; font-weight:400; margin-top:5px; }
-.heart-btn { width:36px; height:36px; font-size:20px; }
-.stars-row { gap:12px; } .star-btn { width:28px; height:28px; } .rating-txt { font-size:12px; }
-.meta-list { gap:7px; } .meta-pill { font-size:12px; font-weight:400; max-width:100%; white-space:normal; overflow-wrap:anywhere; }
-.action-row { flex-wrap:wrap; gap:8px; border-top:1px solid var(--rim); padding-top:16px; }
-.action-btn { font-size:14px; height:auto; min-height:36px; padding:6px 10px; font-weight:500; }
-.copy-id-btn { min-height:28px; }
-.compat-label { font-size:12px; font-weight:500; }
-.card-footer { padding:16px 24px; gap:10px; background:transparent; }
-.open-btn,.pick-btn { height:40px; font-size:14px; font-weight:600; }
-.open-btn,.open-btn:hover,.pick-btn.active { color:#111827; background:var(--blue); }
-html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:white; }
-.card.viewed-card::after,.card.last-viewed-card::after { top:0; right:0; transform:none; padding:2px 10px; font-size:12px; font-weight:500; letter-spacing:0; border-radius:0 0 0 8px; box-shadow:none; background:var(--surface-2); color:var(--ink-2); }
-.new-dot { top:10px; left:10px; right:auto; width:6px; height:6px; box-shadow:none; }
-.modal-box { border-radius:16px; max-height:90dvh; overflow-y:auto; border:1px solid var(--rim-strong); }
-.modal-title { font-size:22px; font-weight:600; } .modal-sub,.modal-textarea,.modal-cancel,.modal-confirm { font-size:14px; }
-.modal-cancel,.modal-confirm { min-height:40px; } .modal-confirm { color:#10251f; }
-.empty { border:1px dashed var(--rim-strong); border-radius:14px; background:var(--surface-0); }
-.empty-sub,.file-fallback { font-size:14px; }
-:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+/* Apple Design: semantic materials, system typography, immediate feedback. */
+:root {
+ color-scheme:light; font-size:16px;
+ --void:#f5f5f7; --surface-0:#fff; --surface-1:#fff; --surface-2:#f2f2f7; --surface-3:#e8e8ed;
+ --ink:#1d1d1f; --ink-2:#515154; --ink-3:#68686d;
+ --rim:rgba(0,0,0,.08); --rim-strong:rgba(0,0,0,.18);
+ --blue:#0071e3; --blue-pale:#0077ed; --blue-dim:rgba(0,113,227,.09); --blue-glow:transparent;
+ --teal:#24804b; --teal-dim:rgba(36,128,75,.09); --green:var(--teal); --green-dim:var(--teal-dim);
+ --rose:#c93243; --rose-dim:rgba(201,50,67,.09); --amber:#956000; --amber-dim:rgba(149,96,0,.09);
+ --sky:var(--blue); --sky-dim:var(--blue-dim); --violet:#7851b4; --violet-dim:rgba(120,81,180,.09);
+ --star-off:#929298; --star-on:#aa7000; --r:22px; --r-sm:10px; --sidebar-w:248px; --topbar-h:76px;
+ --glass:rgba(250,250,252,.86); --sidebar-glass:rgba(235,235,240,.88); --scrim:rgba(0,0,0,.32);
+ --sh-sm:0 2px 8px rgba(0,0,0,.025); --sh:0 12px 32px rgba(0,0,0,.07);
+ --arrow-img:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2377777d' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");
+}
+:root.dark-theme {
+ color-scheme:dark; --void:#161617; --surface-0:#222224; --surface-1:#28282b; --surface-2:#303033; --surface-3:#3b3b3f;
+ --ink:#f5f5f7; --ink-2:#c1c1c6; --ink-3:#a1a1a8; --rim:rgba(255,255,255,.09); --rim-strong:rgba(255,255,255,.23);
+ --blue:#0a84ff; --blue-pale:#2994ff; --blue-dim:rgba(10,132,255,.16);
+ --teal:#6bd58b; --teal-dim:rgba(107,213,139,.12); --rose:#ff7b87; --rose-dim:rgba(255,123,135,.12);
+ --amber:#e8b957; --amber-dim:rgba(232,185,87,.12); --violet:#c4a2fa; --violet-dim:rgba(196,162,250,.12);
+ --star-off:#818188; --star-on:#e8b957; --glass:rgba(29,29,31,.88); --sidebar-glass:rgba(32,32,35,.91); --scrim:rgba(0,0,0,.55);
+ --sh-sm:0 2px 8px rgba(0,0,0,.06); --sh:0 12px 32px rgba(0,0,0,.2);
+}
+*,*::before,*::after { box-sizing:border-box; }
+* { margin:0; padding:0; }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body,button,input,select,textarea { font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif; font-optical-sizing:auto; }
+body { background:var(--void); color:var(--ink); font-size:.9375rem; line-height:1.5; transition:background-color .2s,color .2s; }
+button,input,select,textarea { font-size:inherit; color:inherit; }
+button { cursor:pointer; background:none; border:0; }
+a { color:inherit; text-decoration:none; }
+button,a,input,select,textarea { -webkit-tap-highlight-color:transparent; }
+button,a,select { touch-action:manipulation; }
+button { transition:background-color .16s,color .16s,transform .12s; }
+button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
+:focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
+.layout { display:grid; grid-template-columns:var(--sidebar-w) minmax(0,1fr); grid-template-rows:auto 1fr; min-height:100dvh; }
+.sidebar { grid-row:1/3; position:sticky; top:0; height:100dvh; display:flex; flex-direction:column; padding:32px 14px 24px; overflow-y:auto; background:var(--sidebar-glass); backdrop-filter:blur(28px) saturate(140%); border-right:1px solid var(--rim); z-index:100; }
+.brand { padding:0 14px 28px; }
+.brand-mark { width:42px; height:42px; display:grid; place-items:center; border-radius:13px; background:var(--blue); color:white; margin-bottom:16px; box-shadow:0 4px 10px var(--blue-dim); }
+.brand-label { font-size:1.125rem; font-weight:650; letter-spacing:-.035em; line-height:1.25; }
+.brand-sub { font-size:.75rem; color:var(--ink-3); margin-top:6px; }
+.nav-section { padding-top:14px; }
+.nav-label { padding:0 12px; margin-bottom:8px; font-size:.6875rem; font-weight:600; letter-spacing:.025em; color:var(--ink-3); }
+.nav-item { display:flex; align-items:center; position:relative; width:100%; gap:10px; padding:10px 12px; min-height:44px; margin-bottom:3px; border-radius:10px; font-size:.8125rem; text-align:left; color:var(--ink-2); }
+.nav-item:hover { background:var(--rim); }
+.nav-item.active { background:var(--blue); color:white; font-weight:600; }
+.nav-icon { width:18px; height:18px; flex-shrink:0; }
+.nav-badge { margin-left:auto; padding:1px 6px; font-size:.6875rem; border-radius:6px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+.nav-item.active .nav-badge { background:rgba(255,255,255,.18); color:white; }
+.sidebar-stats { display:flex; flex-direction:column; gap:14px; margin-top:auto; padding:28px 12px 0; }
+.stat-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.stat-label { font-size:.75rem; color:var(--ink-3); }
+.stat-value { font-size:1.125rem; font-weight:600; font-variant-numeric:tabular-nums; }
+.stat-value.gold { color:var(--amber); } .stat-value.teal { color:var(--teal); }
+.topbar { grid-column:2; display:flex; align-items:center; flex-wrap:wrap; gap:12px; padding:20px 36px; background:var(--glass); backdrop-filter:blur(24px) saturate(150%); z-index:90; border-bottom:1px solid var(--rim); }
+.search-wrap { position:relative; flex:1 1 100%; min-width:0; }
+.search-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--ink-3); pointer-events:none; }
+#search { width:100%; height:44px; border:1px solid transparent; border-radius:12px; background:var(--surface-2); padding:0 16px 0 40px; font-size:.875rem; outline-offset:2px; }
+#search::placeholder { color:var(--ink-3); }
+.topbar-controls { display:flex; flex-wrap:wrap; gap:8px; width:100%; }
+.pill-select { appearance:none; background:var(--surface-0) var(--arrow-img) no-repeat right 10px center; padding:0 30px 0 12px; border:1px solid var(--rim); height:36px; border-radius:9px; font-size:.75rem; max-width:100%; cursor:pointer; }
+.pill-select option { color:var(--ink); background:var(--surface-0); }
+.topbar-btn { display:inline-flex; justify-content:center; align-items:center; gap:6px; padding:0 12px; min-height:36px; border-radius:9px; border:1px solid var(--rim); background:var(--surface-0); font-size:.75rem; font-weight:500; }
+.topbar-btn:hover { background:var(--surface-2); }
+.topbar-btn.danger:hover { background:var(--rose-dim); color:var(--rose); }
+#btnImportNewJob,#mImportNewJob { color:var(--blue)!important; border-color:var(--rim)!important; }
+.mobile-menu-btn { display:none; width:44px; height:44px; flex-shrink:0; align-items:center; justify-content:center; border-radius:10px; }
+.main { grid-column:2; min-width:0; width:100%; max-width:1720px; margin:0 auto; padding:40px 36px 80px; }
+.page-head { margin-bottom:30px; }
+.page-eyebrow { color:var(--ink-3); font-size:.6875rem; font-weight:600; letter-spacing:.09em; text-transform:uppercase; margin-bottom:9px; }
+.page-title { font-size:clamp(1.875rem,3vw,2.625rem); line-height:1.1; letter-spacing:-.045em; font-weight:650; }
+.page-sub { font-size:.9375rem; color:var(--ink-3); margin-top:12px; max-width:65ch; }
+.result-bar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:18px; }
+#resultInfo { font-size:.75rem; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+.result-actions { gap:8px; flex-wrap:wrap; }
+.group { margin-bottom:28px; }
+.group-title { display:flex; align-items:center; gap:8px; font-size:.9375rem; font-weight:600; margin:8px 0 16px; }
+.group-count { font-size:.6875rem; padding:2px 7px; border-radius:7px; background:var(--surface-3); color:var(--ink-2); }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr)); gap:20px; align-items:stretch; }
+.card { position:relative; display:flex; flex-direction:column; min-width:0; border:1px solid var(--rim); border-radius:var(--r); background:var(--surface-0); box-shadow:var(--sh-sm); overflow:hidden; transition:box-shadow .2s,border-color .2s,opacity .2s,transform .2s; }
+.card:hover { border-color:var(--rim-strong); box-shadow:var(--sh); }
+.card.picked-card { border-color:var(--blue); }
+.card.card-archiving { opacity:0; transform:scale(.97); pointer-events:none; }
+.card-body { padding:24px 24px 16px; display:flex; flex-direction:column; gap:18px; flex:1; }
+.card-top-row { display:flex; gap:12px; align-items:flex-start; }
+.card-title-block { flex:1; min-width:0; }
+.card-kicker { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+.cat-tag { font-size:.6875rem; font-weight:600; color:var(--blue); letter-spacing:.01em; }
+.new-label { color:var(--teal); background:var(--teal-dim); padding:2px 6px; border-radius:5px; font-size:.625rem; font-weight:600; }
+.job-title { font-size:1.1875rem; line-height:1.3; font-weight:600; letter-spacing:-.025em; overflow-wrap:anywhere; }
+.job-title a:hover { color:var(--blue); }
+.company-name { font-size:.8125rem; color:var(--ink-2); margin-top:6px; overflow-wrap:anywhere; }
+.heart-btn { width:44px; height:44px; flex-shrink:0; border-radius:50%; background:var(--surface-2); font-size:1.5rem; line-height:1; color:var(--ink-3); }
+.heart-btn:hover,.heart-btn.picked { color:var(--rose); background:var(--rose-dim); }
+.location-block { display:flex; flex-direction:column; gap:9px; }
+.location-line { display:flex; align-items:flex-start; gap:7px; font-size:.8125rem; color:var(--ink-2); overflow-wrap:anywhere; }
+.location-line svg { flex-shrink:0; margin-top:2px; }
+.work-badge { align-self:flex-start; display:inline-flex; padding:4px 9px; border-radius:7px; background:var(--surface-2); font-size:.6875rem; font-weight:500; color:var(--ink-2); }
+.work-badge.remote { color:var(--teal); background:var(--teal-dim); }
+.job-details { display:grid; grid-template-columns:1fr 1fr; gap:14px 16px; padding:16px 0; border-top:1px solid var(--rim); border-bottom:1px solid var(--rim); }
+.detail { min-width:0; } .detail dt { font-size:.625rem; font-weight:500; color:var(--ink-3); margin-bottom:4px; } .detail dd { font-size:.75rem; color:var(--ink-2); overflow-wrap:anywhere; }
+.detail.salary-detail { grid-column:1/-1; } .detail.salary-detail dd { color:var(--ink); font-weight:500; }
+.meta-list { display:flex; flex-wrap:wrap; gap:6px; } .meta-pill { font-size:.6875rem; padding:4px 8px; border-radius:6px; background:var(--surface-2); color:var(--ink-2); overflow-wrap:anywhere; } .new-badge { color:var(--blue); background:var(--blue-dim); }
+.stars-row { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.stars { display:flex; flex-direction:row-reverse; }
+.star-btn { width:32px; height:36px; font-size:1.25rem; color:var(--star-off); }
+.star-btn.on { color:var(--star-on); }
+@media(hover:hover) { .stars:hover .star-btn { color:var(--star-off); } .stars .star-btn:hover,.stars .star-btn:hover ~ .star-btn { color:var(--star-on); } }
+.rating-txt { color:var(--ink-3); font-size:.6875rem; white-space:nowrap; }
+.compat-bar { display:flex; align-items:center; gap:12px; } .compat-track { flex:1; height:5px; background:var(--surface-3); border-radius:5px; overflow:hidden; } .compat-fill { height:100%; border-radius:5px; transition:width .2s; } .compat-label { font-size:.6875rem; font-weight:600; }
+.action-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:auto!important; }
+.action-btn { display:inline-flex; flex:1; justify-content:center; align-items:center; gap:4px; min-height:36px; padding:6px 8px; border-radius:8px; color:var(--ink-2); background:var(--surface-2); font-size:.6875rem; font-weight:500; }
+.action-btn:hover { color:var(--blue); background:var(--blue-dim); } .import-btn.mapped { color:var(--teal); background:var(--teal-dim); } .archive-btn:hover { color:var(--rose); background:var(--rose-dim); }
+.copy-id-btn { flex:0; min-width:36px; }
+.card-footer { display:flex; align-items:center; gap:10px; padding:0 24px 24px; }
+.open-btn,.pick-btn { display:flex; align-items:center; justify-content:center; min-height:42px; padding:8px 16px; border-radius:11px; font-size:.8125rem; font-weight:500; }
+.open-btn { flex:1; color:white; background:var(--blue); } .open-btn:hover { background:var(--blue-pale); }
+.pick-btn { min-width:76px; background:var(--surface-2); color:var(--ink-2); } .pick-btn.active { background:var(--blue-dim); color:var(--blue); }
+.card.viewed-card::after,.card.last-viewed-card::after { content:attr(data-ribbon); display:block; order:3; padding:7px 24px; background:var(--surface-2); color:var(--ink-3); font-size:.625rem; font-weight:600; letter-spacing:.04em; }
+.card.last-viewed-card::after { background:var(--violet-dim); color:var(--violet); }
+.empty { grid-column:1/-1; padding:64px 24px; text-align:center; border:1px solid var(--rim); border-radius:var(--r); background:var(--surface-0); }
+.empty-icon { font-size:2.5rem; color:var(--ink-3); margin-bottom:12px; } .empty-title { font-size:1.125rem; font-weight:600; } .empty-sub { margin-top:6px; color:var(--ink-3); font-size:.875rem; }
+.file-fallback { display:none; margin-bottom:24px; padding:20px; background:var(--surface-0); border:1px solid var(--rim); border-radius:16px; font-size:.8125rem; color:var(--ink-2); }
+.file-input-label { position:relative; display:flex; align-items:center; justify-content:center; gap:8px; width:fit-content; padding:10px 14px; margin-top:12px; border-radius:9px; color:var(--blue); background:var(--blue-dim); cursor:pointer; }
+#jsonFile { position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer; }
+.file-input-label:focus-within { outline:3px solid var(--blue); outline-offset:3px; }
+.to-top { position:fixed; bottom:24px; right:24px; display:grid; place-items:center; width:44px; height:44px; border:1px solid var(--rim); border-radius:50%; background:var(--glass); backdrop-filter:blur(20px); box-shadow:var(--sh); color:var(--ink-2); z-index:85; }
+.sidebar-overlay { display:none; position:fixed; inset:0; background:var(--scrim); z-index:150; }
+.modal-overlay { display:none; position:fixed; inset:0; align-items:center; justify-content:center; padding:24px; background:var(--scrim); backdrop-filter:blur(8px); z-index:1000; }
+.modal-overlay.open { display:flex; }
+.modal-box { width:100%; max-width:560px; max-height:90dvh; overflow-y:auto; border:1px solid var(--rim-strong); border-radius:26px; background:var(--surface-1); box-shadow:0 24px 90px rgba(0,0,0,.24); }
+.modal-head { padding:28px 28px 18px; } .modal-title { font-size:1.375rem; font-weight:600; letter-spacing:-.03em; } .modal-sub { font-size:.8125rem; color:var(--ink-3); margin-top:7px; overflow-wrap:anywhere; }
+.modal-body { padding:0 28px 24px; } .modal-textarea { display:block; width:100%; height:220px; min-height:120px; resize:vertical; border:1px solid var(--rim-strong); border-radius:12px; padding:14px; background:var(--surface-2); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:.8125rem; line-height:1.6; }
+.modal-footer { display:flex; justify-content:flex-end; gap:10px; padding:0 28px 28px; }
+.modal-cancel,.modal-confirm { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:10px 18px; border-radius:10px; font-size:.8125rem; font-weight:500; }
+.modal-cancel { background:var(--surface-2); } .modal-confirm { background:var(--blue)!important; color:white; } .modal-confirm:hover { background:var(--blue-pale)!important; }
+#btnCopyNewJobPrompt { min-height:44px; color:var(--blue)!important; background:var(--blue-dim)!important; border-color:transparent!important; }
+@media(max-width:1100px) and (min-width:901px) { :root { --sidebar-w:220px; } .main,.topbar { padding-left:24px; padding-right:24px; } }
 @media(max-width:900px) {
  .layout { grid-template-columns:minmax(0,1fr); grid-template-rows:auto auto 1fr; }
- .sidebar { width:270px; }
- .topbar { position:sticky; top:0; min-height:76px; padding:14px 20px; flex-wrap:nowrap; }
- .search-wrap { flex:1; min-width:0; }
- .topbar-controls { display:flex; width:auto; } .topbar-controls > :not(#themeToggle) { display:none; }
- .mobile-filters { top:76px; position:sticky; flex-wrap:wrap; overflow:visible; padding:12px 20px; }
- .mobile-filters .pill-select { height:38px; font-size:14px; flex:1 1 140px; min-width:0; }
- .main { padding:28px 20px 60px; }
- .grid { grid-template-columns:repeat(auto-fill,minmax(min(100%,310px),1fr)); }
- .result-actions { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
- .result-bar { gap:16px; }
- .topbar-btn { font-size:14px; min-height:40px; }
+ .sidebar { position:fixed; left:0; top:0; width:min(290px,85vw); transform:translateX(-105%); transition:transform .25s cubic-bezier(.2,.8,.2,1); z-index:200; }
+ .sidebar.open { transform:translateX(0); } .sidebar-overlay.open { display:block; }
+ .topbar { grid-column:1; position:sticky; top:0; flex-wrap:nowrap; height:76px; padding:12px 16px; gap:8px; }
+ .search-wrap { flex:1; } .mobile-menu-btn { display:flex; } .topbar-controls { width:auto; flex-wrap:nowrap; } .topbar-controls>:not(#themeToggle) { display:none; }
+ #themeToggle { width:44px; height:44px; padding:0; border:0; background:transparent; } #themeText { display:none; }
+ .mobile-filters { grid-column:1; padding:12px 16px; background:var(--void); gap:8px; flex-wrap:wrap; } .mobile-filters .pill-select { flex:1 1 140px; min-width:0; min-height:44px; font-size:.8125rem; }
+ .main { grid-column:1; padding:28px 20px 80px; } .result-bar { flex-direction:column; align-items:flex-start; gap:14px; } .result-actions { width:100%; } .result-actions .topbar-btn { flex:1 1 calc(50% - 8px); min-height:44px; }
+ .action-btn,.star-btn { min-height:44px; } .star-btn { width:36px; }
 }
-@media(max-width:500px) { .main { padding:24px 16px 60px; } .card-body { padding:20px; } .card-footer { padding:16px 20px; } .meta-pill.source { display:inline-flex; } .page-title { letter-spacing:-.7px; } }
+@media(max-width:500px) { .main { padding:24px 16px 76px; } .grid { grid-template-columns:minmax(0,1fr); gap:16px; } .card-body { padding:22px 20px 14px; } .card-footer { padding:0 20px 20px; } .modal-overlay { padding:12px; align-items:flex-end; } .modal-box { border-radius:24px; max-height:90dvh; } .modal-head { padding:24px 20px 18px; } .modal-body { padding:0 20px 20px; } .modal-footer { padding:0 20px 24px; } .modal-textarea,#search { font-size:1rem; } }
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; animation:none!important; } button:active,.open-btn:active { transform:none; } .card.card-archiving { transform:none; } }
+@media(prefers-reduced-transparency:reduce) { .sidebar,.topbar,.to-top { background:var(--surface-0); backdrop-filter:none; } .modal-overlay { backdrop-filter:none; } }
+@media(prefers-contrast:more) { :root { --rim:var(--ink-3); --rim-strong:var(--ink-2); } .sidebar,.topbar,.to-top { background:var(--surface-0); backdrop-filter:none; } }
+
+[hidden] { display:none!important; }
+.roadmap-toolbar { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
+.roadmap-toolbar #roadmapSearch { flex:1 1 260px; min-height:40px; padding:0 12px; border:1px solid var(--rim); border-radius:var(--r-sm); background:var(--surface-0); color:var(--ink); }
+.roadmap-summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-bottom:24px; }
+.roadmap-metric { padding:18px; border:1px solid var(--rim); border-radius:var(--r); background:var(--surface-0); }
+.roadmap-metric strong { display:block; font-size:1.75rem; line-height:1; font-weight:650; font-variant-numeric:tabular-nums; }
+.roadmap-metric span { display:block; margin-top:6px; color:var(--ink-3); font-size:.75rem; }
+.roadmap-list { display:grid; gap:10px; }
+.skill-row { display:grid; grid-template-columns:auto minmax(0,1fr) auto auto; align-items:center; gap:12px; padding:16px; border:1px solid var(--rim); border-radius:var(--r); background:var(--surface-0); }
+.skill-row.completed .skill-name { text-decoration:line-through; color:var(--ink-3); }
+.skill-check { width:18px; height:18px; accent-color:var(--blue); }
+.skill-name { font-weight:600; text-wrap:balance; }
+.skill-meta { margin-top:3px; color:var(--ink-3); font-size:.75rem; text-wrap:pretty; }
+.skill-delete { min-height:36px; padding:0 10px; border-radius:var(--r-sm); color:var(--rose); background:var(--rose-dim); }
+.native-dialog { width:min(92vw,430px); padding:0; border:1px solid var(--rim-strong); border-radius:var(--r); background:var(--surface-0); color:var(--ink); box-shadow:var(--sh); }
+.native-dialog::backdrop { background:rgba(0,0,0,.42); }
+.native-dialog-body { padding:24px; }
+.native-dialog-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:20px; }
+@media(max-width:600px) { .roadmap-summary { grid-template-columns:1fr; } .skill-row { grid-template-columns:auto minmax(0,1fr); } .skill-row select,.skill-row .skill-delete { grid-column:2; } }
 
   </style>
 </head>
@@ -939,7 +201,7 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
   <!-- ═══ SIDEBAR ═══ -->
   <aside class="sidebar" id="sidebar">
     <div class="brand">
-      <div class="brand-label">Early-Career Job Bot</div>
+      <div class="brand-mark" aria-hidden="true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="7" width="18" height="14" rx="4"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12c5 3 13 3 18 0M12 12v4"/></svg></div><div class="brand-label">Early-Career Job Bot</div>
       <div class="brand-sub">Private opportunity desk</div>
     </div>
 
@@ -989,11 +251,11 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
 
     <nav class="nav-section" style="margin-top:12px">
       <div class="nav-label">Tools</div>
-      <a class="nav-item" href="roadmap.html" id="navRoadmap">
+      <button class="nav-item" type="button" id="navRoadmap">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l4-8 4 4 4-6 4 6"/><path d="M3 21h18"/></svg>
         Skill Roadmap
         <span class="nav-badge" id="badge-roadmap">—</span>
-      </a>
+      </button>
     </nav>
 
     <div class="sidebar-stats">
@@ -1023,12 +285,12 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
 
     <div class="search-wrap">
       <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input id="search" type="search" placeholder="Search roles, companies, sources…" autocomplete="off">
+      <input id="search" type="search" aria-label="Search jobs" placeholder="Search roles, companies, locations…" autocomplete="off">
     </div>
 
     <div class="topbar-controls">
-      <select class="pill-select" id="sourceFilter"></select>
-      <select class="pill-select" id="ratingFilter">
+      <select class="pill-select" id="sourceFilter" aria-label="Source"></select>
+      <select class="pill-select" id="ratingFilter" aria-label="Rating">
         <option value="all">All ratings</option>
         <option value="5">5 stars</option>
         <option value="4">4+ stars</option>
@@ -1037,7 +299,7 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
         <option value="1">1+ stars</option>
         <option value="0">Unrated</option>
       </select>
-      <select class="pill-select" id="sortBy">
+      <select class="pill-select" id="sortBy" aria-label="Sort jobs">
         <option value="newest">Newest first</option>
         <option value="oldest">Oldest first</option>
         <option value="compat-desc">⭐ Best match first</option>
@@ -1051,7 +313,7 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
         <option value="source-asc">Source A–Z</option>
         <option value="category-asc">Category A–Z</option>
       </select>
-      <select class="pill-select" id="groupBy">
+      <select class="pill-select" id="groupBy" aria-label="Group jobs">
         <option value="none">No grouping</option>
         <option value="category">By category</option>
         <option value="source">By source</option>
@@ -1087,8 +349,8 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
 
   <!-- Mobile filters bar -->
   <div class="mobile-filters" id="mobileFilters" style="display:none">
-    <select class="pill-select" id="mSourceFilter"></select>
-    <select class="pill-select" id="mRatingFilter">
+    <select class="pill-select" id="mSourceFilter" aria-label="Source"></select>
+    <select class="pill-select" id="mRatingFilter" aria-label="Rating">
       <option value="all">All ratings</option>
       <option value="5">5 stars</option>
       <option value="4">4+ stars</option>
@@ -1097,7 +359,7 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
       <option value="1">1+ star</option>
       <option value="0">Unrated</option>
     </select>
-    <select class="pill-select" id="mSortBy">
+    <select class="pill-select" id="mSortBy" aria-label="Sort jobs">
       <option value="newest">Newest</option>
       <option value="oldest">Oldest</option>
       <option value="compat-desc">⭐ Best match</option>
@@ -1105,7 +367,7 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
       <option value="picked">Picked first</option>
       <option value="title-asc">Title A–Z</option>
     </select>
-    <select class="pill-select" id="mGroupBy">
+    <select class="pill-select" id="mGroupBy" aria-label="Group jobs">
       <option value="none">No group</option>
       <option value="category">Category</option>
       <option value="source">Source</option>
@@ -1115,9 +377,9 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
   </div>
 
   <!-- ═══ MAIN ═══ -->
-  <main class="main">
+  <main class="main" id="jobsView">
     <div class="page-head">
-      <h1 class="page-title">Opportunity portfolio</h1>
+      <div class="page-eyebrow">Your next chapter</div><h1 class="page-title">Opportunity portfolio</h1>
       <p class="page-sub">Focused early-career roles across data, software and intelligent systems.</p>
     </div>
 
@@ -1143,7 +405,55 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
     <section id="jobsRoot" aria-live="polite"></section>
   </main>
 
+  <main class="main" id="roadmapView" hidden>
+    <div class="page-head">
+      <div class="page-eyebrow">Capability planning</div>
+      <h1 class="page-title">Skill roadmap</h1>
+      <p class="page-sub">Track requirements collected from roles and focus learning where it improves the most applications.</p>
+    </div>
+    <div class="roadmap-summary" aria-label="Roadmap progress">
+      <div class="roadmap-metric"><strong id="roadmapTotal">0</strong><span>Total skills</span></div>
+      <div class="roadmap-metric"><strong id="roadmapDone">0</strong><span>Completed</span></div>
+      <div class="roadmap-metric"><strong id="roadmapProgress">0%</strong><span>Overall progress</span></div>
+    </div>
+    <div class="roadmap-toolbar">
+      <input id="roadmapSearch" type="search" placeholder="Search skills or categories" aria-label="Search roadmap skills">
+      <select class="pill-select" id="roadmapCategory" aria-label="Filter roadmap by category"><option value="all">All categories</option></select>
+      <select class="pill-select" id="roadmapDifficulty" aria-label="Filter roadmap by difficulty"><option value="all">All difficulties</option><option value="basic">Basic</option><option value="medium">Medium</option><option value="advanced">Advanced</option><option value="unset">Unrated</option></select>
+      <select class="pill-select" id="roadmapStatus" aria-label="Filter roadmap by completion"><option value="all">All progress</option><option value="open">To learn</option><option value="done">Completed</option></select>
+      <select class="pill-select" id="roadmapJob" aria-label="Filter roadmap by linked job"><option value="all">All linked jobs</option></select>
+      <button class="topbar-btn" type="button" id="roadmapExport">Export</button>
+      <button class="topbar-btn" type="button" id="roadmapRestructure">Consolidate</button>
+      <button class="topbar-btn danger" type="button" id="roadmapClear">Clear roadmap</button>
+    </div>
+    <section class="roadmap-list" id="roadmapList" aria-live="polite"></section>
+  </main>
+
 </div>
+
+<dialog class="native-dialog" id="roadmapConfirmDialog" aria-labelledby="roadmapConfirmTitle">
+  <div class="native-dialog-body">
+    <h2 id="roadmapConfirmTitle">Confirm action</h2>
+    <p class="page-sub" id="roadmapConfirmText"></p>
+    <form method="dialog" class="native-dialog-actions">
+      <button class="topbar-btn" value="cancel">Cancel</button>
+      <button class="topbar-btn danger" value="confirm">Confirm</button>
+    </form>
+  </div>
+</dialog>
+
+<dialog class="native-dialog" id="roadmapRestructureDialog" aria-labelledby="roadmapRestructureTitle">
+  <div class="native-dialog-body">
+    <h2 id="roadmapRestructureTitle">Consolidate similar skills</h2>
+    <p class="page-sub">Copy the prompt, ask Gemini, then paste its JSON response below.</p>
+    <button class="topbar-btn" type="button" id="roadmapCopyPrompt" style="margin:16px 0">Copy consolidation prompt</button>
+    <textarea class="modal-textarea" id="roadmapRestructureJson" placeholder="Paste consolidation JSON" aria-label="Skill consolidation JSON"></textarea>
+    <div class="native-dialog-actions">
+      <button class="topbar-btn" type="button" id="roadmapRestructureCancel">Cancel</button>
+      <button class="topbar-btn" type="button" id="roadmapRestructureApply">Apply</button>
+    </div>
+  </div>
+</dialog>
 
 <!-- ═══ IMPORT NEW JOB MODAL ═══ -->
 <div class="modal-overlay" id="importNewJobModal" role="dialog" aria-modal="true" aria-labelledby="modalNewJobTitle">
@@ -1701,17 +1011,14 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
       ribbonAttr = 'data-ribbon="VIEWED"';
     }
 
-    const catImg = CAT_PROPS[job.category]?.image || CAT_PROPS["General"].image; // CAT_PROPS defined above
-    const imgHtml = `<div class="card-thumb" style="background-image:url('${escHtml(catImg)}')"></div>`;
-    
+    const workType = job.work_type || 'Work arrangement not specified';
+    const remote = /\bremote\b/i.test(workType) && !/hybrid|on.?site/i.test(workType);
     return `
       <article class="card ${cc} ${picked ? 'picked-card' : ''} ${ribbonClass}" data-id="${escHtml(job.id)}" data-url="${escHtml(url)}" style="animation-delay:${delay}ms" ${ribbonAttr}>
-        ${isNew ? '<div class="new-dot" title="New batch"></div>' : ''}
-        ${imgHtml}
         <div class="card-body">
           <div class="card-top-row">
             <div class="card-title-block">
-              <span class="cat-tag ${cc}">${escHtml(job.category)}</span>
+              <div class="card-kicker"><span class="cat-tag ${cc}">${escHtml(job.category)}</span>${isNew ? '<span class="new-label">New</span>' : ''}</div>
               <div class="job-title">
                 <a href="${escHtml(url)}" target="_blank" rel="noreferrer" data-action="open-link">${escHtml(job.title || 'Untitled')}</a>
               </div>
@@ -1720,23 +1027,23 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
             <button class="heart-btn ${picked ? 'picked' : ''}" data-action="pick" aria-label="Pick job">${picked ? '&#9829;' : '&#9825;'}</button>
           </div>
 
+          <div class="location-block">
+            <div class="location-line"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><span>${escHtml(job.location || 'Location not specified')}</span></div>
+            <span class="work-badge ${remote ? 'remote' : ''}">${escHtml(workType)}</span>
+          </div>
+          <dl class="job-details">
+            <div class="detail salary-detail"><dt>Salary</dt><dd>${escHtml(job.salary || 'Not disclosed')}</dd></div>
+            <div class="detail"><dt>Employment</dt><dd>${escHtml(job.employment_type || 'Not specified')}</dd></div>
+            <div class="detail"><dt>Source</dt><dd>${escHtml(job.source)}</dd></div>
+            <div class="detail"><dt>Added</dt><dd>${escHtml(formatDateShort(job.seen_at) || 'Not specified')}</dd></div>
+            <div class="detail"><dt>Deadline</dt><dd>${escHtml(job.application_deadline || 'Not specified')}</dd></div>
+          </dl>
+          ${job.is_updated ? `<div class="meta-list"><span class="meta-pill new-badge">Updated · ${escHtml(job.change_summary || 'Listing updated')}</span></div>` : ''}
           <div class="stars-row">
             <div class="stars" aria-label="${rating} of 5 stars">
-              ${[5,4,3,2,1].map(v => `<button class="star-btn ${v <= rating ? 'on' : ''}" data-action="rate" data-rating="${v}" title="${v} star">${v <= rating ? '&#9733;' : '&#9734;'}</button>`).join('')}
+              ${[5,4,3,2,1].map(v => `<button class="star-btn ${v <= rating ? 'on' : ''}" data-action="rate" data-rating="${v}" aria-label="Rate ${v} out of 5" title="${v} star">${v <= rating ? '&#9733;' : '&#9734;'}</button>`).join('')}
             </div>
             <span class="rating-txt">${rating ? `${rating}/5` : 'Rate'}</span>
-          </div>
-
-          <div class="meta-list">
-            <span class="meta-pill source">${escHtml(job.source)}</span>
-            ${job.is_updated ? `<span class="meta-pill new-badge">🔄 ${escHtml(job.change_summary || 'UPDATED LISTING')}</span>` : ''}
-            ${job.employment_type ? `<span class="meta-pill">${escHtml(job.employment_type)}</span>` : ''}
-            <span class="meta-pill salary ${job.salary ? '' : 'missing'}">${job.salary ? `Salary · ${escHtml(job.salary)}` : 'Salary · Not mentioned'}</span>
-            ${job.application_deadline ? `<span class="meta-pill">⏳ ${escHtml(job.application_deadline)}</span>` : ''}
-            <span class="meta-pill date">${formatDateShort(job.seen_at)}</span>
-            <button class="action-btn copy-id-btn" data-action="copy-id" title="Copy Job ID: ${escHtml(job.id)}" style="flex:0;padding:0 10px;height:20px;">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            </button>
           </div>
 
           ${compatData ? `
@@ -1747,7 +1054,8 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
             <span class="compat-label" style="color:${compatData.pct>=70?'var(--teal)':compatData.pct>=40?'var(--amber)':'var(--rose)'}">${compatData.pct}% match</span>
           </div>` : ''}
 
-          <div class="action-row" style="margin-top: 10px;">
+          <div class="action-row">
+            <button class="action-btn copy-id-btn" data-action="copy-id" aria-label="Copy job ID" title="Copy Job ID: ${escHtml(job.id)}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
             <button class="action-btn prompt-btn" data-action="copy-prompt">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:2px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
               Prompt
@@ -1771,7 +1079,7 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
         </div>
 
         <div class="card-footer">
-          <a class="open-btn" href="${escHtml(url)}" target="_blank" data-action="open-link">View Job</a>
+          <a class="open-btn" href="${escHtml(url)}" target="_blank" rel="noopener noreferrer" data-action="open-link">View Job</a>
           <button class="pick-btn ${picked ? 'active' : ''}" data-action="pick">${picked ? 'Picked' : 'Pick'}</button>
         </div>
       </article>
@@ -1784,6 +1092,7 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
   // Nav tabs
   document.querySelectorAll(".nav-item[data-tab]").forEach(btn => {
     btn.addEventListener("click", () => {
+      showJobsView();
       document.querySelectorAll(".nav-item[data-tab]").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       state.activeTab = btn.dataset.tab;
@@ -1845,6 +1154,7 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
     if (!action && link) return;
     if (!card) return;
     if (!action || action.dataset.action === 'open-link') {
+      e.preventDefault();
       window.open(card.dataset.url, "_blank", "noopener,noreferrer");
       return;
     }
@@ -2088,7 +1398,7 @@ html:not(.dark-theme) .open-btn,html:not(.dark-theme) .pick-btn.active { color:w
   handleResize();
 
   // ═══════════════════════════════════════════
-  //  REQUIREMENTS DATABASE (shared with roadmap.html)
+  //  REQUIREMENTS DATABASE (shared by jobs and integrated roadmap views)
   // ═══════════════════════════════════════════
   const REQ_KEY = 'kasun-req-db';
 
@@ -2317,6 +1627,192 @@ Please extract the details from the following job posting:
     el.textContent = avg + '%';
   }
 
+  // ── Integrated roadmap view ──────────────────────────────────────────
+  function showJobsView() {
+    document.getElementById('jobsView').hidden = false;
+    document.getElementById('roadmapView').hidden = true;
+    document.querySelector('.topbar').hidden = false;
+    document.getElementById('mobileFilters').hidden = false;
+    document.getElementById('navRoadmap').classList.remove('active');
+  }
+
+  function showRoadmapView() {
+    document.getElementById('jobsView').hidden = true;
+    document.getElementById('roadmapView').hidden = false;
+    document.querySelector('.topbar').hidden = true;
+    document.getElementById('mobileFilters').hidden = true;
+    document.querySelectorAll('.nav-item[data-tab]').forEach(b => b.classList.remove('active'));
+    document.getElementById('navRoadmap').classList.add('active');
+    closeSidebar();
+    renderRoadmap();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function renderRoadmap() {
+    const db = loadReqDb();
+    const entries = Object.entries(db.skills || {});
+    const done = entries.filter(([, skill]) => skill.completed).length;
+    document.getElementById('roadmapTotal').textContent = entries.length;
+    document.getElementById('roadmapDone').textContent = done;
+    document.getElementById('roadmapProgress').textContent = entries.length ? Math.round(done / entries.length * 100) + '%' : '0%';
+
+    const categorySelect = document.getElementById('roadmapCategory');
+    const selectedCategory = categorySelect.value;
+    const categories = [...new Set(entries.map(([, skill]) => skill.category || 'Technical'))].sort();
+    categorySelect.innerHTML = '<option value="all">All categories</option>' + categories.map(cat => `<option value="${escHtml(cat)}">${escHtml(cat)}</option>`).join('');
+    categorySelect.value = categories.includes(selectedCategory) ? selectedCategory : 'all';
+
+    const jobSelect = document.getElementById('roadmapJob');
+    const selectedJob = jobSelect.value;
+    const linkedJobs = Object.entries(db.job_requirements || {}).sort((a,b) => (a[1].title || '').localeCompare(b[1].title || ''));
+    jobSelect.innerHTML = '<option value="all">All linked jobs</option>' + linkedJobs.map(([id, job]) => `<option value="${escHtml(id)}">${escHtml(job.title || id)}</option>`).join('');
+    jobSelect.value = linkedJobs.some(([id]) => id === selectedJob) ? selectedJob : 'all';
+
+    const query = document.getElementById('roadmapSearch').value.trim().toLowerCase();
+    const status = document.getElementById('roadmapStatus').value;
+    const category = categorySelect.value;
+    const difficulty = document.getElementById('roadmapDifficulty').value;
+    const linkedJob = jobSelect.value;
+    const visible = entries.filter(([id, skill]) => {
+      if (category !== 'all' && (skill.category || 'Technical') !== category) return false;
+      if (difficulty === 'unset' && skill.difficulty) return false;
+      if (!['all','unset'].includes(difficulty) && skill.difficulty !== difficulty) return false;
+      if (linkedJob !== 'all' && !(db.job_requirements[linkedJob]?.skills || []).includes(id)) return false;
+      if (status === 'done' && !skill.completed) return false;
+      if (status === 'open' && skill.completed) return false;
+      return !query || `${skill.name} ${skill.category}`.toLowerCase().includes(query);
+    }).sort((a, b) => Number(a[1].completed) - Number(b[1].completed) || a[1].name.localeCompare(b[1].name));
+
+    const root = document.getElementById('roadmapList');
+    if (!entries.length) {
+      root.innerHTML = '<div class="empty"><div class="empty-title">No skills imported yet</div><div class="empty-sub">Return to jobs and use Import on a role to add its requirements.</div><button class="topbar-btn" type="button" data-roadmap-action="jobs" style="margin-top:16px">Browse jobs</button></div>';
+      return;
+    }
+    if (!visible.length) {
+      root.innerHTML = '<div class="empty"><div class="empty-title">No matching skills</div><div class="empty-sub">Clear the roadmap filters to see the full learning plan.</div><button class="topbar-btn" type="button" data-roadmap-action="reset" style="margin-top:16px">Clear filters</button></div>';
+      return;
+    }
+    root.innerHTML = visible.map(([id, skill]) => `
+      <article class="skill-row ${skill.completed ? 'completed' : ''}" data-skill-id="${escHtml(id)}">
+        <input class="skill-check" type="checkbox" data-roadmap-action="toggle" ${skill.completed ? 'checked' : ''} aria-label="Mark ${escHtml(skill.name)} complete">
+        <div><div class="skill-name">${escHtml(skill.name)}</div><div class="skill-meta">${escHtml(skill.category || 'Technical')} · ${Number(skill.jobs?.length || 0)} linked job${Number(skill.jobs?.length || 0) === 1 ? '' : 's'}</div></div>
+        <select class="pill-select" data-roadmap-action="difficulty" aria-label="Difficulty for ${escHtml(skill.name)}">
+          <option value="" ${!skill.difficulty ? 'selected' : ''}>Difficulty</option>
+          ${['basic','medium','advanced'].map(level => `<option value="${level}" ${skill.difficulty === level ? 'selected' : ''}>${level[0].toUpperCase() + level.slice(1)}</option>`).join('')}
+        </select>
+        <button class="skill-delete" type="button" data-roadmap-action="delete" aria-label="Remove ${escHtml(skill.name)}">Remove</button>
+      </article>`).join('');
+  }
+
+  const roadmapConfirmDialog = document.getElementById('roadmapConfirmDialog');
+  let confirmedRoadmapAction = null;
+  function requestRoadmapConfirmation(title, text, action) {
+    document.getElementById('roadmapConfirmTitle').textContent = title;
+    document.getElementById('roadmapConfirmText').textContent = text;
+    confirmedRoadmapAction = action;
+    roadmapConfirmDialog.showModal();
+  }
+  roadmapConfirmDialog.addEventListener('close', () => {
+    if (roadmapConfirmDialog.returnValue === 'confirm') confirmedRoadmapAction?.();
+    confirmedRoadmapAction = null;
+  });
+
+  document.getElementById('navRoadmap').addEventListener('click', showRoadmapView);
+  document.getElementById('roadmapSearch').addEventListener('input', renderRoadmap);
+  ['roadmapCategory','roadmapDifficulty','roadmapStatus','roadmapJob'].forEach(id => document.getElementById(id).addEventListener('change', renderRoadmap));
+  document.getElementById('roadmapList').addEventListener('click', event => {
+    const action = event.target.closest('[data-roadmap-action]')?.dataset.roadmapAction;
+    if (action === 'jobs') {
+      showJobsView();
+      document.querySelector('[data-tab="all"]').classList.add('active');
+    } else if (action === 'reset') {
+      document.getElementById('roadmapSearch').value = '';
+      document.getElementById('roadmapCategory').value = 'all';
+      document.getElementById('roadmapDifficulty').value = 'all';
+      document.getElementById('roadmapStatus').value = 'all';
+      document.getElementById('roadmapJob').value = 'all';
+      renderRoadmap();
+    } else if (action === 'delete') {
+      const row = event.target.closest('[data-skill-id]');
+      const db = loadReqDb();
+      const skill = db.skills[row.dataset.skillId];
+      requestRoadmapConfirmation('Remove skill?', `Remove “${skill.name}” from the roadmap and all linked job maps?`, () => {
+        Object.values(db.job_requirements).forEach(job => { job.skills = (job.skills || []).filter(id => id !== row.dataset.skillId); });
+        delete db.skills[row.dataset.skillId];
+        saveReqDb(db); updateRoadmapBadge(); renderRoadmap(); render();
+      });
+    }
+  });
+  document.getElementById('roadmapList').addEventListener('change', event => {
+    const row = event.target.closest('[data-skill-id]');
+    if (!row) return;
+    const db = loadReqDb();
+    const skill = db.skills[row.dataset.skillId];
+    if (event.target.dataset.roadmapAction === 'toggle') skill.completed = event.target.checked;
+    if (event.target.dataset.roadmapAction === 'difficulty') skill.difficulty = event.target.value || null;
+    saveReqDb(db); updateRoadmapBadge(); renderRoadmap(); render();
+  });
+  document.getElementById('roadmapExport').addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(loadReqDb(), null, 2)], { type:'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob); link.download = `skill-roadmap-${new Date().toISOString().slice(0,10)}.json`; link.click();
+    URL.revokeObjectURL(link.href);
+  });
+  document.getElementById('roadmapClear').addEventListener('click', () => {
+    requestRoadmapConfirmation('Clear roadmap?', 'This permanently removes every imported skill and job requirement map from this browser.', () => {
+      saveReqDb({ skills:{}, job_requirements:{} }); updateRoadmapBadge(); renderRoadmap(); render();
+    });
+  });
+
+  const roadmapRestructureDialog = document.getElementById('roadmapRestructureDialog');
+  function buildRoadmapConsolidationPrompt() {
+    const db = loadReqDb();
+    const skills = Object.entries(db.skills).map(([id, skill]) => ({ id, name:skill.name, category:skill.category, difficulty:skill.difficulty || null }));
+    return `Consolidate synonyms and near-duplicate skills into canonical skills. Return only valid JSON with no markdown. Preserve every old ID in mappings. Categories must be Technical, Soft Skill, Language, Education, or Experience.\n\nRequired structure:\n{"skills":{"canonical-id":{"name":"Canonical Name","category":"Technical","difficulty":"medium"}},"mappings":{"old-id":"canonical-id"}}\n\nCurrent skills:\n${JSON.stringify(skills, null, 2)}`;
+  }
+  async function copyText(text) {
+    if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
+    const area = document.createElement('textarea'); area.value = text; area.style.position = 'fixed'; area.style.opacity = '0';
+    document.body.appendChild(area); area.select(); document.execCommand('copy'); area.remove();
+  }
+  function applyRoadmapConsolidation(text) {
+    let parsed;
+    try { parsed = JSON.parse(text); } catch { alert('The consolidation response is not valid JSON.'); return false; }
+    if (!parsed.skills || !parsed.mappings) { alert('JSON must contain skills and mappings objects.'); return false; }
+    const db = loadReqDb();
+    const consolidated = {};
+    Object.entries(parsed.skills).forEach(([id, skill]) => {
+      consolidated[id] = { name:skill.name || id, category:skill.category || 'Technical', difficulty:skill.difficulty || null, completed:false, jobs:[] };
+    });
+    Object.entries(db.skills).forEach(([oldId, oldSkill]) => {
+      const newId = parsed.mappings[oldId] || oldId;
+      if (!consolidated[newId]) consolidated[newId] = { ...oldSkill, jobs:[...(oldSkill.jobs || [])] };
+      else {
+        consolidated[newId].completed ||= Boolean(oldSkill.completed);
+        (oldSkill.jobs || []).forEach(jobId => { if (!consolidated[newId].jobs.includes(jobId)) consolidated[newId].jobs.push(jobId); });
+      }
+    });
+    Object.values(db.job_requirements).forEach(job => {
+      job.skills = [...new Set((job.skills || []).map(id => parsed.mappings[id] || id))].filter(id => consolidated[id]);
+    });
+    db.skills = consolidated; saveReqDb(db); updateRoadmapBadge(); renderRoadmap(); render();
+    return true;
+  }
+  document.getElementById('roadmapRestructure').addEventListener('click', () => {
+    if (!Object.keys(loadReqDb().skills).length) { alert('Import requirements from a job before consolidating skills.'); return; }
+    document.getElementById('roadmapRestructureJson').value = '';
+    roadmapRestructureDialog.showModal();
+  });
+  document.getElementById('roadmapRestructureCancel').addEventListener('click', () => roadmapRestructureDialog.close());
+  document.getElementById('roadmapCopyPrompt').addEventListener('click', async event => {
+    await copyText(buildRoadmapConsolidationPrompt());
+    const button = event.currentTarget; const label = button.textContent; button.textContent = 'Prompt copied';
+    setTimeout(() => { button.textContent = label; }, 1600);
+  });
+  document.getElementById('roadmapRestructureApply').addEventListener('click', () => {
+    if (applyRoadmapConsolidation(document.getElementById('roadmapRestructureJson').value.trim())) roadmapRestructureDialog.close();
+  });
+
   // ── URL ?highlight=ID handler ─────────────────────────────────────────
   function handleHighlight() {
     const params = new URLSearchParams(window.location.search);
@@ -2379,6 +1875,35 @@ Please extract the details from the following job posting:
     if (rect.top <= window.innerHeight + 250) {
       state.visibleLimit += 50;
       render();
+    }
+  });
+
+  // Dialog keyboard support, with focus returned to the originating control.
+  let dialogTrigger = null;
+  const dialogObserver = new MutationObserver(records => {
+    for (const record of records) {
+      const dialog = record.target;
+      if (dialog.classList.contains('open')) {
+        dialogTrigger = document.activeElement;
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+        if (dialogTrigger?.isConnected) dialogTrigger.focus();
+      }
+    }
+  });
+  document.querySelectorAll('.modal-overlay').forEach(dialog => dialogObserver.observe(dialog, { attributes:true, attributeFilter:['class'] }));
+  document.addEventListener('keydown', e => {
+    const dialog = document.querySelector('.modal-overlay.open');
+    if (e.key === 'Escape') {
+      if (dialog) { closeImportModal(); closeNewJobModal(); }
+      else if (sidebar.classList.contains('open')) { closeSidebar(); document.getElementById('menuBtn').focus(); }
+    }
+    if (e.key === 'Tab' && dialog) {
+      const controls = [...dialog.querySelectorAll('button,textarea,input,select,a[href]')].filter(el => !el.disabled);
+      const first = controls[0], last = controls[controls.length - 1];
+      if (e.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) { e.preventDefault(); last?.focus(); }
+      else if (!e.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) { e.preventDefault(); first?.focus(); }
     }
   });
 

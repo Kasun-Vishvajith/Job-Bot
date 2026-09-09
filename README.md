@@ -4,6 +4,8 @@ Automatically searches for technical early-career jobs and sends email plus Tele
 
 The collector runs twice daily on GitHub Actions. The private dashboard is designed for Vercel and reads its data through a server-side API backed by PostgreSQL.
 
+Jobs and the skill roadmap are integrated into `index.html` as one single-page interface; switching views never reloads or navigates away from the dashboard.
+
 ## What It Searches
 
 - Broad remote feeds: Remotive, Arbeitnow, RemoteOK, Jobicy, Himalayas, and We Work Remotely RSS
