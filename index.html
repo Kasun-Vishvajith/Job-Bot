@@ -26,9 +26,9 @@
  --teal:#24804b; --teal-dim:rgba(36,128,75,.09); --green:var(--teal); --green-dim:var(--teal-dim);
  --rose:#c93243; --rose-dim:rgba(201,50,67,.09); --amber:#956000; --amber-dim:rgba(149,96,0,.09);
  --sky:var(--blue); --sky-dim:var(--blue-dim); --violet:#7851b4; --violet-dim:rgba(120,81,180,.09);
- --star-off:#929298; --star-on:#aa7000; --r:22px; --r-sm:10px; --sidebar-w:248px; --topbar-h:76px;
- --glass:rgba(250,250,252,.86); --sidebar-glass:rgba(235,235,240,.88); --scrim:rgba(0,0,0,.32);
- --sh-sm:0 2px 8px rgba(0,0,0,.025); --sh:0 12px 32px rgba(0,0,0,.07);
+ --star-off:#929298; --star-on:#aa7000; --r:22px; --r-sm:10px; --sidebar-w:256px; --topbar-h:76px;
+ --glass:rgba(250,250,252,.82); --sidebar-glass:rgba(237,237,242,.86); --scrim:rgba(0,0,0,.32);
+ --sh-sm:0 2px 6px rgba(0,0,0,.025),0 8px 24px rgba(0,0,0,.025); --sh:0 8px 30px rgba(0,0,0,.08);
  --arrow-img:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2377777d' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");
 }
 :root.dark-theme {
@@ -54,8 +54,8 @@ button { transition:background-color .16s,color .16s,transform .12s; }
 button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
 :focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
 .layout { display:grid; grid-template-columns:var(--sidebar-w) minmax(0,1fr); grid-template-rows:auto 1fr; min-height:100dvh; }
-.sidebar { grid-row:1/3; position:sticky; top:0; height:100dvh; display:flex; flex-direction:column; padding:32px 14px 24px; overflow-y:auto; background:var(--sidebar-glass); backdrop-filter:blur(28px) saturate(140%); border-right:1px solid var(--rim); z-index:100; }
-.brand { padding:0 14px 28px; }
+.sidebar { grid-row:1/3; position:sticky; top:0; height:100dvh; display:flex; flex-direction:column; padding:28px 14px 24px; overflow-y:auto; background:var(--sidebar-glass); backdrop-filter:blur(28px) saturate(140%); border-right:1px solid var(--rim); z-index:100; }
+.brand { padding:0 14px 26px; }
 .brand-mark { width:42px; height:42px; display:grid; place-items:center; border-radius:13px; background:var(--blue); color:white; margin-bottom:16px; box-shadow:0 4px 10px var(--blue-dim); }
 .brand-label { font-size:1.125rem; font-weight:650; letter-spacing:-.035em; line-height:1.25; }
 .brand-sub { font-size:.75rem; color:var(--ink-3); margin-top:6px; }
@@ -63,24 +63,25 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
 .nav-label { padding:0 12px; margin-bottom:8px; font-size:.6875rem; font-weight:600; letter-spacing:.025em; color:var(--ink-3); }
 .nav-item { display:flex; align-items:center; position:relative; width:100%; gap:10px; padding:10px 12px; min-height:44px; margin-bottom:3px; border-radius:10px; font-size:.8125rem; text-align:left; color:var(--ink-2); }
 .nav-item:hover { background:var(--rim); }
-.nav-item.active { background:var(--blue); color:white; font-weight:600; }
+.nav-item.active { background:var(--surface-0); color:var(--ink); font-weight:600; box-shadow:0 2px 7px rgba(0,0,0,.045); }
+.nav-item.active .nav-icon { color:var(--blue); }
 .nav-icon { width:18px; height:18px; flex-shrink:0; }
 .nav-badge { margin-left:auto; padding:1px 6px; font-size:.6875rem; border-radius:6px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
-.nav-item.active .nav-badge { background:rgba(255,255,255,.18); color:white; }
+.nav-item.active .nav-badge { background:var(--blue-dim); color:var(--blue); }
 .sidebar-stats { display:flex; flex-direction:column; gap:14px; margin-top:auto; padding:28px 12px 0; }
 .stat-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .stat-label { font-size:.75rem; color:var(--ink-3); }
 .stat-value { font-size:1.125rem; font-weight:600; font-variant-numeric:tabular-nums; }
 .stat-value.gold { color:var(--amber); } .stat-value.teal { color:var(--teal); }
-.topbar { grid-column:2; display:flex; align-items:center; flex-wrap:wrap; gap:12px; padding:20px 36px; background:var(--glass); backdrop-filter:blur(24px) saturate(150%); z-index:90; border-bottom:1px solid var(--rim); }
+.topbar { position:sticky; top:0; grid-column:2; display:flex; align-items:center; flex-wrap:wrap; gap:12px; padding:20px 36px; background:var(--glass); backdrop-filter:blur(24px) saturate(150%); z-index:90; box-shadow:0 8px 18px -16px rgba(0,0,0,.18); }
 .search-wrap { position:relative; flex:1 1 100%; min-width:0; }
 .search-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--ink-3); pointer-events:none; }
-#search { width:100%; height:44px; border:1px solid transparent; border-radius:12px; background:var(--surface-2); padding:0 16px 0 40px; font-size:.875rem; outline-offset:2px; }
+#search { width:100%; height:44px; border:1px solid transparent; border-radius:14px; background:var(--surface-2); padding:0 16px 0 40px; font-size:.875rem; outline-offset:2px; }
 #search::placeholder { color:var(--ink-3); }
 .topbar-controls { display:flex; flex-wrap:wrap; gap:8px; width:100%; }
-.pill-select { appearance:none; background:var(--surface-0) var(--arrow-img) no-repeat right 10px center; padding:0 30px 0 12px; border:1px solid var(--rim); height:36px; border-radius:9px; font-size:.75rem; max-width:100%; cursor:pointer; }
+.pill-select { appearance:none; background:var(--surface-0) var(--arrow-img) no-repeat right 10px center; padding:0 30px 0 12px; border:1px solid var(--rim); height:38px; border-radius:10px; font-size:.75rem; max-width:100%; cursor:pointer; }
 .pill-select option { color:var(--ink); background:var(--surface-0); }
-.topbar-btn { display:inline-flex; justify-content:center; align-items:center; gap:6px; padding:0 12px; min-height:36px; border-radius:9px; border:1px solid var(--rim); background:var(--surface-0); font-size:.75rem; font-weight:500; }
+.topbar-btn { display:inline-flex; justify-content:center; align-items:center; gap:6px; padding:0 14px; min-height:38px; border-radius:10px; border:1px solid var(--rim); background:var(--surface-0); font-size:.75rem; font-weight:500; }
 .topbar-btn:hover { background:var(--surface-2); }
 .topbar-btn.danger:hover { background:var(--rose-dim); color:var(--rose); }
 #btnImportNewJob,#mImportNewJob { color:var(--blue)!important; border-color:var(--rim)!important; }
@@ -88,7 +89,7 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
 .main { grid-column:2; min-width:0; width:100%; max-width:1720px; margin:0 auto; padding:40px 36px 80px; }
 .page-head { margin-bottom:30px; }
 .page-eyebrow { color:var(--ink-3); font-size:.6875rem; font-weight:600; letter-spacing:.09em; text-transform:uppercase; margin-bottom:9px; }
-.page-title { font-size:clamp(1.875rem,3vw,2.625rem); line-height:1.1; letter-spacing:-.045em; font-weight:650; }
+.page-title { font-size:clamp(2rem,3.4vw,3rem); line-height:1.1; letter-spacing:-.045em; font-weight:650; }
 .page-sub { font-size:.9375rem; color:var(--ink-3); margin-top:12px; max-width:65ch; }
 .result-bar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:18px; }
 #resultInfo { font-size:.75rem; color:var(--ink-3); font-variant-numeric:tabular-nums; }
@@ -96,18 +97,18 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
 .group { margin-bottom:28px; }
 .group-title { display:flex; align-items:center; gap:8px; font-size:.9375rem; font-weight:600; margin:8px 0 16px; }
 .group-count { font-size:.6875rem; padding:2px 7px; border-radius:7px; background:var(--surface-3); color:var(--ink-2); }
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr)); gap:20px; align-items:stretch; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr)); gap:22px; align-items:stretch; }
 .card { position:relative; display:flex; flex-direction:column; min-width:0; border:1px solid var(--rim); border-radius:var(--r); background:var(--surface-0); box-shadow:var(--sh-sm); overflow:hidden; transition:box-shadow .2s,border-color .2s,opacity .2s,transform .2s; }
 .card:hover { border-color:var(--rim-strong); box-shadow:var(--sh); }
 .card.picked-card { border-color:var(--blue); }
 .card.card-archiving { opacity:0; transform:scale(.97); pointer-events:none; }
-.card-body { padding:24px 24px 16px; display:flex; flex-direction:column; gap:18px; flex:1; }
+.card-body { padding:26px 26px 18px; display:flex; flex-direction:column; gap:18px; flex:1; }
 .card-top-row { display:flex; gap:12px; align-items:flex-start; }
 .card-title-block { flex:1; min-width:0; }
 .card-kicker { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
-.cat-tag { font-size:.6875rem; font-weight:600; color:var(--blue); letter-spacing:.01em; }
+.cat-tag { font-size:.6875rem; font-weight:600; color:var(--blue); letter-spacing:.01em; background:var(--blue-dim); padding:4px 8px; border-radius:6px; }
 .new-label { color:var(--teal); background:var(--teal-dim); padding:2px 6px; border-radius:5px; font-size:.625rem; font-weight:600; }
-.job-title { font-size:1.1875rem; line-height:1.3; font-weight:600; letter-spacing:-.025em; overflow-wrap:anywhere; }
+.job-title { font-size:1.25rem; line-height:1.3; font-weight:600; letter-spacing:-.025em; overflow-wrap:anywhere; }
 .job-title a:hover { color:var(--blue); }
 .company-name { font-size:.8125rem; color:var(--ink-2); margin-top:6px; overflow-wrap:anywhere; }
 .heart-btn { width:44px; height:44px; flex-shrink:0; border-radius:50%; background:var(--surface-2); font-size:1.5rem; line-height:1; color:var(--ink-3); }
@@ -118,7 +119,7 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
 .work-badge { align-self:flex-start; display:inline-flex; padding:4px 9px; border-radius:7px; background:var(--surface-2); font-size:.6875rem; font-weight:500; color:var(--ink-2); }
 .work-badge.remote { color:var(--teal); background:var(--teal-dim); }
 .job-details { display:grid; grid-template-columns:1fr 1fr; gap:14px 16px; padding:16px 0; border-top:1px solid var(--rim); border-bottom:1px solid var(--rim); }
-.detail { min-width:0; } .detail dt { font-size:.625rem; font-weight:500; color:var(--ink-3); margin-bottom:4px; } .detail dd { font-size:.75rem; color:var(--ink-2); overflow-wrap:anywhere; }
+.detail { min-width:0; } .detail dt { font-size:.6875rem; font-weight:500; color:var(--ink-3); margin-bottom:4px; } .detail dd { font-size:.8125rem; color:var(--ink-2); overflow-wrap:anywhere; }
 .detail.salary-detail { grid-column:1/-1; } .detail.salary-detail dd { color:var(--ink); font-weight:500; }
 .meta-list { display:flex; flex-wrap:wrap; gap:6px; } .meta-pill { font-size:.6875rem; padding:4px 8px; border-radius:6px; background:var(--surface-2); color:var(--ink-2); overflow-wrap:anywhere; } .new-badge { color:var(--blue); background:var(--blue-dim); }
 .stars-row { display:flex; align-items:center; justify-content:space-between; gap:8px; }
@@ -128,17 +129,17 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
 @media(hover:hover) { .stars:hover .star-btn { color:var(--star-off); } .stars .star-btn:hover,.stars .star-btn:hover ~ .star-btn { color:var(--star-on); } }
 .rating-txt { color:var(--ink-3); font-size:.6875rem; white-space:nowrap; }
 .compat-bar { display:flex; align-items:center; gap:12px; } .compat-track { flex:1; height:5px; background:var(--surface-3); border-radius:5px; overflow:hidden; } .compat-fill { height:100%; border-radius:5px; transition:width .2s; } .compat-label { font-size:.6875rem; font-weight:600; }
-.action-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:auto!important; }
+.action-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:auto!important; padding-top:14px; border-top:1px solid var(--rim); }
 .action-btn { display:inline-flex; flex:1; justify-content:center; align-items:center; gap:4px; min-height:36px; padding:6px 8px; border-radius:8px; color:var(--ink-2); background:var(--surface-2); font-size:.6875rem; font-weight:500; }
 .action-btn:hover { color:var(--blue); background:var(--blue-dim); } .import-btn.mapped { color:var(--teal); background:var(--teal-dim); } .archive-btn:hover { color:var(--rose); background:var(--rose-dim); }
 .copy-id-btn { flex:0; min-width:36px; }
-.card-footer { display:flex; align-items:center; gap:10px; padding:0 24px 24px; }
-.open-btn,.pick-btn { display:flex; align-items:center; justify-content:center; min-height:42px; padding:8px 16px; border-radius:11px; font-size:.8125rem; font-weight:500; }
+.card-footer { display:flex; align-items:center; gap:10px; padding:0 26px 26px; }
+.open-btn,.pick-btn { display:flex; align-items:center; justify-content:center; min-height:44px; padding:8px 18px; border-radius:100px; font-size:.8125rem; font-weight:500; }
 .open-btn { flex:1; color:white; background:var(--blue); } .open-btn:hover { background:var(--blue-pale); }
 .pick-btn { min-width:76px; background:var(--surface-2); color:var(--ink-2); } .pick-btn.active { background:var(--blue-dim); color:var(--blue); }
 .card.viewed-card::after,.card.last-viewed-card::after { content:attr(data-ribbon); display:block; order:3; padding:7px 24px; background:var(--surface-2); color:var(--ink-3); font-size:.625rem; font-weight:600; letter-spacing:.04em; }
 .card.last-viewed-card::after { background:var(--violet-dim); color:var(--violet); }
-.empty { grid-column:1/-1; padding:64px 24px; text-align:center; border:1px solid var(--rim); border-radius:var(--r); background:var(--surface-0); }
+.empty { grid-column:1/-1; padding:72px 24px; text-align:center; border:1px solid var(--rim); border-radius:var(--r); background:var(--surface-0); }
 .empty-icon { font-size:2.5rem; color:var(--ink-3); margin-bottom:12px; } .empty-title { font-size:1.125rem; font-weight:600; } .empty-sub { margin-top:6px; color:var(--ink-3); font-size:.875rem; }
 .file-fallback { display:none; margin-bottom:24px; padding:20px; background:var(--surface-0); border:1px solid var(--rim); border-radius:16px; font-size:.8125rem; color:var(--ink-2); }
 .file-input-label { position:relative; display:flex; align-items:center; justify-content:center; gap:8px; width:fit-content; padding:10px 14px; margin-top:12px; border-radius:9px; color:var(--blue); background:var(--blue-dim); cursor:pointer; }
@@ -172,25 +173,73 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
 @media(prefers-reduced-transparency:reduce) { .sidebar,.topbar,.to-top { background:var(--surface-0); backdrop-filter:none; } .modal-overlay { backdrop-filter:none; } }
 @media(prefers-contrast:more) { :root { --rim:var(--ink-3); --rim-strong:var(--ink-2); } .sidebar,.topbar,.to-top { background:var(--surface-0); backdrop-filter:none; } }
 
+/* Integrated roadmap: the same materials, type scale and control language. */
 [hidden] { display:none!important; }
-.roadmap-toolbar { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
-.roadmap-toolbar #roadmapSearch { flex:1 1 260px; min-height:40px; padding:0 12px; border:1px solid var(--rim); border-radius:var(--r-sm); background:var(--surface-0); color:var(--ink); }
-.roadmap-summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-bottom:24px; }
-.roadmap-metric { padding:18px; border:1px solid var(--rim); border-radius:var(--r); background:var(--surface-0); }
-.roadmap-metric strong { display:block; font-size:1.75rem; line-height:1; font-weight:650; font-variant-numeric:tabular-nums; }
-.roadmap-metric span { display:block; margin-top:6px; color:var(--ink-3); font-size:.75rem; }
+.toolbar-context { display:none; font-size:.9375rem; font-weight:600; letter-spacing:-.02em; }
+.roadmap-mode .toolbar-context { display:block; }
+.roadmap-mode .topbar { min-height:76px; flex-wrap:nowrap; }
+.roadmap-mode .topbar .search-wrap { display:none; }
+.roadmap-mode .topbar-controls { width:auto; margin-left:auto; }
+.roadmap-mode .topbar-controls > :not(#themeToggle) { display:none; }
+.roadmap-summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin-bottom:28px; }
+.roadmap-metric { display:flex; flex-direction:column; gap:10px; padding:24px; background:var(--surface-0); border:1px solid var(--rim); border-radius:var(--r); box-shadow:var(--sh-sm); }
+.roadmap-metric strong { font-size:clamp(1.75rem,3vw,2.5rem); line-height:1; letter-spacing:-.045em; font-weight:600; font-variant-numeric:tabular-nums; }
+.roadmap-metric span { color:var(--ink-3); font-size:.75rem; }
+#roadmapDone { color:var(--teal); } #roadmapProgress { color:var(--blue); }
+.roadmap-progress-track { height:5px; width:100%; border-radius:5px; background:var(--surface-3); margin-top:5px; overflow:hidden; }
+.roadmap-progress-fill { width:0; height:100%; background:var(--blue); border-radius:5px; transition:width .2s; }
+.roadmap-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:18px; margin-bottom:22px; background:var(--surface-0); border:1px solid var(--rim); border-radius:18px; }
+.roadmap-toolbar #roadmapSearch { flex:1 1 100%; width:100%; min-width:0; min-height:44px; padding:0 14px; border:1px solid transparent; border-radius:12px; background:var(--surface-2); color:var(--ink); font-size:.875rem; }
+#roadmapSearch::placeholder { color:var(--ink-3); }
+.roadmap-toolbar .pill-select { min-width:0; flex:1 1 130px; }
+.roadmap-toolbar #roadmapJob { flex:1 1 200px; }
+.roadmap-toolbar .topbar-btn { background:var(--surface-2); border:0; }
+#roadmapRestructure { color:var(--blue); background:var(--blue-dim); }
 .roadmap-list { display:grid; gap:10px; }
-.skill-row { display:grid; grid-template-columns:auto minmax(0,1fr) auto auto; align-items:center; gap:12px; padding:16px; border:1px solid var(--rim); border-radius:var(--r); background:var(--surface-0); }
-.skill-row.completed .skill-name { text-decoration:line-through; color:var(--ink-3); }
-.skill-check { width:18px; height:18px; accent-color:var(--blue); }
-.skill-name { font-weight:600; text-wrap:balance; }
-.skill-meta { margin-top:3px; color:var(--ink-3); font-size:.75rem; text-wrap:pretty; }
-.skill-delete { min-height:36px; padding:0 10px; border-radius:var(--r-sm); color:var(--rose); background:var(--rose-dim); }
-.native-dialog { width:min(92vw,430px); padding:0; border:1px solid var(--rim-strong); border-radius:var(--r); background:var(--surface-0); color:var(--ink); box-shadow:var(--sh); }
-.native-dialog::backdrop { background:rgba(0,0,0,.42); }
-.native-dialog-body { padding:24px; }
-.native-dialog-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:20px; }
-@media(max-width:600px) { .roadmap-summary { grid-template-columns:1fr; } .skill-row { grid-template-columns:auto minmax(0,1fr); } .skill-row select,.skill-row .skill-delete { grid-column:2; } }
+.skill-row { display:grid; grid-template-columns:32px minmax(0,1fr) 126px auto; align-items:center; gap:16px; padding:20px 24px; background:var(--surface-0); border:1px solid var(--rim); border-radius:16px; box-shadow:var(--sh-sm); transition:background-color .16s,border-color .16s; }
+.skill-row:hover { border-color:var(--rim-strong); }
+.skill-row.completed { background:var(--teal-dim); }
+.skill-row.completed .skill-name { text-decoration:line-through; color:var(--ink-2); text-decoration-color:var(--ink-3); }
+.skill-check { appearance:none; width:28px; height:28px; border:1.5px solid var(--ink-3); background:var(--surface-0); border-radius:50%; cursor:pointer; position:relative; }
+.skill-check:checked { background:var(--blue); border-color:var(--blue); }
+.skill-check:checked::after { content:''; position:absolute; left:9px; top:5px; width:7px; height:12px; border:2px solid #fff; border-top:0; border-left:0; transform:rotate(45deg); }
+.skill-name { display:block; font-size:.9375rem; font-weight:500; letter-spacing:-.015em; overflow-wrap:anywhere; cursor:pointer; }
+.skill-meta { margin-top:5px; color:var(--ink-3); font-size:.6875rem; overflow-wrap:anywhere; }
+.skill-delete { min-height:38px; padding:0 12px; border-radius:10px; color:var(--ink-3); font-size:.75rem; }
+.skill-delete:hover { color:var(--rose); background:var(--rose-dim); }
+.native-dialog { margin:auto; width:min(92vw,540px); max-height:90dvh; overflow-y:auto; padding:0; border:1px solid var(--rim-strong); border-radius:26px; background:var(--surface-1); color:var(--ink); box-shadow:0 24px 90px rgba(0,0,0,.24); }
+.native-dialog::backdrop { background:var(--scrim); backdrop-filter:blur(8px); }
+.native-dialog-body { padding:28px; }
+.native-dialog h2 { font-size:1.375rem; font-weight:600; letter-spacing:-.03em; line-height:1.3; }
+.native-dialog .page-sub { font-size:.8125rem; line-height:1.65; }
+.native-dialog-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:24px; }
+.native-dialog-actions button { min-height:44px; padding:10px 18px; }
+.native-dialog-actions button:last-child { color:white; background:var(--blue); border:0; }
+.native-dialog-actions button.danger:last-child { background:var(--rose); color:var(--surface-0); }
+#roadmapCopyPrompt { color:var(--blue); background:var(--blue-dim); border-color:transparent; min-height:44px; }
+@media(max-width:900px) {
+ .roadmap-mode .topbar { height:76px; }
+ .roadmap-summary { gap:10px; } .roadmap-metric { padding:18px; }
+ .roadmap-toolbar { padding:14px; } .roadmap-toolbar .pill-select,.roadmap-toolbar .topbar-btn { min-height:44px; }
+ .skill-row { grid-template-columns:32px minmax(0,1fr) auto; padding:18px; gap:12px; }
+ .skill-row .pill-select { grid-row:2; grid-column:2; max-width:150px; min-height:44px; }
+ .skill-delete { grid-column:3; grid-row:1/3; min-height:44px; }
+ .skill-name { min-height:32px; display:flex; align-items:center; }
+}
+@media(max-width:500px) {
+ .roadmap-summary { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .roadmap-metric:last-child { grid-column:1/-1; }
+ .roadmap-metric:last-child strong { font-size:2rem; }
+ .roadmap-toolbar #roadmapSearch { font-size:1rem; }
+ .roadmap-toolbar .topbar-btn { flex:1 1 auto; }
+ .skill-row { padding:16px; grid-template-columns:28px minmax(0,1fr); }
+ .skill-check { width:26px; height:26px; } .skill-check:checked::after { left:8px; top:4px; }
+ .skill-delete { grid-column:2; grid-row:3; justify-self:start; background:var(--surface-2); }
+ .native-dialog-body { padding:24px 20px; }
+}
+@media(prefers-reduced-motion:reduce) { .roadmap-progress-fill,.skill-row { transition:none; } }
+@media(prefers-reduced-transparency:reduce) { .native-dialog::backdrop { backdrop-filter:none; } }
+@media(prefers-contrast:more) { .skill-check { border:2px solid var(--ink); } }
 
   </style>
 </head>
@@ -279,7 +328,8 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
 
   <!-- ═══ TOPBAR ═══ -->
   <header class="topbar">
-    <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
+    <div class="toolbar-context">Skill roadmap</div>
+    <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
 
@@ -414,7 +464,7 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
     <div class="roadmap-summary" aria-label="Roadmap progress">
       <div class="roadmap-metric"><strong id="roadmapTotal">0</strong><span>Total skills</span></div>
       <div class="roadmap-metric"><strong id="roadmapDone">0</strong><span>Completed</span></div>
-      <div class="roadmap-metric"><strong id="roadmapProgress">0%</strong><span>Overall progress</span></div>
+      <div class="roadmap-metric"><strong id="roadmapProgress">0%</strong><span>Overall progress</span><div class="roadmap-progress-track" aria-hidden="true"><div class="roadmap-progress-fill" id="roadmapProgressFill"></div></div></div>
     </div>
     <div class="roadmap-toolbar">
       <input id="roadmapSearch" type="search" placeholder="Search skills or categories" aria-label="Search roadmap skills">
@@ -1374,8 +1424,18 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("sidebarOverlay");
 
-  function openSidebar() { sidebar.classList.add("open"); overlay.classList.add("open"); document.body.style.overflow = "hidden"; }
-  function closeSidebar() { sidebar.classList.remove("open"); overlay.classList.remove("open"); document.body.style.overflow = ""; }
+  function openSidebar() {
+    sidebar.inert = false; sidebar.classList.add("open"); overlay.classList.add("open");
+    document.getElementById('menuBtn').setAttribute('aria-expanded','true'); document.body.style.overflow = "hidden";
+    sidebar.querySelector('button,a[href]')?.focus();
+  }
+  function closeSidebar() {
+    const wasOpen = sidebar.classList.contains('open');
+    sidebar.classList.remove("open"); overlay.classList.remove("open"); document.body.style.overflow = "";
+    sidebar.inert = window.innerWidth <= 900;
+    document.getElementById('menuBtn').setAttribute('aria-expanded','false');
+    if (wasOpen && window.innerWidth <= 900) document.getElementById('menuBtn').focus();
+  }
 
   document.getElementById("menuBtn").addEventListener("click", openSidebar);
   overlay.addEventListener("click", closeSidebar);
@@ -1383,6 +1443,8 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
   // Responsive: show/hide mobile filters bar
   function handleResize() {
     const isMobile = window.innerWidth <= 900;
+    sidebar.inert = isMobile && !sidebar.classList.contains('open');
+    if (!isMobile && sidebar.classList.contains('open')) closeSidebar();
     const mf = document.getElementById("mobileFilters");
     const ra = document.getElementById("resultActions");
     if (mf) mf.style.display = isMobile ? "flex" : "none";
@@ -1632,6 +1694,7 @@ Please extract the details from the following job posting:
     document.getElementById('jobsView').hidden = false;
     document.getElementById('roadmapView').hidden = true;
     document.querySelector('.topbar').hidden = false;
+    document.body.classList.remove('roadmap-mode');
     document.getElementById('mobileFilters').hidden = false;
     document.getElementById('navRoadmap').classList.remove('active');
   }
@@ -1639,7 +1702,8 @@ Please extract the details from the following job posting:
   function showRoadmapView() {
     document.getElementById('jobsView').hidden = true;
     document.getElementById('roadmapView').hidden = false;
-    document.querySelector('.topbar').hidden = true;
+    document.querySelector('.topbar').hidden = false;
+    document.body.classList.add('roadmap-mode');
     document.getElementById('mobileFilters').hidden = true;
     document.querySelectorAll('.nav-item[data-tab]').forEach(b => b.classList.remove('active'));
     document.getElementById('navRoadmap').classList.add('active');
@@ -1655,6 +1719,7 @@ Please extract the details from the following job posting:
     document.getElementById('roadmapTotal').textContent = entries.length;
     document.getElementById('roadmapDone').textContent = done;
     document.getElementById('roadmapProgress').textContent = entries.length ? Math.round(done / entries.length * 100) + '%' : '0%';
+    document.getElementById('roadmapProgressFill').style.width = document.getElementById('roadmapProgress').textContent;
 
     const categorySelect = document.getElementById('roadmapCategory');
     const selectedCategory = categorySelect.value;
@@ -1694,8 +1759,8 @@ Please extract the details from the following job posting:
     }
     root.innerHTML = visible.map(([id, skill]) => `
       <article class="skill-row ${skill.completed ? 'completed' : ''}" data-skill-id="${escHtml(id)}">
-        <input class="skill-check" type="checkbox" data-roadmap-action="toggle" ${skill.completed ? 'checked' : ''} aria-label="Mark ${escHtml(skill.name)} complete">
-        <div><div class="skill-name">${escHtml(skill.name)}</div><div class="skill-meta">${escHtml(skill.category || 'Technical')} · ${Number(skill.jobs?.length || 0)} linked job${Number(skill.jobs?.length || 0) === 1 ? '' : 's'}</div></div>
+        <input id="roadmap-skill-${escHtml(id)}" class="skill-check" type="checkbox" data-roadmap-action="toggle" ${skill.completed ? 'checked' : ''} aria-label="Mark ${escHtml(skill.name)} complete">
+        <div><label class="skill-name" for="roadmap-skill-${escHtml(id)}">${escHtml(skill.name)}</label><div class="skill-meta">${escHtml(skill.category || 'Technical')} · ${Number(skill.jobs?.length || 0)} linked job${Number(skill.jobs?.length || 0) === 1 ? '' : 's'}</div></div>
         <select class="pill-select" data-roadmap-action="difficulty" aria-label="Difficulty for ${escHtml(skill.name)}">
           <option value="" ${!skill.difficulty ? 'selected' : ''}>Difficulty</option>
           ${['basic','medium','advanced'].map(level => `<option value="${level}" ${skill.difficulty === level ? 'selected' : ''}>${level[0].toUpperCase() + level.slice(1)}</option>`).join('')}
@@ -1905,6 +1970,14 @@ Please extract the details from the following job posting:
       if (e.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) { e.preventDefault(); last?.focus(); }
       else if (!e.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) { e.preventDefault(); first?.focus(); }
     }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Tab' || !sidebar.classList.contains('open') || document.querySelector('.modal-overlay.open,dialog[open]')) return;
+    const buttons = [...sidebar.querySelectorAll('button,a[href]')];
+    const first = buttons[0], last = buttons.at(-1);
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
 
   // Init
