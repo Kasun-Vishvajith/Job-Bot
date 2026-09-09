@@ -102,6 +102,13 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
 .card:hover { border-color:var(--rim-strong); box-shadow:var(--sh); }
 .card.picked-card { border-color:var(--blue); }
 .card.card-archiving { opacity:0; transform:scale(.97); pointer-events:none; }
+.card-media { position:relative; height:124px; flex-shrink:0; overflow:hidden; background-image:url("assets/job-card-visuals.png"); background-size:200% 200%; background-position:0 0; }
+.card-media::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 42%,rgba(10,15,34,.28)); pointer-events:none; }
+.card-media.cat-ds,.card-media.cat-da,.card-media.cat-an { background-position:100% 0; }
+.card-media.cat-sw,.card-media.cat-in { background-position:0 100%; }
+.card-media.cat-re,.card-media.cat-ge { background-position:100% 100%; }
+.seen-label { position:absolute; z-index:2; top:14px; right:14px; display:inline-flex; align-items:center; min-height:30px; padding:6px 11px; border:1px solid rgba(255,255,255,.48); border-radius:100px; background:rgba(20,24,38,.78); backdrop-filter:blur(12px); color:#fff; box-shadow:0 4px 18px rgba(0,0,0,.2); font-size:.6875rem; font-weight:750; letter-spacing:.055em; text-transform:uppercase; }
+.seen-label.last { background:rgba(92,50,160,.9); }
 .card-body { padding:26px 26px 18px; display:flex; flex-direction:column; gap:18px; flex:1; }
 .card-top-row { display:flex; gap:12px; align-items:flex-start; }
 .card-title-block { flex:1; min-width:0; }
@@ -137,8 +144,6 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
 .open-btn,.pick-btn { display:flex; align-items:center; justify-content:center; min-height:44px; padding:8px 18px; border-radius:100px; font-size:.8125rem; font-weight:500; }
 .open-btn { flex:1; color:white; background:var(--blue); } .open-btn:hover { background:var(--blue-pale); }
 .pick-btn { min-width:76px; background:var(--surface-2); color:var(--ink-2); } .pick-btn.active { background:var(--blue-dim); color:var(--blue); }
-.card.viewed-card::after,.card.last-viewed-card::after { content:attr(data-ribbon); display:block; order:3; padding:7px 24px; background:var(--surface-2); color:var(--ink-3); font-size:.625rem; font-weight:600; letter-spacing:.04em; }
-.card.last-viewed-card::after { background:var(--violet-dim); color:var(--violet); }
 .empty { grid-column:1/-1; padding:72px 24px; text-align:center; border:1px solid var(--rim); border-radius:var(--r); background:var(--surface-0); }
 .empty-icon { font-size:2.5rem; color:var(--ink-3); margin-bottom:12px; } .empty-title { font-size:1.125rem; font-weight:600; } .empty-sub { margin-top:6px; color:var(--ink-3); font-size:.875rem; }
 .file-fallback { display:none; margin-bottom:24px; padding:20px; background:var(--surface-0); border:1px solid var(--rim); border-radius:16px; font-size:.8125rem; color:var(--ink-2); }
@@ -168,7 +173,7 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
  .main { grid-column:1; padding:28px 20px 80px; } .result-bar { flex-direction:column; align-items:flex-start; gap:14px; } .result-actions { width:100%; } .result-actions .topbar-btn { flex:1 1 calc(50% - 8px); min-height:44px; }
  .action-btn,.star-btn { min-height:44px; } .star-btn { width:36px; }
 }
-@media(max-width:500px) { .main { padding:24px 16px 76px; } .grid { grid-template-columns:minmax(0,1fr); gap:16px; } .card-body { padding:22px 20px 14px; } .card-footer { padding:0 20px 20px; } .modal-overlay { padding:12px; align-items:flex-end; } .modal-box { border-radius:24px; max-height:90dvh; } .modal-head { padding:24px 20px 18px; } .modal-body { padding:0 20px 20px; } .modal-footer { padding:0 20px 24px; } .modal-textarea,#search { font-size:1rem; } }
+@media(max-width:500px) { .main { padding:24px 16px 76px; } .grid { grid-template-columns:minmax(0,1fr); gap:16px; } .card-media { height:108px; } .card-body { padding:22px 20px 14px; } .card-footer { padding:0 20px 20px; } .modal-overlay { padding:12px; align-items:flex-end; } .modal-box { border-radius:24px; max-height:90dvh; } .modal-head { padding:24px 20px 18px; } .modal-body { padding:0 20px 20px; } .modal-footer { padding:0 20px 24px; } .modal-textarea,#search { font-size:1rem; } }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; animation:none!important; } button:active,.open-btn:active { transform:none; } .card.card-archiving { transform:none; } }
 @media(prefers-reduced-transparency:reduce) { .sidebar,.topbar,.to-top { background:var(--surface-0); backdrop-filter:none; } .modal-overlay { backdrop-filter:none; } }
 @media(prefers-contrast:more) { :root { --rim:var(--ink-3); --rim-strong:var(--ink-2); } .sidebar,.topbar,.to-top { background:var(--surface-0); backdrop-filter:none; } }
@@ -1065,6 +1070,9 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
     const remote = /\bremote\b/i.test(workType) && !/hybrid|on.?site/i.test(workType);
     return `
       <article class="card ${cc} ${picked ? 'picked-card' : ''} ${ribbonClass}" data-id="${escHtml(job.id)}" data-url="${escHtml(url)}" style="animation-delay:${delay}ms" ${ribbonAttr}>
+        <div class="card-media ${cc}" role="img" aria-label="${escHtml(job.category)} themed illustration">
+          ${isLastViewed ? '<span class="seen-label last">Last seen</span>' : isViewed ? '<span class="seen-label">Viewed</span>' : ''}
+        </div>
         <div class="card-body">
           <div class="card-top-row">
             <div class="card-title-block">
@@ -1191,6 +1199,11 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
           prev.classList.remove('last-viewed-card');
           prev.classList.add('viewed-card');
           prev.setAttribute('data-ribbon', 'VIEWED');
+          const previousLabel = prev.querySelector('.seen-label');
+          if (previousLabel) {
+            previousLabel.classList.remove('last');
+            previousLabel.textContent = 'Viewed';
+          }
         }
       }
       state.lastViewedId = id;
@@ -1199,6 +1212,17 @@ button:active,.open-btn:active { transform:scale(.97); transition-duration:0s; }
       card.classList.remove('viewed-card');
       card.classList.add('last-viewed-card');
       card.setAttribute('data-ribbon', 'LAST SEEN');
+      const media = card.querySelector('.card-media');
+      let label = card.querySelector('.seen-label');
+      if (!label && media) {
+        label = document.createElement('span');
+        label.className = 'seen-label';
+        media.appendChild(label);
+      }
+      if (label) {
+        label.classList.add('last');
+        label.textContent = 'Last seen';
+      }
     }
 
     if (!action && link) return;
