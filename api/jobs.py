@@ -7,7 +7,11 @@ from http.server import BaseHTTPRequestHandler
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        database_url = os.environ.get("DATABASE_URL", "").strip()
+        database_url = (
+            os.environ.get("DATABASE_URL")
+            or os.environ.get("JOB_BOT_POSTGRES_URL")
+            or ""
+        ).strip()
         if not database_url:
             self._json(503, {"error": "Private database is not configured"})
             return
@@ -47,4 +51,3 @@ class handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
-

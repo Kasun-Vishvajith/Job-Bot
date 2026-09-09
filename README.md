@@ -83,7 +83,7 @@ After each successful run, the workflow saves job state to the private PostgreSQ
 ## Private Vercel deployment
 
 1. Import this GitHub repository into Vercel.
-2. In the Vercel project, open **Storage**, create a free Neon Postgres database, and connect it to the project. Confirm that Vercel created a `DATABASE_URL` environment variable.
+2. In the Vercel project, open **Storage**, create a free Neon Postgres database, and connect it to the project. The app accepts either `DATABASE_URL` or Neon's project-prefixed `JOB_BOT_POSTGRES_URL` variable.
 3. Under **Settings → Deployment Protection**, enable **Vercel Authentication** for production and preview deployments. Without this step, the dashboard is public.
 4. Do not add Gemini, Gmail, or Telegram credentials to Vercel; the dashboard does not use them. They belong only in GitHub Actions secrets.
 5. Deploy the project. The `/api/jobs` function creates the small state table automatically on first use.

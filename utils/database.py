@@ -18,7 +18,11 @@ RETENTION_DAYS = 60
 class JobDatabase:
     def __init__(self, db_path: Path):
         self.db_path = db_path
-        self.database_url = os.environ.get("DATABASE_URL", "").strip()
+        self.database_url = (
+            os.environ.get("DATABASE_URL")
+            or os.environ.get("JOB_BOT_POSTGRES_URL")
+            or ""
+        ).strip()
         if not self.database_url:
             self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.data = self._load()
