@@ -54,6 +54,6 @@ jobs:
             echo "## Job Bot search summary"
             echo
             echo '```text'
-            grep -E "TOTAL raw|After keyword filter|Database gate result|NEW candidates|After AI filter|No new matching|scraper FAILED|listings in" job-bot.log || echo "Collector did not produce a search summary."
+            grep -E "TOTAL raw|After keyword filter|Database gate result|NEW candidates|After AI filter|No new matching|scraper FAILED|listings in|AI REJECTED|\[AI\]" job-bot.log | head -n 120 || echo "Collector did not produce a search summary."
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"

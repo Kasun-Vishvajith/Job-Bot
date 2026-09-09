@@ -82,6 +82,20 @@ class DatabaseDuplicateGateTests(unittest.TestCase):
         self.assertEqual(len(candidates), 1)
         self.assertEqual(candidates[0]["salary"], "LKR 200,000 / month")
 
+    def test_legacy_unverified_ai_rejection_is_reconsidered(self):
+        rejected = job()
+        self.db.data["ignored_jobs"] = {
+            rejected["id"]: {
+                "title": rejected["title"],
+                "company": rejected["company"],
+                "link": rejected["link"],
+                "seen_at": "2026-09-09T00:00:00",
+            }
+        }
+        candidates = self.db.get_new_jobs([rejected])
+        self.assertEqual(len(candidates), 1)
+        self.assertFalse(candidates[0]["is_updated"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -717,6 +717,6 @@ filtering:
 # ── AI SUITABILITY FILTERING ──────────────────────────────────────────────────
 ai_filtering:
   enabled: true
-  min_suitability_score: 70       # Filter out jobs below this score (0-100)
+  min_suitability_score: 50       # Only AI-clear disqualifications are rejected
   model: "gemini-2.5-flash"       # Cost-efficient, high-speed model
   max_jobs_per_run: 120           # At most 6 Gemini batches within the 45-minute run

@@ -48,6 +48,14 @@ class SalaryExtractionTests(unittest.TestCase):
         self.assertEqual(result[0]["salary"], "")
         self.assertEqual(result[0]["salary_status"], "not_mentioned")
 
+    def test_missing_ai_response_does_not_discard_job(self):
+        ai_filter = self.make_filter()
+        ai_filter._evaluate_jobs = lambda jobs: {}
+        result = ai_filter.filter([{"id": "job-1", "title": "Data Engineer"}])
+        self.assertEqual(len(result), 1)
+        self.assertFalse(result[0]["ai_evaluated"])
+        self.assertIsNone(result[0]["suitability_score"])
+
 
 if __name__ == "__main__":
     unittest.main()

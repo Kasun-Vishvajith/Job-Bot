@@ -79,6 +79,7 @@ class AIFilter:
             evaluation = all_evaluations.get(job_id)
 
             if evaluation:
+                job["ai_evaluated"] = True
                 # BUG FIX: Cast to int in case Gemini returns a float
                 raw_score = evaluation.get("suitability_score", 50)
                 job["suitability_score"] = int(raw_score) if raw_score is not None else 50
@@ -95,8 +96,15 @@ class AIFilter:
                     job["salary"] = ""
                     job["salary_status"] = "not_mentioned"
             else:
-                job["suitability_score"] = 50
-                job["suitability_reason"] = "Could not parse AI suitability."
+                # Gemini is an enrichment/ranking layer. A timeout, quota issue,
+                # or malformed response must not discard a job that already
+                # passed the deterministic eligibility filters.
+                job["ai_evaluated"] = False
+                job["suitability_score"] = None
+                job["suitability_reason"] = "AI review unavailable; deterministic filters passed."
+                job.setdefault("salary_status", "listed" if job.get("salary") else "not_mentioned")
+                matched_jobs.append(job)
+                continue
 
             if job["suitability_score"] >= self.min_score:
                 matched_jobs.append(job)

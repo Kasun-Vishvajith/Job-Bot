@@ -170,6 +170,7 @@ class JobDatabase:
                     "application_deadline": job.get("application_deadline", ""),
                     "link": job.get("link", ""),
                     "seen_at": now.isoformat(),
+                    "ai_evaluated": bool(job.get("ai_evaluated")),
                 }
         self.data["ignored_jobs"] = {
             job_id: record for job_id, record in ignored.items()
@@ -221,8 +222,11 @@ class JobDatabase:
 
     def _prior_records(self, seen: dict, ignored: dict) -> list[tuple[str, dict]]:
         records = [(job_id, record) for job_id, record in seen.items() if isinstance(record, dict)]
+        # Older ignored records did not prove that Gemini returned a valid
+        # evaluation. Reconsider them after the fail-open AI migration.
         records.extend(
-            (job_id, record) for job_id, record in ignored.items() if isinstance(record, dict)
+            (job_id, record) for job_id, record in ignored.items()
+            if isinstance(record, dict) and record.get("ai_evaluated") is True
         )
         return sorted(records, key=lambda pair: pair[1].get("seen_at", ""))
 
