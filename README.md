@@ -10,7 +10,7 @@ Jobs and the skill roadmap are integrated into `index.html` as one single-page i
 
 - Broad remote feeds: Remotive, Arbeitnow, RemoteOK, Jobicy, Himalayas, and We Work Remotely RSS
 - Sri Lankan sources: ITPro.lk official category RSS, TopJobs, XpressJobs, and iJobs
-- Public ATS feeds: selected Greenhouse and Lever employers, including mobility/automotive companies
+- Public ATS feeds: selected Greenhouse, Lever, and Ashby employers, including AI, data, remote-first, mobility, and automotive companies
 - Direct employer pages: WSO2, IFS, Sysco LABS, 99x, Rootcode, LSEG, and Virtusa
 - Secondary discovery pages include Wellfound, YC Jobs, Working Nomads, Real Work From Anywhere, Remote.com, DataScienceJobs, AIJobs, Jobspresso, Arc, Turing, and Toptal
 

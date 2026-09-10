@@ -148,6 +148,13 @@ job_sites:
       - "mlops"
       - "platform engineer"
       - "automotive"
+      - "analytics engineer"
+      - "business intelligence"
+      - "statistics"
+      - "statistical"
+      - "site reliability"
+      - "robotics"
+      - "computer vision"
     search_terms:
       - "AI engineer"
       - "machine learning engineer"
@@ -160,6 +167,14 @@ job_sites:
       - "MLOps engineer"
       - "platform engineer"
       - "automotive software engineer"
+      - "junior software engineer"
+      - "graduate data analyst"
+      - "analytics engineer"
+      - "business intelligence analyst"
+      - "site reliability engineer"
+      - "computer vision engineer"
+      - "robotics software engineer"
+      - "statistical programmer"
     sources:
       # --- Free JSON APIs (most reliable) ---
       - name: "Remotive"
@@ -263,6 +278,27 @@ job_sites:
           - "coupa"
           - "bluelightconsulting"
 
+      # Structured public boards from remote-first and AI/data employers.
+      - name: "Ashby"
+        type: "ashby"
+        enabled: true
+        companies:
+          - "the agency fund"
+          - "protege"
+          - "reka"
+          - "fal-ai"
+          - "runpod"
+          - "fullstory"
+          - "TonicAI"
+          - "hirehangar"
+          - "linear"
+          - "ramp"
+          - "modal"
+          - "cursor"
+          - "perplexity"
+          - "replit"
+          - "cohere"
+
   # ── LinkedIn (f_WT=2 for Remote queries, no filter for SL queries) ──────────
   linkedin:
     enabled: true
@@ -278,6 +314,12 @@ job_sites:
       - { keywords: "DevOps engineer", location: "Sri Lanka", remote: true }
       - { keywords: "cloud engineer", location: "Sri Lanka", remote: true }
       - { keywords: "MLOps engineer", location: "Sri Lanka", remote: true }
+      - { keywords: "analytics engineer", location: "Sri Lanka", remote: true }
+      - { keywords: "business intelligence analyst", location: "Sri Lanka", remote: true }
+      - { keywords: "site reliability engineer", location: "Sri Lanka", remote: true }
+      - { keywords: "computer vision engineer", location: "Sri Lanka", remote: true }
+      - { keywords: "robotics software engineer", location: "Sri Lanka", remote: true }
+      - { keywords: "junior software engineer", location: "Sri Lanka", remote: true }
       # Sri Lankan roles of all work types.
       - { keywords: "AI engineer", location: "Sri Lanka", remote: false }
       - { keywords: "machine learning engineer", location: "Sri Lanka", remote: false }
@@ -287,6 +329,12 @@ job_sites:
       - { keywords: "DevOps engineer", location: "Sri Lanka", remote: false }
       - { keywords: "cloud engineer", location: "Sri Lanka", remote: false }
       - { keywords: "MLOps engineer", location: "Sri Lanka", remote: false }
+      - { keywords: "analytics engineer", location: "Sri Lanka", remote: false }
+      - { keywords: "business intelligence analyst", location: "Sri Lanka", remote: false }
+      - { keywords: "site reliability engineer", location: "Sri Lanka", remote: false }
+      - { keywords: "computer vision engineer", location: "Sri Lanka", remote: false }
+      - { keywords: "robotics software engineer", location: "Sri Lanka", remote: false }
+      - { keywords: "junior software engineer", location: "Sri Lanka", remote: false }
     max_pages: 2
 
   # ── Indeed (remote filter for Remote queries, none for SL queries) ───────────

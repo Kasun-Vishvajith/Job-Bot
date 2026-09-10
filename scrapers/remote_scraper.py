@@ -22,7 +22,7 @@ import random
 import re
 from datetime import datetime
 from typing import Iterable, Optional
-from urllib.parse import urljoin
+from urllib.parse import quote, urljoin
 
 import requests
 from bs4 import BeautifulSoup
@@ -95,6 +95,8 @@ class RemoteJobBoardScraper:
                     fetched = self._scrape_greenhouse(source)
                 elif source_type == "lever":
                     fetched = self._scrape_lever(source)
+                elif source_type == "ashby":
+                    fetched = self._scrape_ashby(source)
                 elif source_type == "rss":
                     fetched = self._scrape_rss(source)
                 elif source_type == "theirstack":
@@ -460,6 +462,60 @@ class RemoteJobBoardScraper:
                     work_type=self._detect_work_type(location, description),
                 ))
         return jobs
+
+    # ── Ashby public job boards ─────────────────────────────────────────────
+
+    def _scrape_ashby(self, source: dict) -> list[dict]:
+        """Fetch configured employers through Ashby's public posting API."""
+        jobs = []
+        for company_slug in source.get("companies", []):
+            encoded_slug = quote(company_slug, safe="")
+            url = (
+                "https://api.ashbyhq.com/posting-api/job-board/"
+                f"{encoded_slug}?includeCompensation=true"
+            )
+            try:
+                data = self._get_json(url)
+            except Exception as exc:
+                log.warning("  [Ashby:%s] API call failed: %s", company_slug, exc)
+                continue
+
+            for item in data.get("jobs", [])[: self.max_results_per_source]:
+                title = item.get("title", "")
+                location = item.get("location") or "Remote"
+                description = item.get("descriptionPlain") or item.get("descriptionHtml") or ""
+                if not self._matches(title, location, description):
+                    continue
+                jobs.append(self._job(
+                    title=title,
+                    company=company_slug.replace("-", " ").title(),
+                    location=location,
+                    link=item.get("jobUrl") or item.get("applyUrl"),
+                    source=source["name"],
+                    salary=self._format_ashby_salary(item.get("compensation")),
+                    description=description,
+                    posted=item.get("publishedAt", ""),
+                    employment_type=item.get("employmentType", ""),
+                    work_type="Remote" if item.get("isRemote") else self._detect_work_type(location, description),
+                ))
+        return jobs
+
+    @staticmethod
+    def _format_ashby_salary(compensation) -> Optional[str]:
+        if not compensation:
+            return None
+        if isinstance(compensation, str):
+            return compensation.strip() or None
+        if isinstance(compensation, dict):
+            for key in (
+                "compensationTierSummary",
+                "scrapeableCompensationSalarySummary",
+                "summary",
+                "description",
+            ):
+                if compensation.get(key):
+                    return str(compensation[key]).strip()
+        return None
 
     # ── RSS feeds ────────────────────────────────────────────────────────────
 
