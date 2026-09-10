@@ -2,7 +2,8 @@ name: Job Alert Bot
 
 on:
   schedule:
-    - cron: "30 6,18 * * *" # 12:00 and 00:00 LKT
+    # GitHub cron uses UTC. 03:00/15:00 UTC = 08:30/20:30 Sri Lanka (UTC+05:30).
+    - cron: "0 3,15 * * *"
   workflow_dispatch:          # Allow manual trigger from GitHub UI
 
 permissions:
